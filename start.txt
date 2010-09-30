@@ -1,0 +1,37 @@
+shots are in an array of "shots" check for collisions like packman.
+
+move the level and not the actual guys or ships (ship may move at a later date)
+
+method to specify the movement of the screen.
+
+
+*Constants*
+hardcode game at 800x600;
+Enemy screentime (speed of the enemy movement)
+player screentime (screen window not the player)
+const game/background ratio
+
+
+*Game*
+layer0 = background
+layer1 = foreground/game state
+
+
+										Actor
+									/	  |  	\
+							player		  |  		monster		(defines movements)
+										  | 			\		/
+										Particle	->	Rule Set
+										
+										
+										
+										Actor [draw, collision]
+									/			\
+					[getInput]	Scriptless		ScriptedActor -> RuleSet
+								/				/	|		\
+							Player		Monster	  Particle  SpaceJunk
+							
+							
+							
+							git add *
+							git commit -m "message"
