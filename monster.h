@@ -5,12 +5,11 @@ class monster {
 	int yPosition;
 	int image;
 	int value;
-	GameBoard *currentBoard;
 	
 	monster();
-	setupMonster();
-	placeMonster();
-	followRules();
+	void setupMonster();
+	void placeMonster();
+	void followRules();
 };
 #endif
 	

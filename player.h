@@ -5,11 +5,10 @@ class player {
 	int yPosition;
 	int image;
 	int score;
-	GameBoard *currentBoard;
-	
+		
 	player(){score = 0;}
-	startPlayer();
-	issueCommand(/*needs a key event*/);
+	void startPlayer();
+	void issueCommand(/*needs a key event*/);
 };
 #endif
 	
