@@ -12,8 +12,8 @@
 #include <SDL/SDL_audio.h>
 
 /* all the global variables needed */
-player *ship = new player(0,0,0,NULL);
-particle* shots[2];
+player *ship = new player(0,-2.0,0,NULL); 
+particle* shots[100];
 GLUquadricObj *quadratic;
 using namespace std;
 void drawImages();
@@ -37,14 +37,29 @@ int main (int argc, char **argv){
 	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
 	for(int i = 0; i < 2; i++)
 		shots[i] = new particle();
-	shots[0]->updateShot(0.1, 0.1, 0);
-	shots[1]->updateShot(0.1, 0.3, 0);
+	shots[0]->updateShot(0.1, -1.5, 0, ship);
+	shots[1]->updateShot(0.1, -1.7, 0, ship);
 	bool done = false;
-		while (!done) {
-		
+	int TC = 0;
+	while (!done) {
+		if (SDL_GetTicks()%70 == 00) {
+			TC = SDL_GetTicks();
+			shots[0]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
+			shots[1]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
 			drawImages();
+		}
 		SDL_Event event;
-		while (SDL_PollEvent (&event)) {if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_ESCAPE) done = true;}
+		while (SDL_PollEvent (&event)) {
+			if (event.type==SDL_KEYDOWN)
+				switch(event.key.keysym.sym){
+					case(SDLK_ESCAPE):
+						done = true;
+						break;
+					default:
+						ship->issueCommand(&event.key.keysym);
+						break;
+				}
+		}
 	}
 	SDL_Quit ();
 	return 0;
@@ -67,7 +82,7 @@ player::player(float x, float y, int initScore, int pic){
 }
 void player::draw(){
 	glLoadIdentity();
-	glTranslatef(0.0f, -2.0f, -8.0f);
+	glTranslatef(xPosition, yPosition, -8.0f);
 	glRotatef( 45, 0.0f, -1.0f, 0.0f );
 	float corners = .2;
 	float top = .75;
@@ -95,28 +110,53 @@ void player::draw(){
       glVertex3f( -corners, stretch,  corners ); /* Right Of Triangle (bottom)     */
       
 
-      glColor3f(   0.0f,  0.2f,  0.0f ); /* Set The Color To Green           */
-      glVertex3f(  corners, 0.0f,  corners ); /* Top Of Triangle (base)       */
-      glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */    
-      glVertex3f(  corners, stretch, -corners ); /* Left Of Triangle (base)      */
-      glVertex3f( -corners, stretch,  corners ); /* Right Of Triangle (base)     */
+      glColor3f(   0.0f,  0.2f,  0.0f ); 
+      glVertex3f(  corners, 0.0f,  corners ); 
+      glColor3f(   0.0f,  0.5f,  0.0f );   
+      glVertex3f(  corners, stretch, -corners );
+      glVertex3f( -corners, stretch,  corners );
     glEnd( );
      
     
 }
+void player::updateScore(int addition){
+	score+=addition;
+}
+void player::issueCommand(SDL_keysym *keysym){
+	
+	switch ( keysym->sym )
+	{
+		case(SDLK_UP):
+			yPosition+=.2;
+			break;
+		case(SDLK_DOWN):
+			yPosition-=.2;
+			break;
+		case(SDLK_RIGHT):
+			xPosition+=.2;
+			break;
+		case(SDLK_LEFT):
+			xPosition-=.2;
+			break;
+		default:
+			break;
+	}
+}
+
+/* particle methods */
 particle::particle(){
 	x = 0;
 	y = 0;
 	image = 0;
 }
-void particle::updateShot(float startX, float startY, int image){
+void particle::updateShot(float startX, float startY, int image, player *ship){
 	x = startX;
 	y = startY;
 	image = image;
+	collision(ship);
 }
-/* particle methods */
 void particle::draw(){
-	glColor3f(   0.0f,  0.0f,  0.0f ); /* Set The Color To Green
+	glColor3f(   0.0f,  0.0f,  0.0f );
 	/* left shot */
 	glLoadIdentity();
 	glTranslatef(-x, y, -8.0f); 
@@ -127,7 +167,16 @@ void particle::draw(){
     glTranslatef(x, y, -8.0f); 
     gluSphere(quadratic,0.02f,32,32);
 }
-
+float particle::getX(){
+	return x;
+}
+float particle::getY(){
+	return y;
+}
+void particle::collision(player *ship){
+	if(true)
+		ship->updateScore(10);
+}
 
 
 
