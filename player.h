@@ -6,9 +6,10 @@ class player {
 	int image;
 	int score;
 		
-	player(){score = 0;}
-	void startPlayer();
+	player();
+	//void initializePlayer();
 	void issueCommand(/*needs a key event*/);
+	void drawPlayer();
 };
 #endif
 	
