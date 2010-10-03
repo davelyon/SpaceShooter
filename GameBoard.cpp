@@ -5,26 +5,59 @@
 #include <iostream>
 #include <string.h>
 
+//linux includes
+#include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDL/SDL_audio.h>
+
 /* all the global variables needed */
 player *ship = new player(0,0,0,NULL);
 using namespace std;
-
+void drawImages();
 int main (int argc, char **argv){
-	player->drawPlayer();
+	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+	SDL_SetVideoMode(640,480,0,SDL_OPENGL);
+	SDL_WM_SetCaption("Circles",NULL);
+
+	glViewport (0,0,640,480);
+	glMatrixMode (GL_PROJECTION);
+	glLoadIdentity ();
+	gluPerspective (45,640.0/480,0.1,100);
+//	gluOrtho2D(0,640,0,480);
+	glMatrixMode (GL_MODELVIEW);
+	glLoadIdentity();
+//	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable (GL_DEPTH_TEST);
+	glClearColor (1,1,1,0);
+	
+	bool done = false;
+		while (!done) {
+		
+			drawImages();
+		SDL_Event event;
+		while (SDL_PollEvent (&event)) {if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_ESCAPE) done = true;}
+	}
+	SDL_Quit ();
 	return 0;
+}
+void drawImages(){
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	ship->drawPlayer();
+	SDL_GL_SwapBuffers();
 }
 
 
 /* player methods */
-player::player(float x, float y, int score, int pic){
+player::player(float x, float y, int initScore, int pic){
 	xPosition = x;
 	yPosition = y;
-	this.score = score;
+	score = initScore;
 	image = pic;
 }
 void player::drawPlayer(){
 	glLoadIdentity();
-	glTranslatef(0.0f, -2.0f, -8.0f)
+	glTranslatef(0.0f, -2.0f, -8.0f);
 	glRotatef( 45, 0.0f, -1.0f, 0.0f );
 	float corners = .2;
 	float top = .75;
