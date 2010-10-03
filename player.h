@@ -1,5 +1,6 @@
 #ifndef TheShip
 #define TheShip
+#include <SDL/SDL.h>
 class player {
 	float xPosition;
 	float yPosition;
@@ -8,8 +9,9 @@ class player {
 	public:	
 	player(float x, float y, int score, int pic);
 	//void initializePlayer();
-	void issueCommand(/*needs a key event*/);
-	void drawPlayer();
+	void issueCommand(SDL_keysym *keysym);
+	void draw();
+	void updateScore(int add);
 };
 #endif
 	
