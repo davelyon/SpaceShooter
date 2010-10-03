@@ -1,12 +1,12 @@
 #ifndef TheShip
 #define TheShip
 class player {
-	int xPosition;
-	int yPosition;
+	float xPosition;
+	float yPosition;
 	int image;
 	int score;
-		
-	player();
+	public:	
+	player(float x, float y, int score, int pic);
 	//void initializePlayer();
 	void issueCommand(/*needs a key event*/);
 	void drawPlayer();
