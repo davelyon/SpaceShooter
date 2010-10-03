@@ -13,6 +13,8 @@
 
 /* all the global variables needed */
 player *ship = new player(0,0,0,NULL);
+particle* shots[2];
+GLUquadricObj *quadratic;
 using namespace std;
 void drawImages();
 int main (int argc, char **argv){
@@ -30,7 +32,13 @@ int main (int argc, char **argv){
 //	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable (GL_DEPTH_TEST);
 	glClearColor (1,1,1,0);
-	
+	quadratic=gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
+	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
+	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
+	for(int i = 0; i < 2; i++)
+		shots[i] = new particle();
+	shots[0]->updateShot(0.1, 0.1, 0);
+	shots[1]->updateShot(0.1, 0.3, 0);
 	bool done = false;
 		while (!done) {
 		
@@ -43,7 +51,9 @@ int main (int argc, char **argv){
 }
 void drawImages(){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	ship->drawPlayer();
+	ship->draw();
+	for(int i = 0; i < 2; i++)
+		shots[i]->draw();
 	SDL_GL_SwapBuffers();
 }
 
@@ -55,7 +65,7 @@ player::player(float x, float y, int initScore, int pic){
 	score = initScore;
 	image = pic;
 }
-void player::drawPlayer(){
+void player::draw(){
 	glLoadIdentity();
 	glTranslatef(0.0f, -2.0f, -8.0f);
 	glRotatef( 45, 0.0f, -1.0f, 0.0f );
@@ -90,6 +100,36 @@ void player::drawPlayer(){
       glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */    
       glVertex3f(  corners, stretch, -corners ); /* Left Of Triangle (base)      */
       glVertex3f( -corners, stretch,  corners ); /* Right Of Triangle (base)     */
-    glEnd( );  
+    glEnd( );
+     
     
 }
+particle::particle(){
+	x = 0;
+	y = 0;
+	image = 0;
+}
+void particle::updateShot(float startX, float startY, int image){
+	x = startX;
+	y = startY;
+	image = image;
+}
+/* particle methods */
+void particle::draw(){
+	glColor3f(   0.0f,  0.0f,  0.0f ); /* Set The Color To Green
+	/* left shot */
+	glLoadIdentity();
+	glTranslatef(-x, y, -8.0f); 
+    gluSphere(quadratic,0.02f,32,32);
+    
+    /* right shot */
+    glLoadIdentity();
+    glTranslatef(x, y, -8.0f); 
+    gluSphere(quadratic,0.02f,32,32);
+}
+
+
+
+
+
+
