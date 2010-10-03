@@ -35,17 +35,17 @@ int main (int argc, char **argv){
 	quadratic=gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
 	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
 	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
-	for(int i = 0; i < 2; i++)
-		shots[i] = new particle();
-	shots[0]->updateShot(0.1, -1.5, 0, ship);
-	shots[1]->updateShot(0.1, -1.7, 0, ship);
+	for(int i = 0; i < 100; i++)
+		shots[i] = NULL;
+	/*shots[0]->updateShot(0.1, -1.5, 0, ship);
+	shots[1]->updateShot(0.1, -1.7, 0, ship);*/
 	bool done = false;
 	int TC = 0;
 	while (!done) {
 		if (SDL_GetTicks()%70 == 00) {
 			TC = SDL_GetTicks();
-			shots[0]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
-			shots[1]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
+		/*	shots[0]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
+			shots[1]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);*/
 			drawImages();
 		}
 		SDL_Event event;
@@ -67,8 +67,11 @@ int main (int argc, char **argv){
 void drawImages(){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	ship->draw();
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < 100; i++){
+		if(shots[i]==NULL)
+			break;
 		shots[i]->draw();
+	}
 	SDL_GL_SwapBuffers();
 }
 
