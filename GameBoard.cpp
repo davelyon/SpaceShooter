@@ -14,6 +14,8 @@
 /* all the global variables needed */
 player *ship = new player(0,-2.0,0,NULL); 
 particle* shots[100];
+int firstShot = 0;
+int lastShot = 0;
 GLUquadricObj *quadratic;
 using namespace std;
 void drawImages();
@@ -44,8 +46,9 @@ int main (int argc, char **argv){
 	while (!done) {
 		if (SDL_GetTicks()%70 == 00) {
 			TC = SDL_GetTicks();
-		/*	shots[0]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);
-			shots[1]->updateShot(0.1, shots[0]->getY()+0.1, 0, ship);*/
+			if(firstShot != lastShot)
+				for(int i = firstShot; i < lastShot; i++)
+					shots[i]->updateShot(0.1, shots[i]->getY()+0.1, 0, ship);
 			drawImages();
 		}
 		SDL_Event event;
@@ -56,7 +59,7 @@ int main (int argc, char **argv){
 						done = true;
 						break;
 					default:
-						ship->issueCommand(&event.key.keysym);
+						ship->issueCommand(&event.key.keysym, shots, firstShot, lastShot);
 						break;
 				}
 		}
@@ -125,7 +128,7 @@ void player::draw(){
 void player::updateScore(int addition){
 	score+=addition;
 }
-void player::issueCommand(SDL_keysym *keysym){
+void player::issueCommand(SDL_keysym *keysym, particle *shots, int start, int end){
 	
 	switch ( keysym->sym )
 	{
@@ -140,6 +143,12 @@ void player::issueCommand(SDL_keysym *keysym){
 			break;
 		case(SDLK_LEFT):
 			xPosition-=.2;
+			break;
+		case(SDLK_SPACE):
+			if(end != 99){
+				shots[end] = new particle();
+				shots[end]->updateShot(0.1, -1.5, 0, ship);
+			}
 			break;
 		default:
 			break;
