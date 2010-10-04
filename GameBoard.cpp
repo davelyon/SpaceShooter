@@ -48,7 +48,7 @@ int main (int argc, char **argv){
 			TC = SDL_GetTicks();
 			if(firstShot != lastShot)
 				for(int i = firstShot; i < lastShot; i++)
-					shots[i]->updateShot(0.1, shots[i]->getY()+0.1, 0, ship);
+					shots[i]->updateShot(shots[i]->getX(), shots[i]->getY()+0.1, 0, ship);
 			drawImages();
 		}
 		SDL_Event event;
@@ -147,12 +147,16 @@ void player::issueCommand(SDL_keysym *keysym){
 		case(SDLK_SPACE):
 			if(lastShot != 99){
 				shots[lastShot] = new particle();
-				shots[lastShot++]->updateShot(0.1, -1.5, 0, ship);
+				shots[lastShot++]->updateShot(0.1+xPosition, 0.5+yPosition, 0, ship);
 			}
 			break;
 		default:
 			break;
 	}
+}
+
+float player::getX(){
+	return xPosition;
 }
 
 /* particle methods */
@@ -171,12 +175,12 @@ void particle::draw(){
 	glColor3f(   0.0f,  0.0f,  0.0f );
 	/* left shot */
 	glLoadIdentity();
-	glTranslatef(-x, y, -8.0f); 
+	glTranslatef(x, y, -8.0f); 
     gluSphere(quadratic,0.02f,32,32);
     
     /* right shot */
     glLoadIdentity();
-    glTranslatef(x, y, -8.0f); 
+    glTranslatef(x-0.2, y, -8.0f); 
     gluSphere(quadratic,0.02f,32,32);
 }
 float particle::getX(){
