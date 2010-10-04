@@ -1,12 +1,12 @@
 #ifndef Killers
 #define Killers
-class monster {
+class Monster {
 	int xPosition;
 	int yPosition;
 	int image;
 	int value;
 	
-	monster();
+	Monster();
 	void setupMonster();
 	void placeMonster();
 	void followRules();
