@@ -59,7 +59,7 @@ int main (int argc, char **argv){
 						done = true;
 						break;
 					default:
-						ship->issueCommand(&event.key.keysym, shots, firstShot, lastShot);
+						ship->issueCommand(&event.key.keysym);
 						break;
 				}
 		}
@@ -128,7 +128,7 @@ void player::draw(){
 void player::updateScore(int addition){
 	score+=addition;
 }
-void player::issueCommand(SDL_keysym *keysym, particle *shots, int start, int end){
+void player::issueCommand(SDL_keysym *keysym){
 	
 	switch ( keysym->sym )
 	{
@@ -145,9 +145,9 @@ void player::issueCommand(SDL_keysym *keysym, particle *shots, int start, int en
 			xPosition-=.2;
 			break;
 		case(SDLK_SPACE):
-			if(end != 99){
-				shots[end] = new particle();
-				shots[end]->updateShot(0.1, -1.5, 0, ship);
+			if(lastShot != 99){
+				shots[lastShot] = new particle();
+				shots[lastShot++]->updateShot(0.1, -1.5, 0, ship);
 			}
 			break;
 		default:
