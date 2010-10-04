@@ -100,10 +100,21 @@ void drawImages(){
 void draw3d(){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-    glTranslatef(0.0+xMove,0.0,-9.0+yMove);
+    glTranslatef(0.0+xMove,0.0,-4.0+yMove);
+
     glRotatef( crap, 0.0f, 0.0f, 1.0f );
 	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-    gluCylinder(quadratic,1.0f,1.0f,10.0f,32,32);
+    gluCylinder(quadratic,1.0f,1.0f,2.5f,32,32);
+    	glLoadIdentity();
+    glTranslatef(0.0+xMove,0.0,-6.5+yMove);
+    glRotatef( crap, 0.0f, 0.0f, 1.0f );
+    glColor3f(   1.0f,  1.0f,  0.0f ); 
+    gluCylinder(quadratic,1.0f,1.0f,2.5f,32,32);
+    	glLoadIdentity();
+    glTranslatef(0.0+xMove,0.0,-9.0+yMove);
+    glRotatef( crap, 0.0f, 0.0f, 1.0f );
+    glColor3f(   1.0f,  0.0f,  1.0f ); 
+    gluCylinder(quadratic,1.0f,1.0f,2.5f,32,32);
     glBegin(GL_QUADS);
     	glColor3f(0.0f, 1.0f, 0.0f);
     	glVertex3f(-1.0f, 0.0f, 1.0f);
@@ -111,6 +122,12 @@ void draw3d(){
     	glVertex3f(1.0f, 1.0f, 1.0f);
     	glVertex3f(-1.0f, 1.0f, 1.0f);
     glEnd();
+    	glLoadIdentity();
+    glTranslatef(0.0+xMove,0.0,-11.5+yMove);
+    glRotatef( crap, 0.0f, 0.0f, 1.0f );
+    glColor3f(   0.0f,  0.0f,  1.0f ); 
+    gluCylinder(quadratic,1.0f,1.0f,2.5f,32,32);
+
     if(yMove>0)
     	yMove+=.2;
     if(xMove>0)
