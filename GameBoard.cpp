@@ -23,6 +23,8 @@ void drawImages();
 void draw3d();
 float xMove = 0;
 float yMove = 0;
+float movement = .1;
+float crap = 0;
 int main (int argc, char **argv){
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 	SDL_SetVideoMode(640,480,0,SDL_OPENGL);
@@ -64,16 +66,16 @@ int main (int argc, char **argv){
 						done = true;
 						break;
 					case(SDLK_w):
-						yMove+=.2;
+						yMove=movement;
 						break;
 					case(SDLK_s):
-						yMove-=.2;
+						yMove= -movement;
 						break;
 					case(SDLK_a):
-						xMove+= .2;
+						xMove= movement;
 						break;
 					case(SDLK_d):
-						xMove-=.2;
+						xMove= -movement;
 						break;
 					default:
 						ship->issueCommand(&event.key.keysym);
@@ -99,8 +101,25 @@ void draw3d(){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
     glTranslatef(0.0+xMove,0.0,-9.0+yMove);
+    glRotatef( crap, 0.0f, 0.0f, 1.0f );
 	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
     gluCylinder(quadratic,1.0f,1.0f,10.0f,32,32);
+    glBegin(GL_QUADS);
+    	glColor3f(0.0f, 1.0f, 0.0f);
+    	glVertex3f(-1.0f, 0.0f, 1.0f);
+    	glVertex3f(1.0f, 0.0f, 1.0f);
+    	glVertex3f(1.0f, 1.0f, 1.0f);
+    	glVertex3f(-1.0f, 1.0f, 1.0f);
+    glEnd();
+    if(yMove>0)
+    	yMove+=.2;
+    if(xMove>0)
+    	xMove+=.2;
+	if(yMove<0)
+    	yMove-=.2;
+    if(xMove<0)
+    	xMove-=.2;
+    	crap+=.5;
     SDL_GL_SwapBuffers();
 }
 
