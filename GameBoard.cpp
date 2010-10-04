@@ -16,9 +16,13 @@ player *ship = new player(0,-2.0,0,NULL);
 particle* shots[100];
 int firstShot = 0;
 int lastShot = 0;
+bool threeD = true;
 GLUquadricObj *quadratic;
 using namespace std;
 void drawImages();
+void draw3d();
+float xMove = 0;
+float yMove = 0;
 int main (int argc, char **argv){
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 	SDL_SetVideoMode(640,480,0,SDL_OPENGL);
@@ -39,8 +43,6 @@ int main (int argc, char **argv){
 	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
 	for(int i = 0; i < 100; i++)
 		shots[i] = NULL;
-	/*shots[0]->updateShot(0.1, -1.5, 0, ship);
-	shots[1]->updateShot(0.1, -1.7, 0, ship);*/
 	bool done = false;
 	int TC = 0;
 	while (!done) {
@@ -49,7 +51,10 @@ int main (int argc, char **argv){
 			if(firstShot != lastShot)
 				for(int i = firstShot; i < lastShot; i++)
 					shots[i]->updateShot(shots[i]->getX(), shots[i]->getY()+0.1, 0, ship);
+		if(!threeD)
 			drawImages();
+		else
+			draw3d();
 		}
 		SDL_Event event;
 		while (SDL_PollEvent (&event)) {
@@ -57,6 +62,18 @@ int main (int argc, char **argv){
 				switch(event.key.keysym.sym){
 					case(SDLK_ESCAPE):
 						done = true;
+						break;
+					case(SDLK_w):
+						yMove+=.2;
+						break;
+					case(SDLK_s):
+						yMove-=.2;
+						break;
+					case(SDLK_a):
+						xMove+= .2;
+						break;
+					case(SDLK_d):
+						xMove-=.2;
 						break;
 					default:
 						ship->issueCommand(&event.key.keysym);
@@ -67,6 +84,7 @@ int main (int argc, char **argv){
 	SDL_Quit ();
 	return 0;
 }
+/* Game Board Methods */
 void drawImages(){
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	ship->draw();
@@ -77,7 +95,14 @@ void drawImages(){
 	}
 	SDL_GL_SwapBuffers();
 }
-
+void draw3d(){
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glLoadIdentity();
+    glTranslatef(0.0+xMove,0.0,-9.0+yMove);
+	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
+    gluCylinder(quadratic,1.0f,1.0f,10.0f,32,32);
+    SDL_GL_SwapBuffers();
+}
 
 /* player methods */
 player::player(float x, float y, int initScore, int pic){
@@ -122,6 +147,7 @@ void player::draw(){
       glVertex3f(  corners, stretch, -corners );
       glVertex3f( -corners, stretch,  corners );
     glEnd( );
+
      
     
 }
@@ -134,9 +160,11 @@ void player::issueCommand(SDL_keysym *keysym){
 	{
 		case(SDLK_UP):
 			yPosition+=.2;
+			blargh += .2;
 			break;
 		case(SDLK_DOWN):
 			yPosition-=.2;
+			blargh -= .2;
 			break;
 		case(SDLK_RIGHT):
 			xPosition+=.2;
