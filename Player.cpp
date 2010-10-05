@@ -55,11 +55,11 @@ void Player::issueCommand(SDL_keysym *keysym){
 	{
 		case(SDLK_UP):
 			yPosition+=.2;
-			blargh += .2;
+//			blargh += .2;
 			break;
 		case(SDLK_DOWN):
 			yPosition-=.2;
-			blargh -= .2;
+//			blargh -= .2;
 			break;
 		case(SDLK_RIGHT):
 			xPosition+=.2;

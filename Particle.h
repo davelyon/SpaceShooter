@@ -19,6 +19,8 @@
 class Particle{
 	float x, y;
 	int image;
+	GLUquadricObj *quadratic;
+
 public:
 	Particle();
 	void	updateShot(float startX, float startY, int image, Player *ship);

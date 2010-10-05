@@ -5,6 +5,11 @@ Particle::Particle(){
 	x = 0;
 	y = 0;
 	image = 0;
+	
+	quadratic=gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
+	gluQuadricNormals(quadratic, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
+	gluQuadricTexture(quadratic, GL_TRUE);		// Create Texture Coords ( NEW )
+	
 }
 
 void Particle::updateShot(float startX, float startY, int image, Player *ship){
@@ -19,18 +24,18 @@ void Particle::draw(){
 	/* left shot */
 	glLoadIdentity();
 	glTranslatef(x, y, -8.0f); 
-    gluSphere(quadratic,0.02f,32,32);
+    gluSphere(this->quadratic,0.02f,32,32);
     
     /* right shot */
     glLoadIdentity();
     glTranslatef(x-0.2, y, -8.0f); 
-    gluSphere(quadratic,0.02f,32,32);
+    gluSphere(this->quadratic,0.02f,32,32);
 }
 float Particle::getX(){
-	return x;
+	return this->x;
 }
 float Particle::getY(){
-	return y;
+	return this->y;
 }
 void Particle::collision(Player *ship){
 	if(true)
