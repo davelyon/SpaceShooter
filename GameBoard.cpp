@@ -25,7 +25,7 @@ Particle* shots[100];
 
 int firstShot = 0;
 int lastShot = 0;
-bool threeD = true;
+bool threeD = false;
 GLUquadricObj *quadratic;
 using namespace std;
 void drawImages();
