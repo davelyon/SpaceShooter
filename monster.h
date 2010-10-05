@@ -1,5 +1,6 @@
 #ifndef Killers
 #define Killers
+
 class monster {
 	int xPosition;
 	int yPosition;
