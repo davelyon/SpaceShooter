@@ -15,7 +15,7 @@
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <GL/gl.h>
-#include <glu.h>
+#include <GL/glu.h>
 #include <SDL/SDL_audio.h>
 #endif
 

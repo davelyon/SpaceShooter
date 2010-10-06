@@ -12,3 +12,4 @@ class Monster {
 	void followRules();
 };
 	
+#endif
