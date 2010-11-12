@@ -1,0 +1,6 @@
+monster 1 1 2 100
+monster 4 4 2 100
+monster 100 100 1 25000
+monster 10 3 1 300000 
+junk asdf asdf asdf
+monster 1 1 5 400
