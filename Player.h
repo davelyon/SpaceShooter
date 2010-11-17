@@ -1,3 +1,5 @@
+#ifndef TheActualPlayer
+#define TheActualPlayer
 #include "Actor.h"
 
 #define OWNER_P1 1
@@ -5,7 +7,7 @@
 #define OWNER_GAME 3
 
 #define MOVE_NONE		0
-#define MOVE_RIGHT	1
+#define MOVE_RIGHT		1
 #define MOVE_LEFT		2
 #define MOVE_UP			3
 #define MOVE_DOWN		4
@@ -39,3 +41,4 @@ class Enemy : Actor
 	bool 	collideWith(Actor *anActor);
 
 };
+#endif
