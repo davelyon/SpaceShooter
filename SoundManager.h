@@ -2,17 +2,11 @@
 #define AudibleMagic
 
 #ifdef MAC_OS_X_VERSION_MIN_REQUIRED
-#include <SDL/SDL.h>
-#include <SDL/SDL_opengl.h>
-#include <OpenGl/glu.h>
-#include <SDL/SDL_audio.h>
-#else //linux includes
-#include <SDL/SDL.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <SDL/SDL_audio.h>
 #include <string>
-#include <cstdlib>
+#else //linux includes
+#include <SDL/SDL_audio.h>
+#include <string>
 #endif
 using namespace std;
 
@@ -23,6 +17,7 @@ class SoundManager{
 		void play(); // plays sounds
 		void enqueue(string aSound);
 		void mute(); //disable all sound output
+	private:
 		struct sample {
 			Uint8 *data;
 			Uint32 dpos;

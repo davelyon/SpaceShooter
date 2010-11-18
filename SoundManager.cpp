@@ -1,15 +1,10 @@
 #ifdef MAC_OS_X_VERSION_MIN_REQUIRED
-#include <SDL/SDL.h>
-#include <SDL/SDL_opengl.h>
-#include <OpenGl/glu.h>
-#include <SDL/SDL_audio.h>
-#else //linux includes
-#include <SDL/SDL.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include <SDL/SDL_audio.h>
 #include <string>
-#include <cstdlib>
+#include "SoundManager.h"
+#else //linux includes
+#include <SDL/SDL_audio.h>
+#include <string>
 #include "SoundManager.h"
 #endif
 #define NUM_SOUNDS 20
