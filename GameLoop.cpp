@@ -8,6 +8,7 @@ GameLoop::GameLoop(){
 		
 	player1 = new Player(1);
 	monster1 = new Enemy(100);
+	soundManager = new SoundManager();
 }
 
 GameLoop::~GameLoop(){
@@ -33,6 +34,7 @@ void GameLoop::run() {
 	tickLevel();
 	tickActors();
 	drawScene();
+	soundManager->play();
 	SDL_Delay(10);
 }
 
@@ -57,6 +59,7 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_SPACE:
 					player1->shoot(realtick);
+					soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
 					break;
 				case SDLK_p:
 					paused = !paused;

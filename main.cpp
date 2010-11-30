@@ -26,9 +26,6 @@ static void createSurface (int fullscreen)
 	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL);
 	SDL_WM_SetCaption("Space Peaux Peaux",NULL);
 	SDL_EnableKeyRepeat(1,100);
-	
-	
-	
 }
 
 static void initGL ()
@@ -44,12 +41,12 @@ static void initGL ()
 	glEnable(GL_TEXTURE_2D);
 	
 	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
-	glClearColor(1.0f, 1.0f, 1.0f, 0.5f);					
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);					
 	glClearDepth(1.0f);							// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST);						// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Really Nice Perspective Calculations
-	
+	glEnable(GL_BLEND);					// Enable Blending
+
 }
 
 static void mainLoop ()

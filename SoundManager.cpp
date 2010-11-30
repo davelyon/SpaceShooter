@@ -9,10 +9,41 @@
 #endif
 #define NUM_SOUNDS 20
 using namespace std;
+
+static SoundManager *thisSoundMan = NULL;
+
+void mixaudio2(void *unused, Uint8 *stream, int len) {
+	thisSoundMan->mixaudio(unused, stream,len);
+}
+
+
 SoundManager::SoundManager(){
+	
+	SDL_AudioSpec fmt;
+	
+  /* Set 16-bit stereo audio at 22Khz */
+  fmt.freq = 44100;
+  fmt.format = AUDIO_S16;
+  fmt.channels = 1;
+  fmt.samples = 4096; /* A good value for games */
+  fmt.callback = &mixaudio2;
+  fmt.userdata = NULL;
+	
+	memset(sounds,0,sizeof sounds);
+	
+  /* Open the audio device and start playing sound! */
+  if ( SDL_OpenAudio(&fmt, NULL) < 0 ) {
+    fprintf(stderr, "Unable to open audio: %sn", 
+						SDL_GetError());
+		exit(1);
+  } 
+	
+	SDL_PauseAudio (0);
 	toPlay = new string[20];
 	count = 0;
 	muted = 0;
+	
+	thisSoundMan = this;
 }
 
 SoundManager::~SoundManager(){}
@@ -60,10 +91,10 @@ void SoundManager::PlaySound(const char *file){
 		return;
 
 	if(SDL_LoadWAV(file, &wave, &data, &dlen) == NULL){
-		fprintf(stderr, "couldn't laod 5s: %sn", file, SDL_GetError());
+		fprintf(stderr, "couldn't load %s: %s \n", file, SDL_GetError());
 		exit(0);
 	}
-	SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, AUDIO_S16, 2, 44100);
+	SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, AUDIO_S16, 1, 44100);
 	cvt.buf = (Uint8 *)malloc(dlen*cvt.len_mult);
 	memcpy(cvt.buf, data, dlen);
 	cvt.len == dlen;

@@ -17,7 +17,6 @@ class SoundManager{
 		void play(); // plays sounds
 		void enqueue(string aSound);
 		void mute(); //disable all sound output
-	private:
 		struct sample {
 			Uint8 *data;
 			Uint32 dpos;

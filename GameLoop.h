@@ -28,6 +28,7 @@
 
 #include "Player.h"
 #include "Enemy.h"
+#include "SoundManager.h"
 
 class GameLoop
 {
@@ -62,6 +63,7 @@ public:
 		
 	Player *player1;
 	Enemy *monster1;
+	SoundManager *soundManager;
 	
 	int movePlayer;
 	
