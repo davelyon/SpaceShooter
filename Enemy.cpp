@@ -1,5 +1,15 @@
 #include "Enemy.h"
 
+Enemy::Enemy(){
+
+	this->pointValue = pointValue;
+	this->owner = OWNER_GAME;
+	
+	this->isLiving = true;
+	this->location_x = -5.0f;
+
+}
+
 Enemy::Enemy(int uniqueID, int x, int y, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
@@ -17,7 +27,7 @@ std::string Enemy::toString(){
 	return "Needs Implementation";
 
 }
-void 	Enemy::update() {
+void 	Enemy::update(int uID, int x, int y, int health, int pointValue) {
 	this->location_x += 0.0002f;
 	this->location_y += 0.0002f;
 	
