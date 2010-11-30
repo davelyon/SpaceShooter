@@ -11,10 +11,11 @@
 
 using namespace std;
 void waitForUpdates();
-void createMonsterArray(Enemy* currentMonsters, string filename);
+void createMonsterArray(Enemy *currentMonsters, string filename);
 void sendLevel(UDPpacket *p, UDPsocket *sd, Enemy* currentMonsters);
 int lineCount(string fileName);
 Parser *myParser = new Parser();
+Enemy *currentMonsters;
 int main(int argc, char **argv)
 {
 	UDPsocket mySocketDesc;       /* Socket descriptor */
@@ -49,12 +50,15 @@ int main(int argc, char **argv)
 	}
  
 	/* Main loop */
-	int numOfLines = lineCount("level1.txt");
+	int numOfLines = 1;
+	numOfLines = lineCount("level1.txt");
 	/* IF WE ARE SEG FAULTING LOOK AT THE LINE BELOW */
-	Enemy* currentMonsters[numOfLines];
-	for (int i = 0; i < numOfLines; i++)
-		currentMonsters[i] = NULL;
-	createMonsterArray(*currentMonsters, "level1.txt");
+	currentMonsters = new Enemy[numOfLines];
+	if(numOfLines > 0){
+		for(int i = 0; i < numOfLines; i++)
+			currentMonsters[i].update(0,0,0,0,0);
+		createMonsterArray(&currentMonsters[numOfLines], "level1.txt");
+	}
 	int count = 0;
 	while (count != 2)
 	{
@@ -84,7 +88,7 @@ int main(int argc, char **argv)
 }
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy* currentMonsters){
 	int count = 0;
-	p->data = (Uint8 *)currentMonsters[count++].toString();
+	//p->data = (Uint8 *)currentMonsters[count++].toString();
 	SDLNet_UDP_Send(sd, -1, p);
 }
 void waitForUpdates(){
@@ -92,7 +96,7 @@ void waitForUpdates(){
 
 
 }
-void createMonsterArray(Enemy* currentMonsters, string filename){
+void createMonsterArray(Enemy *currentMonsters, string filename){
 	/* read the line. parse the line. create the monster. quit at eof*/
 	ifstream openForParse;
 	int count = 0;
@@ -105,7 +109,7 @@ void createMonsterArray(Enemy* currentMonsters, string filename){
 	//parse the file.
 		constructParams = myParser->CreateMonsterObject(needsParsing);
 	//create the monster
-		//currentMonsters[count++] = new Enemy(constructParams[0], constructParams[1], constructParams[2], constructParams[3], constructParams[4]);
+		currentMonsters[count++].update(constructParams[0], constructParams[1], constructParams[2], constructParams[3], constructParams[4]);
 	}
 }
 int lineCount(string fileName){
