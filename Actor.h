@@ -6,11 +6,13 @@
 #include <SDL/SDL_opengl.h>
 #include <OpenGL/glu.h>
 #include <SDL/SDL_audio.h>
+#include "SDL_image.h"
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL_audio.h>
+#include "SDL/SDL_image.h"
 #endif
 
 #define OWNER_P1 1
@@ -23,7 +25,6 @@
 #define MOVE_UP			3
 #define MOVE_DOWN		4
 
-#include "SDL_image.h"
 
 
 
