@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameLoop::GameLoop(){
-	tick = SDL_GetTicks();
+	realtick = 0;
 	paused = false;
 	running = true;
 		
@@ -17,18 +17,23 @@ GameLoop::~GameLoop(){
 void GameLoop::start() {
 
 	while(running) {
+		
+		int copy = SDL_GetTicks();
+		tick =  copy - realtick;
+		realtick = copy;
+				
 		paused ? pauseWait() : run();
 	}
 }
 
 void GameLoop::run() {
-
-	tick = 100;
+	printf("Tick: %d Real Tick %d \n", tick, realtick);
 	
 	handleKeyInput();
 	tickLevel();
 	tickActors();
 	drawScene();
+	SDL_Delay(10);
 }
 
 void GameLoop::handleKeyInput() 
@@ -39,16 +44,19 @@ void GameLoop::handleKeyInput()
 		if (event.type==SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 				case SDLK_DOWN:
-					player1->update(tick, MOVE_DOWN);
+					movePlayer = MOVE_DOWN;
 					break;
 				case SDLK_UP:
-					player1->update(tick, MOVE_UP);
+					movePlayer = MOVE_UP;
 					break;
 				case SDLK_LEFT:
-					player1->update(tick, MOVE_LEFT);
+					movePlayer = MOVE_LEFT;
 					break;
 				case SDLK_RIGHT:
-					player1->update(tick, MOVE_RIGHT);
+					movePlayer = MOVE_RIGHT;
+					break;
+				case SDLK_SPACE:
+					player1->shoot(realtick);
 					break;
 				case SDLK_p:
 					paused = !paused;
@@ -68,6 +76,7 @@ void GameLoop::tickLevel()
 
 void GameLoop::tickActors() 
 {
+	player1->update(tick, movePlayer);
 	monster1->update();
 }
 

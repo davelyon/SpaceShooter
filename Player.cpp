@@ -12,17 +12,22 @@ Player::Player(int playerNumber) {
 	this->location_y = 0.0f;
 	
 	this->texture[0] = load_texture("/Users/dave/Code/SpaceRedux/ship.bmp");
+	
+	this->numLasers = 0;
 }
 
 Player::~Player() {}
 
 void 	Player::update(int ticks, int movedir) {
 	
-	float movPixels = ((float)ticks/1000.0f) * 0.22;
+	float movPixels = ((float)ticks/1000.0f) * 2.00f;
+		
+	if(movedir == MOVE_NONE)
+		movedir = last_move;
+	else 
+		last_move = movedir;
 	
 	switch (movedir) {
-		case MOVE_NONE:
-			break;
 		case MOVE_RIGHT:
 			location_x += movPixels;
 			break;
@@ -39,6 +44,11 @@ void 	Player::update(int ticks, int movedir) {
 			break;
 	}
 	
+	for (int i = 0; i < numLasers; i++) {
+		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
+	}
+	
+	
 }
 void 	Player::draw() { 	
 	glLoadIdentity();
@@ -53,8 +63,36 @@ void 	Player::draw() {
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
 	
+	// end player drawing 
+	
+	// start laser drawing
+	
+	for (int i = 0; i < numLasers; i++) {
+		glLoadIdentity();
+		glTranslatef(lasers[i].x,lasers[i].y, -48.0f);
+		glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
+		glBindTexture(GL_TEXTURE_2D, this->texture[0]);
+			
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
+		glEnd();
+		
+	}
+	
+	
 }
 bool 	Player::collideWith(Actor *anActor) {return false;}
 int 	Player::points() 		{ return 0;}
 
+void Player::shoot(int ticks) {
+	if (numLasers == MAX_LASERS) numLasers = 0;
+	
+	lasers[numLasers].x = this->location_x - 0.45f;
+	lasers[numLasers].y = this->location_y + 0.75f;
+	
+	++numLasers;
+}
 

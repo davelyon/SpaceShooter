@@ -52,6 +52,7 @@ public:
 	
 	void pauseWait();
 	
+	int realtick;
 	int tick;
 	
 	int pausedBeganTick;
@@ -61,6 +62,8 @@ public:
 		
 	Player *player1;
 	Enemy *monster1;
+	
+	int movePlayer;
 	
 };
 #endif
