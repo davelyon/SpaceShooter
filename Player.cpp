@@ -10,6 +10,8 @@ Player::Player(int playerNumber) {
 	
 	this->location_x = 0.0f;
 	this->location_y = 0.0f;
+	
+	this->texture[0] = load_texture("/Users/dave/Code/SpaceRedux/ship.bmp");
 }
 
 Player::~Player() {}
@@ -39,64 +41,20 @@ void 	Player::update(int ticks, int movedir) {
 	
 }
 void 	Player::draw() { 	
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -8.0f);
-	glRotatef( 45, 0.0f, -1.0f, 0.0f );
-	float corners = .2;
-	float top = .75;
-	float stretch = -0.2;
-	glBegin( GL_TRIANGLES );             /* Drawing Using Triangles       */
-	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (left)       */  
-	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */   
-	glVertex3f( -corners, stretch,  corners ); /* Left Of Triangle (left)      */
-	glColor3f(   0.0f,  0.2f,  0.0f ); /* Set The Color To Green           */   
-	glVertex3f(  corners, 0.0f,  corners ); /* Right Of Triangle (left)     */
+	glTranslatef(location_x,location_y, -24.0f);
+	glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
+	glBindTexture(GL_TEXTURE_2D, this->texture[0]);
 	
+	glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
+	glEnd();
 	
-	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (right)       */ 
-	glColor3f(   0.0f,  0.2f,  0.0f ); /* Set The Color To Green           */   
-	glVertex3f(  corners, 0.0f,  corners ); /* Left Of Triangle (right)     */
-	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */    
-	glVertex3f(  corners, stretch, -corners ); /* Right Of Triangle (right)      */
-	
-	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (bottom)       */  
-	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */       
-	glVertex3f(  corners, stretch, -corners ); /* Left Of Triangle (bottom)      */
-	glVertex3f( -corners, stretch,  corners ); /* Right Of Triangle (bottom)     */
-	
-	
-	glColor3f(   0.0f,  0.2f,  0.0f ); 
-	glVertex3f(  corners, 0.0f,  corners ); 
-	glColor3f(   0.0f,  0.5f,  0.0f );   
-	glVertex3f(  corners, stretch, -corners );
-	glVertex3f( -corners, stretch,  corners );
-	glEnd( );
-	
-	SDL_GL_SwapBuffers();
 }
 bool 	Player::collideWith(Actor *anActor) {return false;}
 int 	Player::points() 		{ return 0;}
 
-// **********
-// Enemy
-// **********
-
-Enemy::Enemy(int pointValue) {
-	this->pointValue = pointValue;
-	this->owner = OWNER_GAME;
-	
-	this->isLiving = true;
-	
-}
-Enemy::~Enemy() {
-	
-}
-
-void 	Enemy::update() {}
-void 	Enemy::draw() 	{}
-bool 	Enemy::collideWith(Actor *anActor) {return false;}
 

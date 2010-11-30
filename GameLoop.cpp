@@ -7,7 +7,7 @@ GameLoop::GameLoop(){
 	running = true;
 		
 	player1 = new Player(1);
-	sleep(1);
+	monster1 = new Enemy(100);
 }
 
 GameLoop::~GameLoop(){
@@ -68,10 +68,18 @@ void GameLoop::tickLevel()
 
 void GameLoop::tickActors() 
 {
+	monster1->update();
 }
 
 void GameLoop::drawScene() {
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glLoadIdentity();
+
 	player1->draw();
+	monster1->draw();
+
+	SDL_GL_SwapBuffers();
+
 }
 
 void GameLoop::pauseWait() {

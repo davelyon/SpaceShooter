@@ -17,25 +17,38 @@
 
 #include "GameLoop.h"
 
+#define WIDTH 640.0f
+#define HEIGHT 800.0f
+
 static void createSurface (int fullscreen)
 {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
-	SDL_SetVideoMode(640,480,0,SDL_OPENGL);
+	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL);
 	SDL_WM_SetCaption("Space Peaux Peaux",NULL);
 	SDL_EnableKeyRepeat(1, 1);
+	
 	
 }
 
 static void initGL ()
 {
-	glViewport (0,0,640,480);
+	
+	glViewport (0,0,WIDTH,HEIGHT);
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	gluPerspective (45,640.0/480,0.1,100);
+	gluPerspective (45,WIDTH/HEIGHT,0.1,100);
 	glMatrixMode (GL_MODELVIEW);
 	glLoadIdentity();
 	glEnable (GL_DEPTH_TEST);
-	glClearColor (1,1,1,0);	
+	glEnable(GL_TEXTURE_2D);
+	
+	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
+	glClearColor(1.0f, 1.0f, 1.0f, 0.5f);					
+	glClearDepth(1.0f);							// Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST);						// Enables Depth Testing
+	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Really Nice Perspective Calculations
+	
 }
 
 static void mainLoop ()

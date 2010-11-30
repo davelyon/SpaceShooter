@@ -27,6 +27,7 @@
 #endif
 
 #include "Player.h"
+#include "Enemy.h"
 
 class GameLoop
 {
@@ -59,7 +60,7 @@ public:
 	bool running;
 		
 	Player *player1;
-	
+	Enemy *monster1;
 	
 };
 #endif

@@ -13,6 +13,19 @@
 #include <SDL/SDL_audio.h>
 #endif
 
+#define OWNER_P1 1
+#define OWNER_P2 2
+#define OWNER_GAME 3
+
+#define MOVE_NONE		0
+#define MOVE_RIGHT		1
+#define MOVE_LEFT		2
+#define MOVE_UP			3
+#define MOVE_DOWN		4
+
+#include "SDL_image.h"
+
+
 
 class Actor
 {
@@ -37,4 +50,6 @@ public:
 	bool isLiving;
 	
 };
+
+GLuint load_texture(const char *file);
 #endif
