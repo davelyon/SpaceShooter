@@ -36,12 +36,11 @@ Client::~Client(){
 	SDLNet_Quit();
 }
 
-void Client::GetEnemyList(Enemy **ListOfEnemies){
+Enemy** Client::GetEnemyList(){
 	int quit = 0;
-	while (!quit)
+	Enemy **ListOfEnemies; while (!quit)
 	{
-		p->data = (Uint8 *)"Ready";
-		
+		strcpy((char *)p->data, "ready");	
 		p->address.host = srvadd.host;	/* Set the destination host */
 		p->address.port = srvadd.port;	/* And destination port */
  
@@ -55,23 +54,21 @@ void Client::GetEnemyList(Enemy **ListOfEnemies){
 				if(!strcmp((char *)p->data, "quit"))
 					break;
 				if(firstRead){
-					Enemy *temp[atoi((char *)p->data)];
-					for(int i = 0; i < atoi((char *)p->data); i++)
-						temp[i] = new Enemy();
-					ListOfEnemies = temp;
+					Enemy *Temp[atoi((char *)p->data)];
+					firstRead = false;
+					ListOfEnemies = Temp;
 				}else{
 					//parse the char* //update the monster. move on
-					params = myParser->CreateMonsterObject((char *)p->data);
-					ListOfEnemies[count++]->update(params[0], params[1], params[2], params[3], params[4]);
+					char * r = (char *)p->data;
+					string b = r;
+					params = myParser->CreateMonsterObject(b);
+					ListOfEnemies[count++] = new Enemy(params[0], params[1], params[2], params[3], params[4]);
 				}
-					/* this needs to be changed to parsing out a enemy you need to create a parser object here.*/
-				printf("%s", (char *)p->data);
-				sleep(10);
 			}
 		}
 		/* Quit if packet contains "quit" */
 		if (!strcmp((char *)p->data, "quit"))
 			quit = 1;
 	}
- 	printf("bye!");
+	return ListOfEnemies;
 }
