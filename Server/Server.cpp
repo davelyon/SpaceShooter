@@ -61,7 +61,6 @@ int main(int argc, char **argv)
 	if(numOfLines > 0){
 		for(int i = 0; i < numOfLines; i++)
 			currentMonsters[i] = new Enemy();
-		/* IF WE ARE SEG FAULTING LOOK AT THE LINE BELOW */
 		createMonsterArray(numOfLines, currentMonsters, "level1.txt");
 	}
 	int count = 0;
@@ -113,7 +112,7 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	int count = 0;
 	char * temp = new char[25];
 	sprintf(temp, "%d", arrayLength);
-	p->data = (Uint8 *)temp;
+	strcpy((char *)p->data, temp);
 	p->len = strlen((char *)p->data)+1;
 	SDLNet_UDP_Send(sd, -1, p);
 	while (count < arrayLength){
