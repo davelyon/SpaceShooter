@@ -7,8 +7,8 @@ GameLoop::GameLoop(){
 	running = true;
 		
 	player1 = new Player(1);
-	monster1 = new Enemy(100);
-	soundManager = new SoundManager();
+
+	soundManager = SoundManager::Instance();
 }
 
 GameLoop::~GameLoop(){
@@ -28,14 +28,12 @@ void GameLoop::start() {
 }
 
 void GameLoop::run() {
-	printf("Tick: %d Real Tick %d \n", tick, realtick);
 	
 	handleKeyInput();
 	tickLevel();
 	tickActors();
 	drawScene();
-	soundManager->play();
-	SDL_Delay(10);
+	//SDL_Delay(10);
 }
 
 void GameLoop::handleKeyInput() 
@@ -75,12 +73,13 @@ void GameLoop::handleKeyInput()
 
 void GameLoop::tickLevel() 
 {
+	
 }
 
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	monster1->update();
+	
 }
 
 void GameLoop::drawScene() {
@@ -88,7 +87,6 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
-	monster1->draw();
 
 	SDL_GL_SwapBuffers();
 

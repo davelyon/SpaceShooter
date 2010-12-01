@@ -11,22 +11,24 @@
 using namespace std;
 
 class SoundManager{
-	public:
-		SoundManager();
-		~SoundManager();
-		void play(); // plays sounds
-		void enqueue(string aSound);
-		void mute(); //disable all sound output
-		struct sample {
-			Uint8 *data;
-			Uint32 dpos;
-			Uint32 dlen;
-		}sounds[20];
-		string *toPlay;
-		int count;
-		int muted;
-		void mixaudio(void *unused, Uint8 *stream, int len);
-		void PlaySound(const char *file);
+public:
+	static SoundManager* Instance();
+	~SoundManager();
+
+	struct sample {
+		Uint8 *data;
+		Uint32 dpos;
+		Uint32 dlen;
+	}sounds[20];
+
+	void mixaudio(void *unused, Uint8 *stream, int len);
+	void PlaySound(const char *file);
+	
+	SoundManager();
+
+private:
+	static SoundManager* singletonInstance;
+	
 };
 
 #endif

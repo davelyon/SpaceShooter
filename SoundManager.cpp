@@ -10,12 +10,19 @@
 #define NUM_SOUNDS 20
 using namespace std;
 
-static SoundManager *thisSoundMan = NULL;
+SoundManager* SoundManager::singletonInstance = NULL;
 
 void mixaudio2(void *unused, Uint8 *stream, int len) {
-	thisSoundMan->mixaudio(unused, stream,len);
+	SoundManager::Instance()->mixaudio(unused, stream,len);
 }
 
+
+SoundManager *SoundManager::Instance() {
+	if(singletonInstance == NULL) {
+		singletonInstance = new SoundManager;
+	}
+	return singletonInstance;
+}
 
 SoundManager::SoundManager(){
 	
@@ -39,28 +46,10 @@ SoundManager::SoundManager(){
   } 
 	
 	SDL_PauseAudio (0);
-	toPlay = new string[20];
-	count = 0;
-	muted = 0;
-	
-	thisSoundMan = this;
 }
 
 SoundManager::~SoundManager(){}
 
-void SoundManager::play(){
-	for(int i = 0; i < count; i++)
-		PlaySound(toPlay[i].c_str());
-}
-
-void SoundManager::enqueue(string aSound){
-	toPlay[count++] = aSound;
-}
-
-void SoundManager::mute(){
-	SDL_PauseAudio(muted);
-	muted = !muted;
-}
 
 void SoundManager::mixaudio(void *unused, Uint8 *stream, int len){
 	int i;
