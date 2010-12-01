@@ -7,10 +7,9 @@ GameLoop::GameLoop(){
 	running = true;
 		
 	player1 = new Player(1);
-
+	client = new Client();
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
-
 	monster1 = new Enemy(0,0,0,0,100);
 }
 
@@ -19,7 +18,7 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
-
+	crazies = client->GetEnemyList();
 	while(running) {
 		
 		int copy = SDL_GetTicks();
@@ -60,7 +59,7 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_SPACE:
 					player1->shoot(realtick);
-					soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
+					soundManager->PlaySound("./laser2.wav");
 					break;
 				case SDLK_p:
 					paused = !paused;

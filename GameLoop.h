@@ -26,6 +26,7 @@
 #include <SDL/SDL_audio.h>
 #endif
 
+#include "Client.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "SoundManager.h"
@@ -64,6 +65,8 @@ public:
 		
 	Player *player1;
 	Enemy *monster1;
+	Enemy **crazies;
+	Client *client;
 	SoundManager *soundManager;
 	ParticleEmitter *partEmitter;
 	
