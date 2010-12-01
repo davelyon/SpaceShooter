@@ -14,7 +14,7 @@
 
 using namespace std;
 void waitForUpdates();
-void createMonsterArray(Enemy **currentMonsters, string filename);
+void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename);
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength);
 int lineCount(string fileName);
 int main(int argc, char **argv)
@@ -58,11 +58,12 @@ int main(int argc, char **argv)
 	/* Main loop */
 	int numOfLines = lineCount("level1.txt");
 	Enemy *currentMonsters[numOfLines];
+	cout << numOfLines << endl;
 	if(numOfLines > 0){
 		for(int i = 0; i < numOfLines; i++)
 			currentMonsters[i] = new Enemy();
 		/* IF WE ARE SEG FAULTING LOOK AT THE LINE BELOW */
-		createMonsterArray(currentMonsters, "level1.txt");
+		createMonsterArray(numOfLines, currentMonsters, "level1.txt");
 	}
 	int count = 0;
 	while (count != 2)
@@ -89,7 +90,7 @@ int main(int argc, char **argv)
 	SDLNet_Quit();
 	return EXIT_SUCCESS;
 }
-void createMonsterArray(Enemy **currentMonsters, string filename){
+void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename){
 	Parser *myParser = new Parser();
 	/* read the line. parse the line. create the monster. quit at eof*/
 	ifstream openForParse;
@@ -97,12 +98,13 @@ void createMonsterArray(Enemy **currentMonsters, string filename){
 	openForParse.open(filename.c_str());
 	string needsParsing;
 	int* constructParams;
-	while(!openForParse.eof()){
+	while(count < numOfLines && !openForParse.eof()){
 	//read the line
 		getline(openForParse, needsParsing);
 	//parse the file.
 		constructParams = myParser->CreateMonsterObject(needsParsing);
 	//create the monster
+		//printf("option: %d %d %d %d %d", constructParams[0], constructParams[1], constructParams[2], constructParams[3], constructParams[4]);
 		currentMonsters[count++]->update(constructParams[0], constructParams[1], constructParams[2], constructParams[3], constructParams[4]);
 	}
 	openForParse.close();
@@ -110,16 +112,18 @@ void createMonsterArray(Enemy **currentMonsters, string filename){
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength){
 	sleep(2);
 	int count = 0;
+	cout << arrayLength << endl;
 	/*char * temp;
 	p->data = (Uint8 *)arrayLength;
-	p->len = strlen((char *)p->data)+1;*/
-	SDLNet_UDP_Send(sd, -1, p);
-	while (count < arrayLength+1){
-		char * temp = currentMonsters[count++]->toString();
+	p->len = strlen((char *)p->data)+1;
+	SDLNet_UDP_Send(sd, -1, p);*/
+	while (count < arrayLength){
+		char * temp = new char[25];
+		currentMonsters[count++]->toString(temp);
+		cout << "temp: " << temp << endl;
 		p->data =(Uint8 *) temp;
 		p->len = strlen(temp)+1;
 		SDLNet_UDP_Send(sd, -1, p);
-		count++;
 	}
 	p->data = (Uint8 *)"quit";
 	p->len = 5;
@@ -140,7 +144,7 @@ int lineCount(string fileName){
 		count++;
 	}
 	openForLines.close();
-	return count;
+	return count-1;
 }
 		/* comments for later use if needed
 			printf("UDP Packet incoming\n");
