@@ -1,29 +1,26 @@
-#include <iostream>
-#include <fstream>
-#include <cstdlib>
-#include "../Monster.h"
-#include <string>
 #include "Parser.h"
 
-void WhichObjectToCreate(string line){
-	string temp = line;
-	temp.erase(temp.find(" "));
-	line.erase(0, line.find(" " )+1);
-	if(!temp.compare("monster"))
-		CreateMonsterObject(line);
-	else{
-		cout << "THIS TYPE OF OBJECT ISN'T CREATED: "<< temp <<endl;
-	}
+using namespace std;
+
+Parser::Parser(){}
+Parser::~Parser(){
 }
-void CreateMonsterObject(string monsterCreationParams){
-	string x, y, img, points;
+int* Parser::CreateMonsterObject(string monsterCreationParams){
+	string uID, x, y, img, points;
+	int* returnable = new int[5];
+	MonsterParser(&monsterCreationParams, &uID);
+	returnable[0] = atoi(uID.c_str());
 	MonsterParser(&monsterCreationParams, &x);
+	returnable[1] = atoi(x.c_str());
 	MonsterParser(&monsterCreationParams, &y);
+	returnable[2] = atoi(y.c_str());
 	MonsterParser(&monsterCreationParams, &img);
+	returnable[3] = atoi(img.c_str());
 	MonsterParser(&monsterCreationParams, &points);
-//	Monster balla = new Monster(atoi(x.c_str()), atoi(y.c_str()), atoi(img.c_str()), atoi(points.c_str()));
+	returnable[4] = atoi(points.c_str());
+	return returnable;
 }
-void MonsterParser(string *params, string *varToSet){
+void Parser::MonsterParser(string *params, string *varToSet){
 	string newParams = *params;
 	string newVarToSet;
 	int found = newParams.find(" ");
@@ -32,13 +29,4 @@ void MonsterParser(string *params, string *varToSet){
 	*params = newParams;
 	*varToSet = newVarToSet;
 }
-void parseFile(string filename){
-	fstream file;
-	file.open(filename.c_str());
-	if(file.is_open()){
-		string objectToCreate;
-		while(getline(file, objectToCreate))
-			WhichObjectToCreate(objectToCreate);
-	}else
-		cout << "file open failed. did you send me the right file?\n";
-}
+
