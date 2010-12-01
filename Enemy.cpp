@@ -7,30 +7,36 @@ Enemy::Enemy(){
 	
 	this->isLiving = true;
 	this->location_x = -5.0f;
+	this->location_y = -5.0f;
+	uniqueID = 0;
+	myHealth = 0;
 
 }
 
-Enemy::Enemy(int uniqueID, int x, int y, int health, int pointValue) {
+Enemy::Enemy(int uID, int x, int y, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
 	
 	this->isLiving = true;
-	this->location_x = -5.0f;
-	this->location_y = -5.0f;
+	this->location_x = (float)x;
+	this->location_y = (float)y;
+	uniqueID = uID;
+	myHealth = health;
 }
 
 Enemy::~Enemy() {
 	
 }
-char * Enemy::toString(){
-
-	return "Needs Implementation";
+void Enemy::toString(char * output){
+	sprintf(output, "%d %f %f %d %d", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
 
 }
 void 	Enemy::update(int uID, int x, int y, int health, int pointValue) {
-	this->location_x += 0.0002f;
-	this->location_y += 0.0002f;
-	
+	this->location_x += (float)x;
+	this->location_y += (float)y;
+	uniqueID = uID;
+	myHealth = health;
+	this->pointValue = pointValue;
 }
 void 	Enemy::draw() 	{
 	
