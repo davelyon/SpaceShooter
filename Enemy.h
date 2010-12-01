@@ -13,7 +13,7 @@ public:
 	void 	update(int uID, int x, int y, int health, int pointValue);
 	void 	draw();
 	bool 	collideWith(Actor *anActor);
-	std::string toString();
+	char * toString();
 private:
 	int health;
 	float location_x;
