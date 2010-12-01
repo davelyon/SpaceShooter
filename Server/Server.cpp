@@ -58,7 +58,6 @@ int main(int argc, char **argv)
 	/* Main loop */
 	int numOfLines = lineCount("level1.txt");
 	Enemy *currentMonsters[numOfLines];
-	cout << numOfLines << endl;
 	if(numOfLines > 0){
 		for(int i = 0; i < numOfLines; i++)
 			currentMonsters[i] = new Enemy();
@@ -113,10 +112,11 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	sleep(2);
 	int count = 0;
 	cout << arrayLength << endl;
-	/*char * temp;
-	p->data = (Uint8 *)arrayLength;
+	char * temp = new char[25];
+	sprintf(temp, "%d", arrayLength);
+	p->data = (Uint8 *)temp;
 	p->len = strlen((char *)p->data)+1;
-	SDLNet_UDP_Send(sd, -1, p);*/
+	SDLNet_UDP_Send(sd, -1, p);
 	while (count < arrayLength){
 		char * temp = new char[25];
 		currentMonsters[count++]->toString(temp);
