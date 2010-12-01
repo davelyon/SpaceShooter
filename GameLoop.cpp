@@ -7,7 +7,7 @@ GameLoop::GameLoop(){
 	running = true;
 		
 	player1 = new Player(1);
-	monster1 = new Enemy(100);
+	monster1 = new Enemy(0,0,0,0,100);
 	soundManager = new SoundManager();
 }
 
@@ -80,7 +80,7 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	monster1->update();
+	monster1->update(0,0,0,0,0);
 }
 
 void GameLoop::drawScene() {
