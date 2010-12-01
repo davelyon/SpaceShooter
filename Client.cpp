@@ -3,6 +3,7 @@
 Client::Client(){
 	/* Check for parameters */
 	/* Initialize SDL_net */
+	myParser = new Parser();
 	if (SDLNet_Init() < 0)
 	{
 		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
@@ -46,10 +47,23 @@ void Client::GetEnemyList(Enemy **ListOfEnemies){
  
 		p->len = strlen((char *)p->data) + 1;
 		SDLNet_UDP_Send(sd, -1, p); /* This sets the p->channel */
+		bool firstRead = true;
+		int count = 0;
+		int* params;
  		while(true){
 			if(SDLNet_UDP_Recv(sd, p)){
 				if(!strcmp((char *)p->data, "quit"))
 					break;
+				if(firstRead){
+					Enemy *temp[atoi((char *)p->data)];
+					for(int i = 0; i < atoi((char *)p->data); i++)
+						temp[i] = new Enemy();
+					ListOfEnemies = temp;
+				}else{
+					//parse the char* //update the monster. move on
+					params = myParser->CreateMonsterObject((char *)p->data);
+					ListOfEnemies[count++]->update(params[0], params[1], params[2], params[3], params[4]);
+				}
 					/* this needs to be changed to parsing out a enemy you need to create a parser object here.*/
 				printf("%s", (char *)p->data);
 				sleep(10);
