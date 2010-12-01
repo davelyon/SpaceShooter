@@ -120,7 +120,7 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	while (count < arrayLength){
 		char * temp = new char[25];
 		currentMonsters[count++]->toString(temp);
-		cout << "temp: " << temp << endl;
+	//	cout << "temp: " << temp << endl;
 		p->data =(Uint8 *) temp;
 		p->len = strlen(temp)+1;
 		SDLNet_UDP_Send(sd, -1, p);
