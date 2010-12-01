@@ -1,5 +1,4 @@
 #include "Textures.h"
-#include <OpenGL/OpenGL.h>
 
 GLuint load_texture(const char* file)
 {
