@@ -39,8 +39,7 @@ void Client::GetEnemyList(Enemy **ListOfEnemies){
 	int quit = 0;
 	while (!quit)
 	{
-		printf(">");
-		gets((char *)p->data);
+		p->data = (Uint8 *)"Ready";
 		
 		p->address.host = srvadd.host;	/* Set the destination host */
 		p->address.port = srvadd.port;	/* And destination port */
@@ -51,10 +50,9 @@ void Client::GetEnemyList(Enemy **ListOfEnemies){
 			if(SDLNet_UDP_Recv(sd, p)){
 				if(!strcmp((char *)p->data, "quit"))
 					break;
+					/* this needs to be changed to parsing out a enemy you need to create a parser object here.*/
 				printf("%s", (char *)p->data);
 				sleep(10);
-				//SDLNet_UDP_Send(sd, -1, p);
-				//std::cout << "sent" << endl;
 			}
 		}
 		/* Quit if packet contains "quit" */
