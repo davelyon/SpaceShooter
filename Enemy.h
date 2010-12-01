@@ -13,9 +13,10 @@ public:
 	void 	update(int uID, int x, int y, int health, int pointValue);
 	void 	draw();
 	bool 	collideWith(Actor *anActor);
-	char * toString();
+	void toString(char * output);
 private:
-	int health;
+	int uniqueID;
+	int myHealth;
 	float location_x;
 	float location_y;	
 };
