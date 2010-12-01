@@ -1,7 +1,11 @@
 #include "Player.h"
+#include "Textures.h"
 
 
 Player::Player(int playerNumber) {
+	
+	//generateTextures();
+	
 	this->pointValue = 0;
 	this->owner = playerNumber;
 	
@@ -11,7 +15,7 @@ Player::Player(int playerNumber) {
 	this->location_x = 0.0f;
 	this->location_y = 0.0f;
 	
-	this->texture[0] = load_texture("/Users/dave/Code/SpaceRedux/ship.png");
+	this->texture = load_texture(PLAYER1);
 	
 	this->numLasers = 0;
 }
@@ -52,7 +56,7 @@ void 	Player::draw() {
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -24.0f);
 	glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
-	glBindTexture(GL_TEXTURE_2D, this->texture[0]);
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
 	glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -73,7 +77,7 @@ void 	Player::draw() {
 		glLoadIdentity();
 		glTranslatef(lasers[i].x,lasers[i].y, -48.0f);
 		glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
-		glBindTexture(GL_TEXTURE_2D, this->texture[0]);
+		glBindTexture(GL_TEXTURE_2D, this->texture);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		glBlendFunc(GL_ONE, GL_SRC_ALPHA);
 		glBegin(GL_QUADS);

@@ -28,7 +28,7 @@ private:
 	int health;
 	float location_x;
 	float location_y;
-	GLint texture[1];
+	GLuint texture;
 
 	int numLasers;
 	struct laser_shot lasers[MAX_LASERS];

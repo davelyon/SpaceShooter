@@ -52,5 +52,4 @@ public:
 	
 };
 
-GLuint load_texture(const char *file);
 #endif
