@@ -10,6 +10,8 @@ GameLoop::GameLoop(){
 
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
+
+	monster1 = new Enemy(0,0,0,0,100);
 }
 
 GameLoop::~GameLoop(){
@@ -80,7 +82,7 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	
+	monster1->update(0,0,0,0,0);
 }
 
 void GameLoop::drawScene() {

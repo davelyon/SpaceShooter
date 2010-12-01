@@ -22,7 +22,7 @@ Enemy::Enemy(int uniqueID, int x, int y, int health, int pointValue) {
 Enemy::~Enemy() {
 	
 }
-std::string Enemy::toString(){
+char * Enemy::toString(){
 
 	return "Needs Implementation";
 
