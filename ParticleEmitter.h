@@ -7,7 +7,38 @@
  *
  */
 
+#ifdef MAC_OS_X_VERSION_MIN_REQUIRED
+#include <SDL/SDL.h>
+#include <SDL/SDL_opengl.h>
+#include <OpenGL/glu.h>
+#include "SDL_image.h"
+#else // Linux includes
+#include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include "SDL/SDL_image.h"
+#endif
+
+#include "Textures.h"
+
 #define MAX_PARTICLES 1000
+#define TRUE 1
+#define FALSE 0
+static GLfloat colors[12][3] =
+{
+	{ 1.0f,  0.5f,  0.5f},
+	{ 1.0f,  0.75f, 0.5f},
+	{ 1.0f,  1.0f,  0.5f},
+	{ 0.75f, 1.0f,  0.5f},
+	{ 0.5f,  1.0f,  0.5f},
+	{ 0.5f,  1.0f,  0.75f},
+	{ 0.5f,  1.0f,  1.0f},
+	{ 0.5f,  0.75f, 1.0f},
+	{ 0.5f,  0.5f,  1.0f},
+	{ 0.75f, 0.5f,  1.0f},
+	{ 1.0f,  0.5f,  1.0f},
+	{ 1.0f,  0.5f,  0.75f}
+};
 
 typedef struct {
 	int   active; /* Active (Yes/No) */
@@ -48,10 +79,20 @@ public:
 	
 private:
 	particle particles[MAX_PARTICLES];
-	
+	void ResetParticle( int num, int color, float xDir, float yDir, float zDir );
 	void renderSetup(void);
 	void renderTeardown(void);
 	
 	static ParticleEmitter *singletonInstance;
+	
+	int rainbow;   /* Toggle rainbow effect                              */
+	
+	float slowdown; /* Slow Down Particles                                */
+	float xspeed;          /* Base X Speed (To Allow Keyboard Direction Of Tail) */
+	float yspeed;          /* Base Y Speed (To Allow Keyboard Direction Of Tail) */
+	float zoom;   /* Used To Zoom Out                                   */
+	
+	GLuint loop;           /* Misc Loop Variable                                 */
+	GLuint col;        /* Current Color Selection                            */
 
 };

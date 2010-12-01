@@ -9,6 +9,7 @@ GameLoop::GameLoop(){
 	player1 = new Player(1);
 
 	soundManager = SoundManager::Instance();
+	partEmitter = new ParticleEmitter();
 }
 
 GameLoop::~GameLoop(){
@@ -28,7 +29,7 @@ void GameLoop::start() {
 }
 
 void GameLoop::run() {
-	
+	printf("Tick: %d \n", tick);
 	handleKeyInput();
 	tickLevel();
 	tickActors();
@@ -87,6 +88,7 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
+	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
 

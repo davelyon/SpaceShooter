@@ -29,6 +29,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "SoundManager.h"
+#include "ParticleEmitter.h"
 
 class GameLoop
 {
@@ -64,6 +65,7 @@ public:
 	Player *player1;
 	Enemy *monster1;
 	SoundManager *soundManager;
+	ParticleEmitter *partEmitter;
 	
 	int movePlayer;
 	
