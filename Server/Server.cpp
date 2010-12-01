@@ -140,4 +140,33 @@ int lineCount(string fileName){
 	}
 	openForLines.close();
 	return count;
-}	
+}
+		/* comments for later use if needed
+			printf("UDP Packet incoming\n");
+			printf("\tChan:    %d\n", p->channel);
+			printf("\tData:    %s\n", (char *)p->data);
+			printf("\tLen:     %d\n", p->len);
+			printf("\tMaxlen:  %d\n", p->maxlen);
+			printf("\tStatus:  %d\n", p->status);
+			unsigned int add=SDLNet_Read32(&(p->address.host));
+			int port = SDLNet_Read16 (&(p->address.port));
+			printf ("%d\n",add);
+				int a4 = add%256; add/=256;
+				int a3 = add%256; add/=256;
+				int a2 = add%256; add/=256;
+				int a1 = add%256;
+			printf("\tAddress: %d.%d.%d.%d %d\n", a1,a2,a3,a4, port);*/
+ 
+			/* Quit if packet contains "quit" *//*
+			if (!strcmp((char *)p->data, "quit"))
+				quit = 1;
+				printf("f");
+				gets((char *)p->data);
+				p->len = 6;
+			SDLNet_UDP_Send(sd, -1, p);
+			if (SDLNet_ResolveHost(&srvadd, "127.0.0.1", 12234))
+			{
+				fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", argv[1], atoi(argv[2], SDLNet_GetError());
+				exit(EXIT_FAILURE);
+			}
+		}	*/	
