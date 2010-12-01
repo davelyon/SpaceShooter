@@ -1,16 +1,6 @@
 #include "Textures.h"
 #include <OpenGL/OpenGL.h>
 
-
-void generateTextures(void) {
-	
-	if(localShipTexture == -1)
-		localShipTexture = load_texture(PLAYER1);
-	if(remoteShipTexture == -1)
-		remoteShipTexture = load_texture(PLAYER2);
-	
-}
-
 GLuint load_texture(const char* file)
 {
 	int flags=IMG_INIT_JPG|IMG_INIT_PNG;
