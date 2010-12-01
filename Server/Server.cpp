@@ -4,6 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "SDL/SDL.h"
 #include "SDL/SDL_net.h"
 #include "../Parser/Parser.h"
@@ -105,19 +108,17 @@ void createMonsterArray(Enemy **currentMonsters, string filename){
 	openForParse.close();
 }
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength){
-	sleep(5);int count = 0;
+	sleep(2);
+	int count = 0;
+	/*char * temp;
+	p->data = (Uint8 *)arrayLength;
+	p->len = strlen((char *)p->data)+1;*/
+	SDLNet_UDP_Send(sd, -1, p);
 	while (count < arrayLength+1){
 		char * temp = currentMonsters[count++]->toString();
 		p->data =(Uint8 *) temp;
 		p->len = strlen(temp)+1;
 		SDLNet_UDP_Send(sd, -1, p);
-		cout << "waiting for reply" << endl;
-		/*while(true){
-			if(SDLNet_UDP_Recv(sd, p)){
-				cout << "GOT IT!" << endl;
-				break;
-			}
-		}*/
 		count++;
 	}
 	p->data = (Uint8 *)"quit";
