@@ -11,6 +11,12 @@ GameLoop::GameLoop(){
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	monster1 = new Enemy(0,0,0,0,100);
+	const int size = client->GetArraySize();
+	static Enemy *temp[100];
+	for(int i = 0; i < size; i++)
+		temp[i] = new Enemy();
+	client->GetEnemyList(temp);
+	crazies = temp;
 }
 
 GameLoop::~GameLoop(){
@@ -18,12 +24,6 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
-//we can either initiliaze here or in the constructor.
-	int size = client->GetArraySize();
-	Enemy *crazies[size];
-	for(int i = 0; i < size; i++)
-		crazies[i] = new Enemy();
-	client->GetEnemyList(crazies);
 	while(running) {
 		
 		int copy = SDL_GetTicks();
@@ -95,6 +95,8 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
+	char * a = new char[25];
+	crazies[0]->draw();
 	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
