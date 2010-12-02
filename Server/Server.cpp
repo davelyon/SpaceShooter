@@ -67,8 +67,32 @@ int main(int argc, char **argv)
 	while (true)
 	{
 		if (SDLNet_UDP_Recv(mySocketDesc, p1)){
-			if(count == 0){
+			char * incoming = (char *) p1->data;
+			cout <<(char *) p1->data << endl;
+			if(strcmp(incoming, "size") == 0){
 				cout << "sending size" << endl;
+				char * temp = new char[25];
+				sprintf(temp, "%d", numOfLines);
+				strcpy((char *)p1->data, temp);
+				p1->len = strlen((char *)p1->data)+1;
+				SDLNet_UDP_Send(mySocketDesc, -1, p1);
+				delete [] temp;
+			}else if (strcmp(incoming, "ready") == 0){
+				cout << "sending level" << endl;
+				sendLevel(p1, mySocketDesc, currentMonsters, numOfLines);
+				count = 0;
+			}
+		}
+	}		
+			
+			
+			
+			
+			
+			
+			
+			
+		/*	cout << "sending size" << endl;
 				char * temp = new char[25];
 				sprintf(temp, "%d", numOfLines);
 				strcpy((char *)p1->data, temp);
@@ -80,8 +104,7 @@ int main(int argc, char **argv)
 				sendLevel(p1, mySocketDesc, currentMonsters, numOfLines);
 				count = 0;
 			}
-		}/* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
-	}
+	}*/
  
 	/* Clean and exit */
 	SDLNet_FreePacket(p);
