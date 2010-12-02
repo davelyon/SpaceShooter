@@ -1,11 +1,16 @@
+#ifndef parserOut
+#define parserOut
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include "../Monster.h"
-#include <string>
+#include <string.h>
+using namespace std;
 class Parser{
-	void MonsterParser(string *params, string *varToSet);
-	void CreateMonsterObject(string monsterCreationParams);
-	void WhichObjectToCreate(string line){
-	void parseFile(string filename){
-}
+	public:
+		Parser();
+		~Parser();
+		void MonsterParser(string *params, string *varToSet);
+		int* CreateMonsterObject(string monsterCreationParams);
+};
+#endif
+
