@@ -65,7 +65,7 @@ public:
 		
 	Player *player1;
 	Enemy *monster1;
-	Enemy **crazies;
+	Enemy *crazies[100];
 	Client *client;
 	SoundManager *soundManager;
 	ParticleEmitter *partEmitter;
