@@ -2,6 +2,7 @@
 #define TheEnemy
 #include "Actor.h"
 #include <string>
+#include "Textures.h"
 class Enemy : Actor
 {
 public:
@@ -19,6 +20,7 @@ private:
 	int myHealth;
 	float location_x;
 	float location_y;	
+	GLuint texture;
 };
 
 #endif
