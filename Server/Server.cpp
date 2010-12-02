@@ -64,23 +64,23 @@ int main(int argc, char **argv)
 		createMonsterArray(numOfLines, currentMonsters, "level1.txt");
 	}
 	int count = 0;
-	while (count != 2)
+	while (true)
 	{
-		if(count == 0){
-			if (SDLNet_UDP_Recv(mySocketDesc, p1)){
+		if (SDLNet_UDP_Recv(mySocketDesc, p1)){
+			if(count == 0){
+				cout << "sending size" << endl;
+				char * temp = new char[25];
+				sprintf(temp, "%d", numOfLines);
+				strcpy((char *)p1->data, temp);
+				p1->len = strlen((char *)p1->data)+1;
+				SDLNet_UDP_Send(mySocketDesc, -1, p1);
+				count++;
+			}else{
 				cout << "sending level" << endl;
 				sendLevel(p1, mySocketDesc, currentMonsters, numOfLines);
-				count++;
+				count = 0;
 			}
-		}else if (count == 1){
-			if (SDLNet_UDP_Recv(mySocketDesc, p2)){
-				cout << "sending level" << endl;
-				sendLevel(p2, mySocketDesc, currentMonsters, numOfLines);
-				count++;
-			}
-		}else
-			cout << "ok" <<endl;
-		/* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
+		}/* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
 	}
  
 	/* Clean and exit */
@@ -111,18 +111,13 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	sleep(2);
 	int count = 0;
 	char * temp = new char[25];
-	sprintf(temp, "%d", arrayLength);
-	strcpy((char *)p->data, temp);
-	p->len = strlen((char *)p->data)+1;
-	SDLNet_UDP_Send(sd, -1, p);
 	while (count < arrayLength){
 		currentMonsters[count++]->toString(temp);
-		//cout << "temp: " << temp << endl;
 		p->data =(Uint8 *) temp;
 		p->len = strlen(temp)+1;
 		SDLNet_UDP_Send(sd, -1, p);
 	}
-	p->data = (Uint8 *)"quit";
+	strcpy((char *)p->data, "quit");
 	p->len = 5;
 	SDLNet_UDP_Send(sd, -1, p);
 }
