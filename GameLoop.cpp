@@ -81,7 +81,6 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	monster1->update(0,0,0,0,0);
 }
 
 void GameLoop::drawScene() {
@@ -89,6 +88,9 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
+	char *asdf = new char[25];
+	crazies[20]->toString(asdf);
+	printf("%s", asdf);
 	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
