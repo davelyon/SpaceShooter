@@ -2,7 +2,6 @@
 #define TheEnemy
 #include "Actor.h"
 #include <string>
-#include "Textures.h"
 class Enemy : Actor
 {
 public:

@@ -8,7 +8,7 @@ Enemy::Enemy(){
 	this->isLiving = true;
 	this->location_x = -5.0f;
 	this->location_y = -5.0f;
-	this->texture = load_texture("./ship.bmp");
+//	this->texture = load_texture("/home/msherman/videoGames/hold/SpaceShooter/ship.png");
 	uniqueID = 0;
 	myHealth = 0;
 
@@ -21,7 +21,7 @@ Enemy::Enemy(int uID, int x, int y, int health, int pointValue) {
 	this->isLiving = true;
 	this->location_x = (float)x;
 	this->location_y = (float)y;
-	this->texture = load_texture("./ship.bmp");
+	//this->texture = load_texture("./ship.bmp");
 	uniqueID = uID;
 	myHealth = health;
 }
@@ -41,7 +41,8 @@ void 	Enemy::update(int uID, int x, int y, int health, int pointValue) {
 	this->pointValue = pointValue;
 }
 void 	Enemy::draw() 	{
-	glLoadIdentity();
+	printf("fuck yeah");
+	/*glLoadIdentity();
 	glTranslatef(location_x,location_y, -24.0f);
 	glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
@@ -55,7 +56,7 @@ void 	Enemy::draw() 	{
 		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
 		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
-	glEnd();
+	glEnd();*/
 
 }
 bool 	Enemy::collideWith(Actor *anActor) {return false;}
