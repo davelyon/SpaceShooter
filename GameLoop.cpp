@@ -18,16 +18,12 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
+//we can either initiliaze here or in the constructor.
 	int size = client->GetArraySize();
 	Enemy *crazies[size];
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
-	printf("size: %d", size);
-	cout << endl;
 	client->GetEnemyList(crazies);
-	char *asdf = new char[25];
-	crazies[3]->toString(asdf);
-	printf("%s", asdf);
 	while(running) {
 		
 		int copy = SDL_GetTicks();
@@ -68,7 +64,7 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_SPACE:
 					player1->shoot(realtick);
-					soundManager->PlaySound("./laser2.wav");
+					soundManager->PlaySound("/home/msherman/videoGames/hold/SpaceShooter/laser2.wav");
 					break;
 				case SDLK_p:
 					paused = !paused;
