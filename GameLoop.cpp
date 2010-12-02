@@ -18,7 +18,16 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
-	crazies = client->GetEnemyList();
+	int size = client->GetArraySize();
+	Enemy *crazies[size];
+	for(int i = 0; i < size; i++)
+		crazies[i] = new Enemy();
+	printf("size: %d", size);
+	cout << endl;
+	client->GetEnemyList(crazies);
+	char *asdf = new char[25];
+	crazies[3]->toString(asdf);
+	printf("%s", asdf);
 	while(running) {
 		
 		int copy = SDL_GetTicks();
@@ -63,8 +72,10 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_p:
 					paused = !paused;
+					break;
 				case SDLK_ESCAPE:
 					running = -1;
+					exit(1);
 					break;
 				default:
 					break;
@@ -88,9 +99,6 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
-	char *asdf = new char[25];
-	crazies[20]->toString(asdf);
-	printf("%s", asdf);
 	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
