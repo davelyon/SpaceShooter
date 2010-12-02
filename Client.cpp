@@ -60,7 +60,7 @@ int Client::GetArraySize(){
 }
 
 void Client::GetEnemyList(Enemy **enemyList){
-	/*int quit = 0;
+	int quit = 0;
 	int count = 0;
 	int* params;
 	char * temp = new char[6];
@@ -78,11 +78,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 			char * r = (char *)p->data;
 			string b = r;
 			params = myParser->CreateMonsterObject(b);
-			cout << count << endl;
 			enemyList[count++]->update(params[0], params[1], params[2], params[3], params[4]);
 		}
 	}
-	cout << "leaving" << endl;*/
-	for(int i = 0; i < 5; i++)
-		enemyList[i]->update(3,3,3,3,3);
 }
