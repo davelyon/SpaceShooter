@@ -1,3 +1,5 @@
+#ifndef TheTextures
+#define TheTextures
 #ifdef MAC_OS_X_VERSION_MIN_REQUIRED
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
@@ -11,7 +13,8 @@
 #endif
 
 
-#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship.png"
-#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship.png"
+#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship.png"
+#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship.png"
 
 GLuint load_texture(const char* file);
+#endif
