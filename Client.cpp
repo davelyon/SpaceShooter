@@ -35,19 +35,17 @@ Client::~Client(){
 	SDLNet_FreePacket(p);
 	SDLNet_Quit();
 }
-
-Enemy** Client::GetEnemyList(){
+int Client::GetArraySize(){
 	int quit = 0;
-	int arraySize = 0;
-		int count = 0;
-		int* params;
-	while (!quit)
+	int arraySize = -1;
+	while(!quit)
 	{
-		strcpy((char *)p->data, "ready");	
+		char * temp = new char[5];
+		strcpy(temp, "size");
+		p->data = (Uint8 *)temp;
 		p->address.host = srvadd.host;
 		p->address.port = srvadd.port;
- 
-		p->len = strlen((char *)p->data) + 1;
+		p->len = 5;
 		SDLNet_UDP_Send(sd, -1, p);
  		while(true){
 			if(SDLNet_UDP_Recv(sd, p)){
@@ -56,14 +54,21 @@ Enemy** Client::GetEnemyList(){
 				break;
 			}
 		}
-		cout <<"I'm out"<<endl;
+		delete[] temp;
+	return arraySize;
 	}
-		cout <<"true!" <<endl;
-	static Enemy *enemyList[100];
-	for (int i = 0; i < 100; i++)
-		enemyList[i] = new Enemy();
-	strcpy((char *)p->data, "ready");	
-	p->len = strlen((char *)p->data) + 1;
+}
+
+void Client::GetEnemyList(Enemy **enemyList){
+	/*int quit = 0;
+	int count = 0;
+	int* params;
+	char * temp = new char[6];
+	strcpy(temp, "ready");
+	p->data = (Uint8 *)temp;
+	p->address.host = srvadd.host;
+	p->address.port = srvadd.port;
+	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
 	while(true){
 		if(SDLNet_UDP_Recv(sd, p)){
@@ -73,11 +78,11 @@ Enemy** Client::GetEnemyList(){
 			char * r = (char *)p->data;
 			string b = r;
 			params = myParser->CreateMonsterObject(b);
+			cout << count << endl;
 			enemyList[count++]->update(params[0], params[1], params[2], params[3], params[4]);
 		}
 	}
-	char * asdf = new char[25];
-	enemyList[20]->toString(asdf);
-	printf("asdf, %s\n\n\n", asdf);
-	return enemyList;
+	cout << "leaving" << endl;*/
+	for(int i = 0; i < 5; i++)
+		enemyList[i]->update(3,3,3,3,3);
 }

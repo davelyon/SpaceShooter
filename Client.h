@@ -19,7 +19,8 @@ class Client{
 	public:
 		Client();
 		~Client();
-		Enemy** GetEnemyList();
+		void GetEnemyList(Enemy** enemyList);
+		int GetArraySize();
 
 
 };
