@@ -1,3 +1,1 @@
-this is a project for a 495 class
-touch! 
-I'll touch you!
+if the program throws a memory dump or seg fault it might be at the drawing of Enemies in GameLoop.cpp
