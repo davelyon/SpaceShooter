@@ -7,7 +7,14 @@
 #include <cstring>
 #include "Enemy.h"
 #include "SDL/SDL.h"
+
+#ifdef MAC_OSX_BUILD_MODE
+#include "SDL_net.h"
+#else
 #include "SDL/SDL_net.h"
+#endif	
+
+
 #include "Parser/Parser.h"
 class Client{
 	private:

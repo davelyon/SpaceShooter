@@ -2,7 +2,11 @@
 #define TheEnemy
 #include "Actor.h"
 #include <string>
+
+#ifndef SERVER_COMPILE_FLAG
 #include "Textures.h"
+#endif
+
 class Enemy : Actor
 {
 public:

@@ -1,12 +1,14 @@
 #ifndef TheActors
 #define TheActors
 
-#ifdef MAC_OS_X_VERSION_MIN_REQUIRED
-#include <SDL/SDL.h>
+
+#ifdef MAC_OSX_BUILD_MODE
+#ifndef SERVER_COMPILE_FLAG
 #include <SDL/SDL_opengl.h>
 #include <OpenGL/glu.h>
 #include <SDL/SDL_audio.h>
 #include "SDL_image.h"
+#endif
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <GL/gl.h>
