@@ -72,7 +72,7 @@ void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -24.0f);
-	glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+	glRotatef(-45.0f, 0.0f, 0.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
 	glDisable(GL_DEPTH_TEST);
