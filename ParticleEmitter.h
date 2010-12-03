@@ -21,7 +21,7 @@
 
 #include "Textures.h"
 
-#define MAX_PARTICLES 1000
+#define MAX_PARTICLES 300
 #define TRUE 1
 #define FALSE 0
 static GLfloat colors[12][3] =
@@ -75,6 +75,7 @@ public:
 	
 	// Called by gameloop to render all active particles
 	void renderParticles(int tick);
+	void UpdateShip(float ship_x, float ship_y);
 	
 	
 private:

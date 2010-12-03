@@ -41,7 +41,7 @@ void	ParticleEmitter::emitExploder(float xloc, float yloc) {
 void	ParticleEmitter::renderParticles(int tick){
 	
 	glLoadIdentity( );
-	glBindTexture(GL_TEXTURE_2D, load_texture("/Users/dave/Code/SpaceRedux/particle.bmp"));
+	glBindTexture(GL_TEXTURE_2D, load_texture("/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"));
 	/* Modify each of the particles */
 	for ( loop = 0; loop < MAX_PARTICLES; loop++ )
 	{
@@ -120,7 +120,12 @@ void	ParticleEmitter::renderSetup(void) {
 void	ParticleEmitter::renderTeardown(void) {
 	
 }
-
+void ParticleEmitter::UpdateShip(float ship_x, float ship_y){
+	for(int i = 0; i < MAX_PARTICLES; i++){
+		particles[i].x += ship_x;
+		particles[i].y += ship_y;
+	}
+}
 void ParticleEmitter::ResetParticle( int num, int color, float xDir, float yDir, float zDir )
 {
 	/* Make the particels active */
