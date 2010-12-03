@@ -55,8 +55,8 @@ int Client::GetArraySize(){
 			}
 		}
 		delete[] temp;
-	return arraySize;
 	}
+	return arraySize;
 }
 
 void Client::GetEnemyList(Enemy **enemyList){

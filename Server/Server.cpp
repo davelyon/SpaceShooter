@@ -8,16 +8,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "SDL/SDL.h"
+
+#ifdef MAC_OSX_BUILD_MODE
+#include "SDL_net.h"
+#else
 #include "SDL/SDL_net.h"
+#endif	
+
+
 #include "../Parser/Parser.h"
 #include "../Enemy.h"
 
+#include <SDL_main.h>
 using namespace std;
 void waitForUpdates();
 void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename);
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength);
 int lineCount(string fileName);
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	UDPsocket mySocketDesc;       /* Socket descriptor */
 	UDPpacket *p1, *p2, *p;       /* Pointer to packet memory */
