@@ -74,8 +74,7 @@ public:
 	void emitExploder(float xloc, float yloc);
 	
 	// Called by gameloop to render all active particles
-	void renderParticles(int tick);
-	void UpdateShip(float ship_x, float ship_y);
+	void renderParticles(int tick, float ship_x, float ship_y);
 	
 	
 private:
