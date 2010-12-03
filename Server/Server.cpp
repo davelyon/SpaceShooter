@@ -3,6 +3,7 @@ using namespace std;
 void waitForUpdates();
 void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename);
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength);
+void addScore(UDPpacket *p, UDPsocket sd);
 int lineCount(string fileName);
 int main(int argc, char *argv[])
 {
@@ -68,6 +69,8 @@ int main(int argc, char *argv[])
 				cout << "sending level" << endl;
 				sendLevel(p1, mySocketDesc, currentMonsters, numOfLines);
 				count = 0;
+			}else if (strcmp(incoming, "highScore") == 0){
+				addScore(p, mySocketDesc);
 			}
 		}
 	}		
@@ -75,6 +78,15 @@ int main(int argc, char *argv[])
 	SDLNet_FreePacket(p);
 	SDLNet_Quit();
 	return EXIT_SUCCESS;
+}
+void addScore(UDPpacket *p, UDPsocket sd){
+	while(!SDLNet_UDP_Recv(sd, p)){}
+	char * temp = new char[25];
+	strcpy(temp, (char *)p->data);
+	ofstream hsFile;
+	hsFile.open("HighScores.txt");
+	hsFile << temp << endl;
+	hsFile.close();
 }
 void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename){
 	Parser *myParser = new Parser();
