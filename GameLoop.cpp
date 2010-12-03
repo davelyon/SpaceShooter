@@ -10,7 +10,7 @@ GameLoop::GameLoop(){
 	client = new Client();
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
-	monster1 = new Enemy(0,0,0,0,100);
+	monster1 = new Enemy(0,5,-5,0,100);
 	for(int i = 0; i < 100; i++)
 		crazies[i] = new Enemy();
 	client->GetEnemyList(crazies);
@@ -86,8 +86,8 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	monster1->update();
-//	for(int i = 0; i < 5; i++)
-//		crazies[i]->update();
+	for(int i = 0; i < 5; i++)
+		crazies[i]->update();
 }
 
 void GameLoop::drawScene() {
@@ -96,8 +96,8 @@ void GameLoop::drawScene() {
 
 	player1->draw();
 	monster1->draw();
-//	for(int i = 0; i < 5; i++)
-//		crazies[i]->draw();
+	for(int i = 0; i < 5; i++)
+		crazies[i]->draw();
 	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
