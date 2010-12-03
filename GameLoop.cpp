@@ -13,6 +13,7 @@ GameLoop::GameLoop(){
 	monster1 = new Enemy(0,5,-5,0,100);
 	for(int i = 0; i < 100; i++)
 		crazies[i] = new Enemy();
+	size = client->GetArraySize();
 	client->GetEnemyList(crazies);
 }
 
@@ -87,7 +88,7 @@ void GameLoop::tickActors()
 	player1->update(tick, movePlayer);
 	monster1->update();
 	//partEmitter->UpdateShip(player1->getX(), player1->getY());
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < size; i++)
 		crazies[i]->update();
 }
 
@@ -97,7 +98,7 @@ void GameLoop::drawScene() {
 
 	player1->draw();
 	monster1->draw();
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 

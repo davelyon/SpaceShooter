@@ -57,6 +57,7 @@ public:
 	
 	int realtick;
 	int tick;
+	int size;
 	
 	int pausedBeganTick;
 	
