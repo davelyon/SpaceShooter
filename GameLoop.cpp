@@ -86,7 +86,7 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	monster1->update();
-	partEmitter->UpdateShip(tick, player1->getX(), player1->getY());
+	partEmitter->UpdateShip(player1->getX(), player1->getY());
 	for(int i = 0; i < 5; i++)
 		crazies[i]->update();
 }
