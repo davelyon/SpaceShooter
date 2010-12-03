@@ -96,11 +96,11 @@ void GameLoop::drawScene() {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 
+	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	player1->draw();
 	monster1->draw();
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
-	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 
 	SDL_GL_SwapBuffers();
 
