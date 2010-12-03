@@ -11,11 +11,11 @@ class Enemy : Actor
 {
 public:
 	Enemy();
-	Enemy(int uniqueID, int x, int y, int health, int pointValue);
+	Enemy(int uniqueID, float xI, float yI, int health, int pointValue);
 	virtual ~Enemy();
 	
 	// Actions
-	void 	update(int uID, int x, int y, int health, int pointValue);
+	void 	update(int uID, float xI, float y, int health, int pointValue);
 	void update();
 	void 	draw();
 	bool 	collideWith(Actor *anActor);

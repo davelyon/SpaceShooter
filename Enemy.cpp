@@ -19,13 +19,13 @@ Enemy::Enemy(){
 
 }
 
-Enemy::Enemy(int uID, int x, int y, int health, int pointValue) {
+Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
 	
 	this->isLiving = true;
-	this->location_x = (float)x;
-	this->location_y = (float)y;
+	this->location_x = xI;
+	this->location_y = yI;
 #ifndef SERVER_COMPILE_FLAG
 	this->texture = load_texture(PLAYER2);
 #endif
@@ -40,9 +40,9 @@ void Enemy::toString(char * output){
 	sprintf(output, "%d %f %f %d %d", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
 
 }
-void 	Enemy::update(int uID, int x, int y, int health, int pointValue) {
-	this->location_x += (float)x;
-	this->location_y += (float)y;
+void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
+	this->location_x = xI;
+	this->location_y = yI;
 	uniqueID = uID;
 	myHealth = health;
 	this->pointValue = pointValue;
