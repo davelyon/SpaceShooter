@@ -66,7 +66,7 @@ class ParticleEmitter {
 public:
 	// Constructor [Should be private... but not working >.<]
 	ParticleEmitter();
-	
+
 	// Create a 'laser' particle a the specified location
 	void emitLaser(float xloc, float yloc);
 	
@@ -86,7 +86,7 @@ private:
 	static ParticleEmitter *singletonInstance;
 	
 	int rainbow;   /* Toggle rainbow effect                              */
-	
+	GLuint texture;
 	float slowdown; /* Slow Down Particles                                */
 	float xspeed;          /* Base X Speed (To Allow Keyboard Direction Of Tail) */
 	float yspeed;          /* Base Y Speed (To Allow Keyboard Direction Of Tail) */
