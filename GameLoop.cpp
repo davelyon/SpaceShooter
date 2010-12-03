@@ -85,6 +85,9 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
+	monster1->update();
+//	for(int i = 0; i < 5; i++)
+//		crazies[i]->update();
 }
 
 void GameLoop::drawScene() {
@@ -92,8 +95,9 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	player1->draw();
-	for(int i = 0; i < 5; i++)
-		crazies[i]->draw();
+	monster1->draw();
+//	for(int i = 0; i < 5; i++)
+//		crazies[i]->draw();
 	partEmitter->renderParticles(0);
 
 	SDL_GL_SwapBuffers();
