@@ -103,4 +103,9 @@ void Player::shoot(int ticks) {
 	
 	++numLasers;
 }
-
+float Player::getX(){
+	return location_x;
+}
+float Player::getY(){
+	return location_y;
+}

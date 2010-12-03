@@ -22,6 +22,8 @@ public:
 	void	shoot(int ticks);
 	bool 	collideWith(Actor *anActor);
 	int 	points();
+	float getX();
+	float getY();
 	
 	
 private:
