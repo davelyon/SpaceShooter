@@ -15,7 +15,7 @@ ParticleEmitter::ParticleEmitter() {
 	rainbow = TRUE;    /* Toggle rainbow effect                              */
 	texture = load_texture(PARTICLE);
 	slowdown = 2.0f; /* Slow Down Particles                                */
-	zoom = -40.0f;   /* Used To Zoom Out                                   */
+	zoom = -24.0f;   /* Used To Zoom Out                                   */
 	col = 0;
 	
 	/* Reset all the particles */
@@ -41,7 +41,7 @@ void	ParticleEmitter::emitExploder(float xloc, float yloc) {
 void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 	
 	glLoadIdentity( );
-	glTranslatef(ship_x, ship_y, -24.0f);
+	glTranslatef(ship_x, ship_y-1.0f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	/* Modify each of the particles */
 	for ( loop = 0; loop < MAX_PARTICLES; loop++ )
