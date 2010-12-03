@@ -25,7 +25,9 @@ private:
 	int myHealth;
 	float location_x;
 	float location_y;	
+#ifndef SERVER_COMPILE_FLAG
 	GLuint texture;
+#endif
 };
 
 #endif

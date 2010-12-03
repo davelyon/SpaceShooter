@@ -69,6 +69,7 @@ void Enemy::update(){
 	}
 }
 void 	Enemy::draw() 	{
+#ifndef SERVER_COMPILE_FLAG
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -24.0f);
 	glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
@@ -84,7 +85,7 @@ void 	Enemy::draw() 	{
 		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
-
+#endif
 }
 bool 	Enemy::collideWith(Actor *anActor) {return false;}
 

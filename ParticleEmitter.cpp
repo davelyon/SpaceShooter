@@ -41,8 +41,8 @@ void	ParticleEmitter::emitExploder(float xloc, float yloc) {
 void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 	
 	glLoadIdentity( );
-	glTranslatef(ship_x, ship_y, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, load_texture("/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"));
+	glTranslatef(ship_x, ship_y, -24.0f);
+	glBindTexture(GL_TEXTURE_2D, load_texture(PARTICLE));
 	/* Modify each of the particles */
 	for ( loop = 0; loop < MAX_PARTICLES; loop++ )
 	{
