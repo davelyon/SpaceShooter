@@ -2,6 +2,7 @@
 #define TheEnemy
 #include "Actor.h"
 #include <string>
+#include "Textures.h"
 class Enemy : Actor
 {
 public:
@@ -11,6 +12,7 @@ public:
 	
 	// Actions
 	void 	update(int uID, int x, int y, int health, int pointValue);
+	void update();
 	void 	draw();
 	bool 	collideWith(Actor *anActor);
 	void toString(char * output);
