@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 
+
 Enemy::Enemy(){
 
 	this->pointValue = pointValue;
@@ -10,7 +11,9 @@ Enemy::Enemy(){
 	this->isLiving = true;
 	this->location_x = -5.0f;
 	this->location_y = -5.0f;
-	this->texture = load_texture("/home/msherman/videoGames/hold/SpaceShooter/ship.png");
+#ifndef SERVER_COMPILE_FLAG
+	this->texture = load_texture(PLAYER2);
+#endif	
 	uniqueID = 0;
 	myHealth = 0;
 
@@ -23,7 +26,9 @@ Enemy::Enemy(int uID, int x, int y, int health, int pointValue) {
 	this->isLiving = true;
 	this->location_x = (float)x;
 	this->location_y = (float)y;
-	this->texture = load_texture("/home/msherman/videoGames/hold/SpaceShooter/ship.bmp");
+#ifndef SERVER_COMPILE_FLAG
+	this->texture = load_texture(PLAYER2);
+#endif
 	uniqueID = uID;
 	myHealth = health;
 }
