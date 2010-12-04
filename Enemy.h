@@ -23,8 +23,15 @@ public:
 private:
 	int uniqueID;
 	int myHealth;
+	float start_x_loc;
+	float start_y_loc;
 	float location_x;
 	float location_y;	
+	bool spot;
+	void square();
+	void circle();
+	void diagonal();
+	void diamond();
 #ifndef SERVER_COMPILE_FLAG
 	GLuint texture;
 #endif
