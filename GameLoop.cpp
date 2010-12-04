@@ -33,7 +33,7 @@ void GameLoop::start() {
 }
 
 void GameLoop::run() {
-	printf("Tick: %d \n", tick);
+	//printf("Tick: %d \n", tick);
 	handleKeyInput();
 	tickLevel();
 	tickActors();
@@ -87,7 +87,6 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	monster1->update();
-	//partEmitter->UpdateShip(player1->getX(), player1->getY());
 	for(int i = 0; i < size; i++)
 		crazies[i]->update();
 }
