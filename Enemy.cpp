@@ -18,6 +18,7 @@ Enemy::Enemy(){
 #endif	
 	uniqueID = 0;
 	myHealth = 0;
+	movementPattern = (rand()%5)+1;
 
 }
 
@@ -35,6 +36,7 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 #endif
 	uniqueID = uID;
 	myHealth = health;
+	movementPattern = (rand()%5)+1;
 }
 
 Enemy::~Enemy() {
@@ -54,28 +56,28 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 }
 void Enemy::update(){
-/*	int direction = (rand()%4)+1;
-	switch(direction){
+	switch(movementPattern){
 		case 1:
-			this->location_x += 0.2f;
-			this->location_y += 0.2f;
+			square();
 			break;
 		case 2:
-			this->location_x += 0.2f;
-			this->location_y -= 0.2f;
+			vertical();
 			break;
 		case 3:
-			this->location_x -= 0.2f;
-			this->location_y += 0.2f;
+			sideways();
 			break;
 		case 4:
-			this->location_x -= 0.2f;
-			this->location_y -= 0.2f;
+			diamond();
 			break;
-	}*/
-	diamond();
-}
-void 	Enemy::draw() 	{
+		case 5:
+			diagonal();
+			break;
+		default:
+			sideways();
+			break;
+
+	}
+} void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -24.0f);
@@ -101,51 +103,70 @@ void Enemy::diamond(){
 	float x = location_x;
 	float sX = start_x_loc;
 	float y = location_y;
-	float sY = location_y;
-	if( x < 0)
-		x *=-1;
-	if( y < 0)
-		y *=-1;
-	if( sX < 0)
-		sX *=-1;
-	if( sY < 0)
-		sY *=-1;
-		if(sX+1 > x && sY+1 > y && !spot){
+	float sY = start_y_loc;
+	if(!spot){
+		if(x-sX < 2 && y-sY < 2){
 			location_x+= 0.1f;
 			location_y+= 0.1f;
 		}
-		else if(sX+2 > x && y > sY && !spot){
+		else if(x-sX < 4 && y-sY > 0){
 			location_x+= 0.1f;
 			location_y-= 0.1f;
-			if(x-sX == sX+1.9)
-				spot = true;
+		}else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 2 && y-sY > -2){
+			location_x -= 0.1f;
+			location_y -= 0.1f;
 		}
-		else if(x > sX+1 && y > sY-1 && spot){
-			location_x-= 0.1f;
-			location_y-= 0.1f;
-		}else if(x>sX && y < sY && spot){
+		else if( x > sX && y < sY){
+			location_x -= 0.1f;
+			location_y += 0.1f;
+			if(x-0.1 == sX)
+				spot = false;
+		}
+		else
+			spot = false;
+	}
+}
+void Enemy::vertical(){
+	float y = location_y;
+	float sY = start_y_loc;
+	if(!spot){
+		if(y-sY < 2){
+			location_y+= 0.1f;
+		}
+		else
+			spot = true;
+	}
+	if(spot){
+		if(y-sY > 0){
+			location_y-=0.1f;
+		}else
+			spot = false;
+	}
+}
+void Enemy::sideways(){
+	float x = location_x;
+	float sX = start_x_loc;
+	if(!spot){
+		if(x-sX < 2){
+			location_x+= 0.1f;
+		}
+		else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 0){
 			location_x-=0.1f;
-			location_y+=0.1f;
-			if(x - sX == .1)
-				spot = false;
-		}
-		/*if(x-sX < 4 && spot){
-			location_x+= 0.1f;
-			location_y-= 0.1f;
-			if(x-sX == 3.9)
-				spot = false;
-		}else if(spot){
-			location_x-= 0.1f;
-			location_y+= 0.1f;
-			if(x-sX == 2.1)
-				spot = false;
-		}*/
+		}else
+			spot = false;
+	}
 }
 void Enemy::diagonal(){
 	float x = location_x;
 	float sX = start_x_loc;
-	float y = location_y;
-	float sY = location_y;
 	if(!spot){
 		if(x-sX < 2){
 			location_x+= 0.1f;
@@ -166,23 +187,22 @@ void Enemy::square(){
 	float x = location_x;
 	float sX = start_x_loc;
 	float y = location_y;
-	float sY = location_y;
+	float sY = start_y_loc;
 	if(!spot){
-		if(y-sX < 2){
+		if(x-sX < 2){
 			location_x+= 0.1f;
 		}
-		/*else if(y-sY< 2){
+		else if(y-sY< 2){
 			location_y+=0.1f;
-			printf("y: %f\n", location_y);*/
-		else
+		}else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
 			location_x-=0.1f;
 		}
-		/*else if(y-sY > 0)
-			location_y-=0.1f;*/
+		else if(y-sY > 0)
+			location_y-=0.1f;
 		else
 			spot = false;
 	}
