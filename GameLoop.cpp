@@ -62,7 +62,7 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_SPACE:
 					player1->shoot(realtick);
-					soundManager->PlaySound("/home/msherman/videoGames/hold/SpaceShooter/laser2.wav");
+					//soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
 					break;
 				case SDLK_p:
 					paused = !paused;
