@@ -50,18 +50,28 @@ void 	Player::update(int ticks, int movedir) {
 	
 	for (int i = 0; i < numLasers; i++) {
 		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
+		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 2.0f;
 	}
 }
 void 	Player::draw() { 	
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -24.0f);
+	//glTranslatef(location_x,location_y, -24.0f);
+	glTranslatef(location_x,location_y,-8.0f);
+	glScalef(0.5f, 0.5f, 1.0f);
+	
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
+	
+	glMatrixMode(GL_MODELVIEW);
 	glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
+
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFunc(GL_ONE, GL_SRC_ALPHA);
 	
+
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
 		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
@@ -73,23 +83,63 @@ void 	Player::draw() {
 
 	// start laser drawing
 	
+	//glEnable(GL_DEPTH_TEST);
+
+	glLoadIdentity();
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glTranslatef(0.0f,0.0f, -8.0f);	
+	
+	glBindTexture(GL_TEXTURE_2D, this->texture);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_ONE, GL_SRC_ALPHA);
+	
+// glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
+//	glRotatef(lasers[i].accum_rotation, 1.0f, 0.0f, 0.0f);
+//	glRotatef(lasers[i].accum_rotation, 0.0f, 1.0f, 0.0f);
+//	glRotatef(lasers[i].accum_rotation, 0.0f, 0.0f, 1.0f);
+	
+	glScalef(0.2f, 0.2f, 1.0f);
+	
 	for (int i = 0; i < numLasers; i++) {
-		glLoadIdentity();
-		glTranslatef(lasers[i].x,lasers[i].y, -48.0f);
-		glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
-		glBindTexture(GL_TEXTURE_2D, this->texture);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		glBlendFunc(GL_ONE, GL_SRC_ALPHA);
-		glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
-			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
-			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
-		glEnd();
 		
+		float x = lasers[i].x;
+		float y = lasers[i].y;
+		glBegin(GL_QUADS);
+		
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(x-1.0f, y-1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(x+1.0f, y-1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(x+1.0f, y+1.0f,  1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(x-1.0f, y+1.0f,  1.0f);	// Top Left Of The Texture and Quad
+//			// Back Face
+//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
+//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
+//			// Top Face
+//			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+//			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+//			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+//			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+//			// Bottom Face
+//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
+//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
+//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+//			// Right face
+//			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
+//			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Top Left Of The Texture and Quad
+//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+//			// Left Face
+//			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
+//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Top Right Of The Texture and Quad
+//			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+		glEnd();
 	}
 	
-	glEnable(GL_DEPTH_TEST);
 	
 }
 bool 	Player::collideWith(Actor *anActor) {return false;}
@@ -98,8 +148,8 @@ int 	Player::points() 		{ return 0;}
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;
 	
-	lasers[numLasers].x = this->location_x - 0.45f;
-	lasers[numLasers].y = this->location_y + 0.75f;
+	lasers[numLasers].x = this->location_x;// - 0.45f;
+	lasers[numLasers].y = this->location_y;// + 0.75f;
 	
 	++numLasers;
 }

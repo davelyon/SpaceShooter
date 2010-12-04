@@ -15,7 +15,7 @@ ParticleEmitter::ParticleEmitter() {
 	rainbow = TRUE;    /* Toggle rainbow effect                              */
 	texture = load_texture(PARTICLE);
 	slowdown = 2.0f; /* Slow Down Particles                                */
-	zoom = -24.0f;   /* Used To Zoom Out                                   */
+	zoom = -8.0f;   /* Used To Zoom Out                                   */
 	col = 0;
 	
 	/* Reset all the particles */
@@ -39,10 +39,15 @@ void	ParticleEmitter::emitExploder(float xloc, float yloc) {
 }
 
 void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
-	
+	glMatrixMode(GL_TEXTURE_2D);
+	glLoadIdentity();
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity( );
 	glTranslatef(ship_x, ship_y-1.0f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, texture);
+	glScalef(0.3f, 0.3f, 1.0f);
 	/* Modify each of the particles */
 	for ( loop = 0; loop < MAX_PARTICLES; loop++ )
 	{
@@ -62,6 +67,8 @@ void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 								particles[loop].g,
 								particles[loop].b,
 								particles[loop].life );
+			
+			
 			
 			/* Build Quad From A Triangle Strip */
 			glBegin( GL_TRIANGLE_STRIP );

@@ -1,13 +1,14 @@
 #ifndef TheActualPlayer
 #define TheActualPlayer
 #include "Actor.h"
-
+#include "GLUT/glut.h"
 
 #define MAX_LASERS 30
 
 struct laser_shot {
 	float x;
 	float y;
+	float accum_rotation;
 };
 
 class Player : Actor 
