@@ -83,14 +83,15 @@ void Enemy::update(){
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -8.0f);
-	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(location_x,location_y, -48.0f);
+	//glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
 	//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	//glBlendFunc(GL_ONE, GL_SRC_ALPHA);
 	
-	glScalef(0.5f, 0.5f, 1.0f);
+	//glScalef(0.5f, 0.5f, 1.0f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	

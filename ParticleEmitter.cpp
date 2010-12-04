@@ -14,7 +14,7 @@ ParticleEmitter* ParticleEmitter::singletonInstance = NULL;
 ParticleEmitter::ParticleEmitter() {
 	rainbow = TRUE;    /* Toggle rainbow effect                              */
 	texture = load_texture(PARTICLE);
-	slowdown = 2.0f; /* Slow Down Particles                                */
+	slowdown = 4.0f; /* Slow Down Particles                                */
 	zoom = -8.0f;   /* Used To Zoom Out                                   */
 	col = 0;
 	
@@ -137,11 +137,11 @@ void ParticleEmitter::ResetParticle( int num, int color, float xDir, float yDir,
 	/* Random Fade Speed */
 	particles[num].fade = ( float )( rand( ) %100 ) / 1000.0f + 0.003f;
 	/* Select Red Rainbow Color */
-	particles[num].r = colors[color][0];
+	particles[num].r = colors[rand() % 3][0];
 	/* Select Green Rainbow Color */
-	particles[num].g = colors[color][1];
+	particles[num].g = colors[rand() % 3][1];
 	/* Select Blue Rainbow Color */
-	particles[num].b = colors[color][2];
+	particles[num].b = colors[rand() % 3][2];
 	/* Set the position on the X axis */
 	particles[num].x = 0.0f;
 	/* Set the position on the Y axis */

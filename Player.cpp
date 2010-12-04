@@ -50,7 +50,7 @@ void 	Player::update(int ticks, int movedir) {
 	
 	for (int i = 0; i < numLasers; i++) {
 		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
-		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 2.0f;
+		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 16.0f;
 	}
 }
 void 	Player::draw() { 	
@@ -78,6 +78,7 @@ void 	Player::draw() {
 
 	
 	glBindTexture(GL_TEXTURE_2D, this->shotTexture);
+	glColor4f(0.0f, 0.7f, 0.0f, 0.8f);
 	//
 	for (int i = 0; i < numLasers; i++) {
 				
@@ -87,7 +88,9 @@ void 	Player::draw() {
 		glLoadIdentity();
 		glTranslatef(x,y, -8.0f);	
 		glScalef(0.2f, 0.2f, 0.2f);
-		glRotatef(lasers[i].accum_rotation, 1.0f, 1.0f, 0.6f);
+		glRotatef(lasers[i].accum_rotation, 1.0f, 0.0f, 0.0f);
+		glRotatef(lasers[i].accum_rotation, 0.0f, 1.0f, 0.0f);
+		glRotatef(lasers[i].accum_rotation, 0.0f, 0.0f, 0.6f);
 		glBegin(GL_QUADS);
 		
 			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  -1.0f);	// Bottom Left Of The Texture and Quad

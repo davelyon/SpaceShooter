@@ -16,7 +16,7 @@ GLuint load_texture(const char* file)
     // handle error
 	}
 	GLuint texture;
-	//glPixelStorei(GL_UNPACK_ALIGNMENT,4);
+	glPixelStorei(GL_UNPACK_ALIGNMENT,4);
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, surface->w, surface->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
