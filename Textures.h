@@ -14,8 +14,8 @@
 
 
 #ifdef MAC_OSX_BUILD_MODE
-#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship.png"
-#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship.png"
+#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship2.png"
+#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship2.png"
 #define PARTICLE "/Users/dave/Code/SpaceRedux/particle.bmp"
 #else
 #define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship.png"

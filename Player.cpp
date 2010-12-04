@@ -16,7 +16,7 @@ Player::Player(int playerNumber) {
 	this->location_y = 0.0f;
 	
 	this->texture = load_texture(PLAYER1);
-	
+	this->shotTexture = load_texture(PARTICLE);
 	this->numLasers = 0;
 }
 
@@ -55,88 +55,70 @@ void 	Player::update(int ticks, int movedir) {
 }
 void 	Player::draw() { 	
 	glLoadIdentity();
-	//glTranslatef(location_x,location_y, -24.0f);
 	glTranslatef(location_x,location_y,-8.0f);
 	glScalef(0.5f, 0.5f, 1.0f);
 	
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	
 	glMatrixMode(GL_MODELVIEW);
-	glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
 
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	
-	//glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_ONE, GL_SRC_ALPHA);
-	
-
+	glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
 		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
 		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
-	
-	// end player drawing 
-
-	// start laser drawing
-	
-	//glEnable(GL_DEPTH_TEST);
-
-	glLoadIdentity();
+	glFlush();
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glTranslatef(0.0f,0.0f, -8.0f);	
 	
-	glBindTexture(GL_TEXTURE_2D, this->texture);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_ONE, GL_SRC_ALPHA);
+
 	
-// glRotatef(135.0f, 0.0f, 0.0f, 1.0f);
-//	glRotatef(lasers[i].accum_rotation, 1.0f, 0.0f, 0.0f);
-//	glRotatef(lasers[i].accum_rotation, 0.0f, 1.0f, 0.0f);
-//	glRotatef(lasers[i].accum_rotation, 0.0f, 0.0f, 1.0f);
-	
-	glScalef(0.2f, 0.2f, 1.0f);
-	
+	glBindTexture(GL_TEXTURE_2D, this->shotTexture);
+	//
 	for (int i = 0; i < numLasers; i++) {
-		
+				
 		float x = lasers[i].x;
 		float y = lasers[i].y;
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		glTranslatef(x,y, -8.0f);	
+		glScalef(0.2f, 0.2f, 0.2f);
+		glRotatef(lasers[i].accum_rotation, 1.0f, 1.0f, 0.6f);
 		glBegin(GL_QUADS);
 		
-			glTexCoord2f(0.0f, 0.0f); glVertex3f(x-1.0f, y-1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-			glTexCoord2f(1.0f, 0.0f); glVertex3f(x+1.0f, y-1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-			glTexCoord2f(1.0f, 1.0f); glVertex3f(x+1.0f, y+1.0f,  1.0f);	// Top Right Of The Texture and Quad
-			glTexCoord2f(0.0f, 1.0f); glVertex3f(x-1.0f, y+1.0f,  1.0f);	// Top Left Of The Texture and Quad
-//			// Back Face
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-//			// Top Face
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			// Bottom Face
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-//			// Right face
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-//			// Left Face
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Top Right Of The Texture and Quad
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  -1.0f);	// Bottom Left Of The Texture and Quad
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f,  -1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.0f,  -1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.0f,  -1.0f);	// Top Left Of The Texture and Quad
+			// Back Face
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
+			// Top Face
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+			// Bottom Face
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+			// Right face
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Top Left Of The Texture and Quad
+			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
+			// Left Face
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
+			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
+			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Top Right Of The Texture and Quad
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
 		glEnd();
 	}
 	
@@ -147,9 +129,9 @@ int 	Player::points() 		{ return 0;}
 
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;
-	
-	lasers[numLasers].x = this->location_x;// - 0.45f;
-	lasers[numLasers].y = this->location_y;// + 0.75f;
+	printf("Shot from...(%f,%f)", location_x, location_y);
+	lasers[numLasers].x = this->location_x;
+	lasers[numLasers].y = this->location_y;
 	
 	++numLasers;
 }

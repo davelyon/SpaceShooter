@@ -1,7 +1,6 @@
 #ifndef TheActualPlayer
 #define TheActualPlayer
 #include "Actor.h"
-#include "GLUT/glut.h"
 
 #define MAX_LASERS 30
 
@@ -32,6 +31,7 @@ private:
 	float location_x;
 	float location_y;
 	GLuint texture;
+	GLuint shotTexture;
 
 	int numLasers;
 	struct laser_shot lasers[MAX_LASERS];

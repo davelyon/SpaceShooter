@@ -37,16 +37,21 @@ static void initGL ()
 	gluPerspective (45,WIDTH/HEIGHT,0.1,100);
 	glMatrixMode (GL_MODELVIEW);
 	glLoadIdentity();
-	glEnable (GL_DEPTH_TEST);
+	
+	//glEnable (GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	
 	glShadeModel(GL_SMOOTH);						// Enable Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);					
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);					
 	glClearDepth(1.0f);							// Depth Buffer Setup
 	glDepthFunc(GL_LEQUAL);							// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Really Nice Perspective Calculations
 	glEnable(GL_BLEND);					// Enable Blending
+	
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+	//glBlendFunc(GL_ONE, GL_SRC_ALPHA);
 
+	//glBlendColor(0, 0, 0, 1);
 }
 
 static void mainLoop ()

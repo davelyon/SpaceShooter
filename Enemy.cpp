@@ -79,14 +79,18 @@ void Enemy::update(){
 	}
 } void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
+	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -24.0f);
-	glRotatef(-45.0f, 0.0f, 0.0f, 1.0f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(location_x,location_y, -8.0f);
+	glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_ONE, GL_SRC_ALPHA);
+	//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_ONE, GL_SRC_ALPHA);
+	
+	glScalef(0.5f, 0.5f, 1.0f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
@@ -106,23 +110,23 @@ void Enemy::diamond(){
 	float sY = start_y_loc;
 	if(!spot){
 		if(x-sX < 2 && y-sY < 2){
-			location_x+= 0.1f;
-			location_y+= 0.1f;
+			location_x+= 0.005f;
+			location_y+= 0.005f;
 		}
 		else if(x-sX < 4 && y-sY > 0){
-			location_x+= 0.1f;
-			location_y-= 0.1f;
+			location_x+= 0.005f;
+			location_y-= 0.005f;
 		}else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 2 && y-sY > -2){
-			location_x -= 0.1f;
-			location_y -= 0.1f;
+			location_x -= 0.005f;
+			location_y -= 0.005f;
 		}
 		else if( x > sX && y < sY){
-			location_x -= 0.1f;
-			location_y += 0.1f;
+			location_x -= 0.005f;
+			location_y += 0.005f;
 			if(x-0.1 == sX)
 				spot = false;
 		}
@@ -135,14 +139,14 @@ void Enemy::vertical(){
 	float sY = start_y_loc;
 	if(!spot){
 		if(y-sY < 2){
-			location_y+= 0.1f;
+			location_y+= 0.005f;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(y-sY > 0){
-			location_y-=0.1f;
+			location_y-=0.005f;
 		}else
 			spot = false;
 	}
@@ -152,14 +156,14 @@ void Enemy::sideways(){
 	float sX = start_x_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.1f;
+			location_x+= 0.005f;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.1f;
+			location_x-=0.005f;
 		}else
 			spot = false;
 	}
@@ -169,16 +173,16 @@ void Enemy::diagonal(){
 	float sX = start_x_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.1f;
-			location_y+= 0.1f;
+			location_x+= 0.005f;
+			location_y+= 0.005f;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.1f;
-			location_y-=0.1f;
+			location_x-=0.005f;
+			location_y-=0.005f;
 		}else
 			spot = false;
 	}
@@ -190,19 +194,19 @@ void Enemy::square(){
 	float sY = start_y_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.1f;
+			location_x+= 0.005f;
 		}
 		else if(y-sY< 2){
-			location_y+=0.1f;
+			location_y+=0.005f;
 		}else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.1f;
+			location_x-=0.005f;
 		}
 		else if(y-sY > 0)
-			location_y-=0.1f;
+			location_y-=0.005f;
 		else
 			spot = false;
 	}

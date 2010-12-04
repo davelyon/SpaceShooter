@@ -19,8 +19,8 @@ GLuint load_texture(const char* file)
 	//glPixelStorei(GL_UNPACK_ALIGNMENT,4);
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexImage2D(GL_TEXTURE_2D, 0, 3, surface->w, surface->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, surface->w, surface->h, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, surface->w, surface->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
+	//gluBuild2DMipmaps(GL_TEXTURE_2D, 3, surface->w, surface->h, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
 	
