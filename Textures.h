@@ -18,8 +18,8 @@
 #define PLAYER2 "/Users/dave/Code/SpaceRedux/ship2.png"
 #define PARTICLE "/Users/dave/Code/SpaceRedux/particle.bmp"
 #else
-#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship.png"
-#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship.png"
+#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship2.png"
+#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship2.png"
 #define PARTICLE "/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"
 #endif
 
