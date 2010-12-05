@@ -7,7 +7,7 @@ void addScore(UDPpacket *p, UDPsocket sd);
 int lineCount(string fileName);
 int main(int argc, char *argv[])
 {
-	UDPsocket mySocketDesc;       /* Socket descriptor */
+	UDPsocket mySocketDesc, p1SocketDesc;       /* Socket descriptor */
 	UDPpacket *p1, *p2, *p;       /* Pointer to packet memory */
 	IPaddress p1IpAddress, p2IpAddress;
 	int quit;
@@ -20,7 +20,12 @@ int main(int argc, char *argv[])
 	}
  
 	/* Open a socket */
-	if (!(mySocketDesc = SDLNet_UDP_Open(12345)))
+	if (!(mySocketDesc = SDLNet_UDP_Open(18844)))
+	{
+		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+	if (!(p1SocketDesc = SDLNet_UDP_Open(16644)))
 	{
 		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -71,6 +76,8 @@ int main(int argc, char *argv[])
 				count = 0;
 			}else if (strcmp(incoming, "highScore") == 0){
 				addScore(p, mySocketDesc);
+			}else if (strcmp(incoming, "two") == 0){
+				cout << incoming << endl;
 			}
 		}
 		SDL_Delay(100);
