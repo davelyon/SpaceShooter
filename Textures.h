@@ -9,9 +9,12 @@
 #include <math.h>
 #else // Linux includes
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_opengl.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "SDL/SDL_image.h"
+#include <math.h>
 #endif
 
 
