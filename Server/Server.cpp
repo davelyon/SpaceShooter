@@ -77,7 +77,6 @@ int main(int argc, char *argv[])
 	PlayerTwo.y_Position = 0;
 	PlayerTwo.ready = false;
 	while (true) {
-	cout << "Player 1: " << PlayerOne.port << " Player 2: " << PlayerTwo.port << endl;
 		if (SDLNet_UDP_Recv(mySocketDesc, p)){
 			char * incoming = (char *) p->data;
 			if(strcmp(incoming, "size") == 0){
