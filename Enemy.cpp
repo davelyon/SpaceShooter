@@ -9,9 +9,9 @@ Enemy::Enemy(){
 	this->owner = OWNER_GAME;
 	
 	this->isLiving = true;
-	this->location_x = -5.0f;
+	this->location_x = 0.0f;
 	this->start_x_loc = this->location_x;
-	this->location_y = -5.0f;
+	this->location_y = 0.0f;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
 	this->texture = load_texture(PLAYER2);
@@ -27,9 +27,9 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->owner = OWNER_GAME;
 	
 	this->isLiving = true;
-	this->location_x = xI;
+	this->location_x = xI / 64.0f;
 	this->start_x_loc = this->location_x;
-	this->location_y = yI;
+	this->location_y = yI / 64.0f;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
 	this->texture = load_texture(PLAYER2);
@@ -84,15 +84,12 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -48.0f);
+	glTranslatef(location_x,location_y, -8.0f);
 	//glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	//glBlendFunc(GL_ONE, GL_SRC_ALPHA);
-	
-	//glScalef(0.5f, 0.5f, 1.0f);
+	glScalef(0.2f, 0.2f, 0.01f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
@@ -111,11 +108,11 @@ void Enemy::diamond(float movement){
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
-		if(x-sX < 2 && y-sY < 2){
+		if(x-sX < 1 && y-sY < 1){
 			location_x+= movement;
 			location_y+= movement;
 		}
-		else if(x-sX < 4 && y-sY > 0){
+		else if(x-sX < 2 && y-sY > 0){
 			location_x+= movement;
 			location_y-= movement;
 		}else

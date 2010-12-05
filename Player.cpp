@@ -50,10 +50,27 @@ void 	Player::update(int ticks, int movedir) {
 	
 	for (int i = 0; i < numLasers; i++) {
 		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
-		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 16.0f;
+		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 2.0f;
 	}
+	
+	if(location_x > 2.4f) {
+		location_x = 2.4f;
+	}
+	
+	if(location_x < -2.4f) {
+		location_x = -2.4f;
+	}
+	
+	if(location_y > 2.9f) {
+		location_y = 2.9f;
+	}
+	
+	if(location_y < -2.9f) {
+		location_y = -2.9f;
+	}
+	
 }
-void 	Player::draw() { 	
+void 	Player::draw() {
 	glLoadIdentity();
 	glTranslatef(location_x,location_y,-8.0f);
 	glScalef(0.5f, 0.5f, 1.0f);
@@ -133,6 +150,7 @@ int 	Player::points() 		{ return 0;}
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;
 	printf("Shot from...(%f,%f)", location_x, location_y);
+	
 	lasers[numLasers].x = this->location_x;
 	lasers[numLasers].y = this->location_y;
 	
