@@ -35,6 +35,9 @@ Client::~Client(){
 	SDLNet_FreePacket(p);
 	SDLNet_Quit();
 }
+void Client::TellPlayerAmount(int players){
+
+}
 int Client::GetArraySize(){
 	int quit = 0;
 	int arraySize = -1;

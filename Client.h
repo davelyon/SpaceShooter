@@ -28,6 +28,7 @@ class Client{
 		~Client();
 		void GetEnemyList(Enemy** enemyList);
 		int GetArraySize();
+		void TellPlayerAmount(int players);
 
 
 };
