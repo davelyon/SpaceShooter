@@ -71,6 +71,7 @@ public:
 	bool running;
 
 	Player *player1;
+	Player *player2;
 	Enemy *monster1;
 	Enemy *crazies[100];
 	Client *client;
