@@ -25,7 +25,9 @@ class Client{
 		
 	public:
 		Client();
+		Client(int a);
 		~Client();
+		void NoServerCall(int numOfLines, Enemy **currentMonsters, string filename);
 		void GetEnemyList(Enemy** enemyList);
 		int GetArraySize();
 		void TellPlayerAmount(int players);

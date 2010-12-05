@@ -85,3 +85,24 @@ void Client::GetEnemyList(Enemy **enemyList){
 		}
 	}
 }
+Client::Client(int a){
+	myParser = new Parser();
+}
+void Client::NoServerCall(int numOfLines, Enemy **currentMonsters, string filename){
+	/* read the line. parse the line. create the monster. quit at eof*/
+	ifstream openForParse;
+	int count = 0;
+	openForParse.open(filename.c_str());
+	int* constructParams;
+	while(count < numOfLines && !openForParse.eof()){
+	//read the line
+		string needsParsing;
+		getline(openForParse, needsParsing);
+	//parse the file.
+		constructParams = myParser->CreateMonsterObject(needsParsing);
+	//create the monster
+		currentMonsters[count++]->update(constructParams[0], (float)constructParams[1], (float)constructParams[2], constructParams[3], constructParams[4]);
+	}
+
+	openForParse.close();
+}
