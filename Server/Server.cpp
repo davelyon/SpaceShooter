@@ -73,7 +73,8 @@ int main(int argc, char *argv[])
 				addScore(p, mySocketDesc);
 			}
 		}
-	}		
+		SDL_Delay(100);
+	}
 	/* Clean and exit */
 	SDLNet_FreePacket(p);
 	SDLNet_Quit();
