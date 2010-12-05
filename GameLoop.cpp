@@ -6,6 +6,7 @@ GameLoop::GameLoop(){
 	paused = true;
 	running = true;
 	player1 = new Player(1);
+	player2 = new Player(2);
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	monster1 = new Enemy(0,5,-5,0,100);
@@ -133,6 +134,7 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
+	client->Position(player1->getX(), player1->getY(), player2);
 	monster1->update(tick);
 	for(int i = 0; i < size; i++)
 		crazies[i]->update(tick);
@@ -144,6 +146,7 @@ void GameLoop::drawScene() {
 
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	player1->draw();
+	//player2->draw();
 	monster1->draw();
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
