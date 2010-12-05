@@ -1,13 +1,22 @@
 #include "Server.h"
 using namespace std;
-void waitForUpdates();
 void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename);
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength);
 void addScore(UDPpacket *p, UDPsocket sd);
 int lineCount(string fileName);
+int numOfLines = 0;
+struct CurrentPlayer{
+	int port;
+	unsigned int host;
+	int score;
+	float x_Position;
+	float y_Position;
+	bool ready;
+};
+void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **currentMonsters, UDPpacket *p, UDPsocket mySocketDesc);
 int main(int argc, char *argv[])
 {
-	UDPsocket mySocketDesc, p1SocketDesc;       /* Socket descriptor */
+	UDPsocket mySocketDesc;       /* Socket descriptor */
 	UDPpacket *p1, *p2, *p;       /* Pointer to packet memory */
 	IPaddress p1IpAddress, p2IpAddress;
 	int quit;
@@ -21,11 +30,6 @@ int main(int argc, char *argv[])
  
 	/* Open a socket */
 	if (!(mySocketDesc = SDLNet_UDP_Open(18844)))
-	{
-		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
-	}
-	if (!(p1SocketDesc = SDLNet_UDP_Open(16644)))
 	{
 		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -49,7 +53,7 @@ int main(int argc, char *argv[])
 	}
  
 	/* Main loop */
-	int numOfLines = lineCount("level1.txt");
+	numOfLines = lineCount("level1.txt");
 	Enemy *currentMonsters[numOfLines];
 	if(numOfLines > 0){
 		for(int i = 0; i < numOfLines; i++)
@@ -57,27 +61,53 @@ int main(int argc, char *argv[])
 		createMonsterArray(numOfLines, currentMonsters, "level1.txt");
 	}
 	int count = 0;
-	while (true)
-	{
-		if (SDLNet_UDP_Recv(mySocketDesc, p1)){
-			char * incoming = (char *) p1->data;
-			cout <<(char *) p1->data << endl;
+	bool firstPlayerSignedIn = false;
+	CurrentPlayer PlayerOne;
+	PlayerOne.port = 0;
+	PlayerOne.host = 0;
+	PlayerOne.score = 0;
+	PlayerOne.x_Position = 0;
+	PlayerOne.y_Position = 0;
+	PlayerOne.ready = false;
+	CurrentPlayer PlayerTwo; 
+	PlayerTwo.port = 0;
+	PlayerTwo.host = 0;
+	PlayerTwo.score = 0;
+	PlayerTwo.x_Position = 0;
+	PlayerTwo.y_Position = 0;
+	PlayerTwo.ready = false;
+	while (true) {
+	cout << "Player 1: " << PlayerOne.port << " Player 2: " << PlayerTwo.port << endl;
+		if (SDLNet_UDP_Recv(mySocketDesc, p)){
+			char * incoming = (char *) p->data;
 			if(strcmp(incoming, "size") == 0){
 				cout << "sending size" << endl;
 				char * temp = new char[25];
 				sprintf(temp, "%d", numOfLines);
-				strcpy((char *)p1->data, temp);
-				p1->len = strlen((char *)p1->data)+1;
-				SDLNet_UDP_Send(mySocketDesc, -1, p1);
+				strcpy((char *)p->data, temp);
+				p->len = strlen((char *)p->data)+1;
+				SDLNet_UDP_Send(mySocketDesc, -1, p);
 				delete [] temp;
 			}else if (strcmp(incoming, "ready") == 0){
 				cout << "sending level" << endl;
-				sendLevel(p1, mySocketDesc, currentMonsters, numOfLines);
+				sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
 				count = 0;
+				if(SDLNet_Read16(&(p->address.port)) == PlayerOne.port)
+					PlayerOne.ready = true;
+				else if(SDLNet_Read16(&(p->address.port)) == PlayerTwo.port)
+					PlayerTwo.ready = true;
+				if(PlayerOne.ready && PlayerTwo.ready){
+					waitForUpdates(PlayerOne, PlayerTwo, currentMonsters, p, mySocketDesc);
+					PlayerOne.port = PlayerTwo.port = 0;
+					PlayerOne.ready = PlayerTwo.ready = false;
+				}
 			}else if (strcmp(incoming, "highScore") == 0){
 				addScore(p, mySocketDesc);
 			}else if (strcmp(incoming, "two") == 0){
-				cout << incoming << endl;
+				if(PlayerOne.port == 0)
+					PlayerOne.port = SDLNet_Read16(&(p->address.port));
+				if(SDLNet_Read16(&(p->address.port)) != PlayerOne.port && PlayerOne.port != PlayerTwo.port)
+					PlayerTwo.port = SDLNet_Read16(&(p->address.port));
 			}
 		}
 		SDL_Delay(100);
@@ -121,17 +151,38 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	while (count < arrayLength){
 		currentMonsters[count++]->toString(temp);
 		p->data =(Uint8 *) temp;
-		cout << endl;
 		p->len = strlen(temp)+1;
-		printf("sendLevel: %s\n", temp);
 		SDLNet_UDP_Send(sd, -1, p);
 	}
 	strcpy((char *)p->data, "quit");
 	p->len = 5;
 	SDLNet_UDP_Send(sd, -1, p);
 }
-void waitForUpdates(){
-	
+void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **currentMonsters, UDPpacket *p, UDPsocket mySocketDesc){
+	while (true) {
+		if (SDLNet_UDP_Recv(mySocketDesc, p)){
+			char * incoming = (char *) p->data;
+			if(strcmp(incoming, "size") == 0){
+				char * temp = new char[25];
+				sprintf(temp, "%d", numOfLines);
+				strcpy((char *)p->data, temp);
+				p->len = strlen((char *)p->data)+1;
+				SDLNet_UDP_Send(mySocketDesc, -1, p);
+				delete [] temp;
+			}else if (strcmp(incoming, "ready") == 0){
+				cout << "sending level" << endl;
+				sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
+			}else if (strcmp(incoming, "highScore") == 0){
+				addScore(p, mySocketDesc);
+			}else if (strcmp(incoming, "two") == 0){
+				if(PlayerOne == 0)
+					PlayerOne = SDLNet_Read16(&(p->address.port));
+				if(SDLNet_Read16(&(p->address.port)) != PlayerOne && PlayerOne != PlayerTwo)
+					PlayerTwo = SDLNet_Read16(&(p->address.port));
+			}
+		}
+		SDL_Delay(100);
+	}
 
 	cout << "finished" <<endl;
 
