@@ -86,9 +86,9 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	monster1->update();
+	monster1->update(tick);
 	for(int i = 0; i < size; i++)
-		crazies[i]->update();
+		crazies[i]->update(tick);
 }
 
 void GameLoop::drawScene() {
