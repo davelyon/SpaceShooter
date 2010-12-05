@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include "Enemy.h"
+#include "Player.h"
 #include "SDL/SDL.h"
 
 #ifdef MAC_OSX_BUILD_MODE
@@ -31,6 +32,7 @@ class Client{
 		void GetEnemyList(Enemy** enemyList);
 		int GetArraySize();
 		void TellPlayerAmount(int players);
+		void Position(float x, float y, Player *otherPlayer);
 
 
 };
