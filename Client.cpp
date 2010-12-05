@@ -49,6 +49,23 @@ void Client::TellPlayerAmount(int players){
 	p->len = 4;
 	SDLNet_UDP_Send(sd, -1, p);
 }
+void Client::Position(float x, float y, Player* otherPlayer){
+	char * temp = new char[23];
+	sprintf(temp, "position %f %f", x, y);
+	strcpy((char *)p->data, temp);
+	p->len = strlen((char *)p->data);
+	SDLNet_UDP_Send(sd, -1, p);
+	while(true){
+		if(SDLNet_UDP_Recv(sd, p)){
+			float * a;
+			a = myParser->OtherPlayer((char *) p->data);
+			cout <<"x: " << a[0] << " y: " << a[1] <<endl;
+			otherPlayer->setX(a[0]);
+			otherPlayer->setY(a[1]);
+			break;
+		}
+	}
+}
 int Client::GetArraySize(){
 	int quit = 0;
 	int arraySize = -1;
@@ -57,8 +74,6 @@ int Client::GetArraySize(){
 		char * temp = new char[5];
 		strcpy(temp, "size");
 		p->data = (Uint8 *)temp;
-		p->address.host = srvadd.host;
-		p->address.port = srvadd.port;
 		p->len = 5;
 		SDLNet_UDP_Send(sd, -1, p);
  		while(true){
@@ -80,8 +95,6 @@ void Client::GetEnemyList(Enemy **enemyList){
 	char * temp = new char[6];
 	strcpy(temp, "ready");
 	p->data = (Uint8 *)temp;
-	p->address.host = srvadd.host;
-	p->address.port = srvadd.port;
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
 	while(true){
