@@ -28,7 +28,7 @@ GameLoop::GameLoop(){
 #ifdef MAC_OSX_BUILD_MODE	
 	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
 #else
-	font = TTF_OpenFont("", 18);
+	font = TTF_OpenFont("/home/msherman/videoGames/hold/SpaceShooter/Anonymous_Pro.ttf", 18);
 #endif
 	if(!font) {
     printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -72,19 +72,24 @@ void GameLoop::handleKeyInput()
 		if (event.type==SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 				case SDLK_DOWN:
-					movePlayer = MOVE_DOWN;
+					if(!paused)
+						movePlayer = MOVE_DOWN;
 					break;
 				case SDLK_UP:
-					movePlayer = MOVE_UP;
+					if(!paused)
+						movePlayer = MOVE_UP;
 					break;
 				case SDLK_LEFT:
-					movePlayer = MOVE_LEFT;
+					if(!paused)
+						movePlayer = MOVE_LEFT;
 					break;
 				case SDLK_RIGHT:
-					movePlayer = MOVE_RIGHT;
+					if(!paused)
+						movePlayer = MOVE_RIGHT;
 					break;
 				case SDLK_SPACE:
-					player1->shoot(realtick);
+					if(!paused)
+						player1->shoot(realtick);
 					//soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
 					break;
 				case SDLK_p:
