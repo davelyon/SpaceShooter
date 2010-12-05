@@ -30,7 +30,7 @@ GLuint load_texture(const char* file)
 	
 	
 	/* Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit */
-	if ( ( surface = SDL_LoadBMP( "data/particle.bmp" ) ) )
+	if ( ( surface = SDL_LoadBMP( file ) ) )
 	{
 		/* Create The Texture */
 		glGenTextures( 1, &texture );
@@ -47,6 +47,7 @@ GLuint load_texture(const char* file)
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	}
-	
+	SDL_FreeSurface(surface);
+
 	return texture;
 }
