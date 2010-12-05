@@ -171,7 +171,10 @@ void GameLoop::pauseWait() {
 	location.x = 270;
 	location.y = 350;
 	SDL_Color color = {255,255,255};
-	SDL_GL_RenderText("Game Paused.", font, color, &location);
+	char * GamePause= new char[13];
+	strcpy(GamePause, "Game Paused.");
+	SDL_GL_RenderText(GamePause, font, color, &location);
+	delete[] GamePause;
 	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
 
@@ -186,7 +189,10 @@ void GameLoop::waitForStart() {
 	location.x = 270;
 	location.y = 350;
 	SDL_Color color = {255,255,255};
-	SDL_GL_RenderText("Press Start.", font, color, &location);
+	char * StartButton = new char[13];
+	strcpy(StartButton, "Press Start");
+	SDL_GL_RenderText(StartButton, font, color, &location);
+	delete[] StartButton;
 	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
 	
