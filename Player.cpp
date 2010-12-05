@@ -174,3 +174,9 @@ float Player::getX(){
 float Player::getY(){
 	return location_y;
 }
+void Player::setX(float x){
+	this->location_x = x;
+}
+void Player::setY(float y){
+	this->location_y = y;
+}
