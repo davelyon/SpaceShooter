@@ -25,9 +25,11 @@ GameLoop::GameLoop(){
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
 	}
-	
+#ifdef MAC_OSX_BUILD_MODE	
 	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
-	
+#else
+	font = TTF_OpenFont("", 18);
+#end
 	if(!font) {
     printf("TTF_OpenFont: %s\n", TTF_GetError());
     exit(7);
