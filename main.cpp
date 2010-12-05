@@ -21,6 +21,7 @@
 #define WIDTH 640.0f
 #define HEIGHT 800.0f
 
+
 static void createSurface (int fullscreen)
 {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);

@@ -18,6 +18,7 @@ Player::Player(int playerNumber) {
 	this->texture = load_texture(PLAYER1);
 	this->shotTexture = load_texture(PARTICLE);
 	this->numLasers = 0;
+	
 }
 
 Player::~Player() {}
@@ -88,7 +89,7 @@ void 	Player::draw() {
 		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
-	glFlush();
+	glFinish();
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	
@@ -141,8 +142,8 @@ void 	Player::draw() {
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
 		glEnd();
 	}
-	
-	
+	glFinish();
+		
 }
 bool 	Player::collideWith(Actor *anActor) {return false;}
 int 	Player::points() 		{ return 0;}

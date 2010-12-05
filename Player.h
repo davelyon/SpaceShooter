@@ -1,7 +1,6 @@
 #ifndef TheActualPlayer
 #define TheActualPlayer
 #include "Actor.h"
-
 #define MAX_LASERS 30
 
 struct laser_shot {
