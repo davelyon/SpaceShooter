@@ -11,6 +11,7 @@ GameLoop::GameLoop(){
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	monster1 = new Enemy(0,5,-5,0,100);
+	client->TellPlayerAmount(1);
 	for(int i = 0; i < 100; i++)
 		crazies[i] = new Enemy();
 	size = client->GetArraySize();
