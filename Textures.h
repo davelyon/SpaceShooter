@@ -5,6 +5,8 @@
 #include <SDL/SDL_opengl.h>
 #include <OpenGL/glu.h>
 #include "SDL_image.h"
+#include "SDL_ttf.h"
+#include <math.h>
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <GL/gl.h>
@@ -24,4 +26,11 @@
 #endif
 
 GLuint load_texture(const char* file);
+void SDL_GL_RenderText(char *text, 
+											 TTF_Font *font,
+											 SDL_Color color,
+											 SDL_Rect *location);
+int nextpoweroftwo(int x);
+
+
 #endif
