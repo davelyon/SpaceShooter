@@ -12,9 +12,13 @@ GameLoop::GameLoop(){
 	client = new Client(1);
 //	for(int i = 0; i < 100; i++)
 //		crazies[i] = new Enemy();
-//client->NoServerCall(4, crazies, "level1.txt");
+//client->NoServerCall(5, crazies, "level1.txt");
 	client = new Client();
+#ifdef MAC_OSX_BUILD_MODE
 	client->TellPlayerAmount(1);
+#else
+	client->TellPlayerAmount(2);
+#endif
 	size = client->GetArraySize();
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
