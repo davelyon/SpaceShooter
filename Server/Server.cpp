@@ -174,11 +174,11 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 				sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
 			}else if (strcmp(incoming, "highScore") == 0){
 				addScore(p, mySocketDesc);
-			}else if (strcmp(incoming, "two") == 0){
+	/*		}else if (strcmp(incoming, "two") == 0){
 				if(PlayerOne == 0)
 					PlayerOne = SDLNet_Read16(&(p->address.port));
 				if(SDLNet_Read16(&(p->address.port)) != PlayerOne && PlayerOne != PlayerTwo)
-					PlayerTwo = SDLNet_Read16(&(p->address.port));
+					PlayerTwo = SDLNet_Read16(&(p->address.port));*/
 			}
 		}
 		SDL_Delay(100);
