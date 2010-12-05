@@ -19,6 +19,7 @@
 #include <SDL/SDL_opengl.h>
 #include <OpenGL/glu.h>
 #include <SDL/SDL_audio.h>
+#include "SDL_ttf.h"
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
@@ -54,7 +55,10 @@ public:
 	void tickActors();
 	void drawScene();
 	
+	void waitForStart();
 	void pauseWait();
+	
+	TTF_Font *font;
 	
 	int realtick;
 	int tick;
@@ -64,7 +68,7 @@ public:
 	
 	bool paused;
 	bool running;
-		
+
 	Player *player1;
 	Enemy *monster1;
 	Enemy *crazies[100];

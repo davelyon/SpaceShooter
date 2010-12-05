@@ -3,23 +3,36 @@
 
 GameLoop::GameLoop(){
 	realtick = 0;
-	paused = false;
+	paused = true;
 	running = true;
-		
 	player1 = new Player(1);
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	monster1 = new Enemy(0,5,-5,0,100);
 	client = new Client(1);
-	for(int i = 0; i < 100; i++)
-		crazies[i] = new Enemy();
-	client->NoServerCall(4, crazies, "level1.txt");
-/*	client = new Client();
+//	for(int i = 0; i < 100; i++)
+//		crazies[i] = new Enemy();
+//client->NoServerCall(4, crazies, "level1.txt");
+	client = new Client();
 	client->TellPlayerAmount(1);
-	for(int i = 0; i < 100; i++)
-		crazies[i] = new Enemy();
 	size = client->GetArraySize();
-	client->GetEnemyList(crazies);*/
+	for(int i = 0; i < size; i++)
+		crazies[i] = new Enemy();
+
+	client->GetEnemyList(crazies);
+	
+	if(TTF_Init() == -1) {
+		printf("Failed to start SDL_TTF!\n");
+		exit(4);
+	}
+	
+	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
+	
+	if(!font) {
+    printf("TTF_OpenFont: %s\n", TTF_GetError());
+    exit(7);
+	}
+	
 }
 
 GameLoop::~GameLoop(){
@@ -27,6 +40,11 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
+	SDL_GL_SwapBuffers();
+
+	while(paused) 
+		waitForStart();
+	
 	while(running) {
 		
 		int copy = SDL_GetTicks();
@@ -38,12 +56,10 @@ void GameLoop::start() {
 }
 
 void GameLoop::run() {
-	//printf("Tick: %d \n", tick);
 	handleKeyInput();
 	tickLevel();
 	tickActors();
 	drawScene();
-	//SDL_Delay(10);
 }
 
 void GameLoop::handleKeyInput() 
@@ -71,6 +87,9 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_p:
 					paused = !paused;
+					break;
+				case SDLK_RETURN:
+					paused = false;
 					break;
 				case SDLK_ESCAPE:
 					running = -1;
@@ -106,10 +125,47 @@ void GameLoop::drawScene() {
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
 
+	SDL_Color color = {255,255,255};
+	SDL_Rect location ;
+	location.x = 10;
+	location.y = 766;
+	char text[100];
+	int fps = SDL_GetTicks() - realtick;
+	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
+	SDL_GL_RenderText(text, font, color, &location);
+	
+	
 	SDL_GL_SwapBuffers();
 
 }
 
 void GameLoop::pauseWait() {
 	handleKeyInput();
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glLoadIdentity();
+
+	SDL_Rect location ;
+	location.x = 270;
+	location.y = 350;
+	SDL_Color color = {255,255,255};
+	SDL_GL_RenderText("Game Paused.", font, color, &location);
+	
+	SDL_GL_SwapBuffers();
+
+}
+
+void GameLoop::waitForStart() {
+	handleKeyInput();
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glLoadIdentity();
+	
+	SDL_Rect location ;
+	location.x = 270;
+	location.y = 350;
+	SDL_Color color = {255,255,255};
+	SDL_GL_RenderText("Press Start.", font, color, &location);
+	
+	SDL_GL_SwapBuffers();
+	
+	
 }
