@@ -11,32 +11,43 @@ Client::Client(){
 	}
 	
 	/* Open a socket on random port */
-	if (!(sd = SDLNet_UDP_Open(12234)))
+	if (!(sd = SDLNet_UDP_Open(14359)))
 	{
-		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
+	cout << "15098" << endl;
+		if (!(sd = SDLNet_UDP_Open(15098)))
+		{
+			fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+			exit(EXIT_FAILURE);
+		}
 	}
  
 	/* Resolve server name  */
-	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",12345))
+	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
 	{
 		fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "127.0.0.1", 12345, SDLNet_GetError());
 		exit(EXIT_FAILURE);
-	}
- 
+ 	}
 	/* Allocate memory for the packet */
 	if (!(p = SDLNet_AllocPacket(512)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
+	p->address.host = srvadd.host;
+	p->address.port = srvadd.port;
 }
 Client::~Client(){
 	SDLNet_FreePacket(p);
 	SDLNet_Quit();
 }
 void Client::TellPlayerAmount(int players){
-
+	if(players == 1)
+		strcpy((char *)p->data, "one");
+	if(players == 2)
+		strcpy((char *)p->data, "two");
+		cout << (char *)p->data << endl;
+	p->len = 4;
+	SDLNet_UDP_Send(sd, -1, p);
 }
 int Client::GetArraySize(){
 	int quit = 0;
