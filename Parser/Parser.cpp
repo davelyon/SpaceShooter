@@ -18,7 +18,6 @@ int* Parser::CreateMonsterObject(string monsterCreationParams){
 	returnable[3] = atoi(img.c_str());
 	MonsterParser(&monsterCreationParams, &points);
 	returnable[4] = atoi(points.c_str());
-	//cout << "parser: " << uID << x << y << img << points << endl;
 	return returnable;
 }
 void Parser::MonsterParser(string *params, string *varToSet){
