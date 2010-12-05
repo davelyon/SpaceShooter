@@ -29,7 +29,7 @@ GameLoop::GameLoop(){
 	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
 #else
 	font = TTF_OpenFont("", 18);
-#end
+#endif
 	if(!font) {
     printf("TTF_OpenFont: %s\n", TTF_GetError());
     exit(7);
@@ -151,7 +151,7 @@ void GameLoop::pauseWait() {
 	location.y = 350;
 	SDL_Color color = {255,255,255};
 	SDL_GL_RenderText("Game Paused.", font, color, &location);
-	
+	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
 
 }
@@ -166,7 +166,7 @@ void GameLoop::waitForStart() {
 	location.y = 350;
 	SDL_Color color = {255,255,255};
 	SDL_GL_RenderText("Press Start.", font, color, &location);
-	
+	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
 	
 	
