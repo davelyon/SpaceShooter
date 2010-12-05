@@ -9,8 +9,10 @@ class Parser{
 	public:
 		Parser();
 		~Parser();
-		void MonsterParser(string *params, string *varToSet);
+		void SpaceParser(string *params, string *varToSet);
 		int* CreateMonsterObject(string monsterCreationParams);
+		float* Position(string XYPositions);
+		float* OtherPlayer(string XYPositions);
 };
 #endif
 
