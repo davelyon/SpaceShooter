@@ -8,6 +8,11 @@ struct laser_shot {
 	float y;
 	float accum_rotation;
 };
+struct SecondPlayer{
+	float x;
+	float y;
+	int score;
+};
 
 class Player : Actor 
 {
@@ -27,6 +32,7 @@ public:
 	void setY(float y);
 	
 	void holdPosition(bool should);
+	SecondPlayer otherPlayer;
 	
 	
 private:

@@ -6,18 +6,17 @@ GameLoop::GameLoop(){
 	paused = true;
 	running = true;
 	player1 = new Player(1);
-	player2 = new Player(2);
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
-	monster1 = new Enemy(0,5,-5,0,100);
-	client = new Client(1);
+	monster1 = new Enemy(0,1,-1,0,100);
 //	for(int i = 0; i < 100; i++)
 //		crazies[i] = new Enemy();
 //client->NoServerCall(5, crazies, "level1.txt");
-	client = new Client();
 #ifdef MAC_OSX_BUILD_MODE
+	client = new Client(1);
 	client->TellPlayerAmount(1);
 #else
+	client = new Client();
 	client->TellPlayerAmount(2);
 #endif
 	size = client->GetArraySize();
@@ -134,7 +133,10 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	client->Position(player1->getX(), player1->getY(), player2);
+	float * b;
+	b = client->Position(player1->getX(), player1->getY());
+	player1->otherPlayer.x = b[0];
+	player1->otherPlayer.y = b[1];
 	monster1->update(tick);
 	for(int i = 0; i < size; i++)
 		crazies[i]->update(tick);
@@ -146,10 +148,9 @@ void GameLoop::drawScene() {
 
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	player1->draw();
-	player2->draw();
 	monster1->draw();
-	for(int i = 0; i < size; i++)
-		crazies[i]->draw();
+//	for(int i = 0; i < size; i++)
+//		crazies[i]->draw();
 
 	SDL_Color color = {255,255,255};
 	SDL_Rect location ;

@@ -13,7 +13,6 @@ Client::Client(){
 	/* Open a socket on random port */
 	if (!(sd = SDLNet_UDP_Open(14359)))
 	{
-	cout << "15098" << endl;
 		if (!(sd = SDLNet_UDP_Open(15098)))
 		{
 			fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
@@ -45,11 +44,10 @@ void Client::TellPlayerAmount(int players){
 		strcpy((char *)p->data, "one");
 	if(players == 2)
 		strcpy((char *)p->data, "two");
-		cout << (char *)p->data << endl;
 	p->len = 4;
 	SDLNet_UDP_Send(sd, -1, p);
 }
-void Client::Position(float x, float y, Player* otherPlayer){
+float* Client::Position(float x, float y){
 	char * temp = new char[23];
 	sprintf(temp, "position %f %f", x, y);
 	strcpy((char *)p->data, temp);
@@ -60,9 +58,7 @@ void Client::Position(float x, float y, Player* otherPlayer){
 			float * a;
 			a = myParser->OtherPlayer((char *) p->data);
 			cout <<"x: " << a[0] << " y: " << a[1] <<endl;
-			otherPlayer->setX(a[0]);
-			otherPlayer->setY(a[1]);
-			break;
+			return a;
 		}
 	}
 }

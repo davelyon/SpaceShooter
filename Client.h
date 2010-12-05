@@ -32,7 +32,7 @@ class Client{
 		void GetEnemyList(Enemy** enemyList);
 		int GetArraySize();
 		void TellPlayerAmount(int players);
-		void Position(float x, float y, Player *otherPlayer);
+		float* Position(float x, float y);
 
 
 };

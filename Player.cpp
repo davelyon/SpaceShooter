@@ -20,6 +20,9 @@ Player::Player(int playerNumber) {
 	this->numLasers = 0;
 	
 	this->isMoving = false;
+	otherPlayer.x = 0;
+	otherPlayer.y = 0;
+	otherPlayer.score = 0;
 }
 
 Player::~Player() {}
@@ -83,26 +86,36 @@ void Player::holdPosition(bool should){
 }	
 
 void 	Player::draw() {
-	glLoadIdentity();
-	glTranslatef(location_x,location_y,-8.0f);
-	glScalef(0.5f, 0.5f, 1.0f);
+	bool firstDraw = true;
+	while(true){
+		glLoadIdentity();
+		if(firstDraw)
+			glTranslatef(location_x,location_y,-8.0f);
+		else
+			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
+		glScalef(0.5f, 0.5f, 1.0f);
+		
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+		glMatrixMode(GL_MODELVIEW);
 	
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-
-	glBindTexture(GL_TEXTURE_2D, this->texture);
-	glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
-		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
-		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
-		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
-	glEnd();
-	glFinish();
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
+		glBindTexture(GL_TEXTURE_2D, this->texture);
+		glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
+			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  0.0f);	
+			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
+			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
+		glEnd();
+		glFinish();
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+		if(firstDraw)
+			firstDraw = false;
+		else
+			break;
+	}
 	
 
 	
