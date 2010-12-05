@@ -16,7 +16,7 @@ public:
 	
 	// Actions
 	void 	update(int uID, float xI, float y, int health, int pointValue);
-	void update();
+	void update(int tick);
 	void 	draw();
 	bool 	collideWith(Actor *anActor);
 	void toString(char * output);
@@ -29,12 +29,12 @@ private:
 	float location_x;
 	float location_y;	
 	bool spot;
-	void square();
-	void circle();
-	void diagonal();
-	void diamond();
-	void sideways();
-	void vertical();
+	void square(float movement);
+	void circle(float movement);
+	void diagonal(float movement);
+	void diamond(float movement);
+	void sideways(float movement);
+	void vertical(float movement);
 #ifndef SERVER_COMPILE_FLAG
 	GLuint texture;
 #endif

@@ -55,25 +55,26 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	myHealth = health;
 	this->pointValue = pointValue;
 }
-void Enemy::update(){
+void Enemy::update(int ticks){
+float movement = ((float)ticks/1000.0f)*2.00f;
 	switch(movementPattern){
 		case 1:
-			square();
+			square(movement);
 			break;
 		case 2:
-			vertical();
+			vertical(movement);
 			break;
 		case 3:
-			sideways();
+			sideways(movement);
 			break;
 		case 4:
-			diamond();
+			diamond(movement);
 			break;
 		case 5:
-			diagonal();
+			diagonal(movement);
 			break;
 		default:
-			sideways();
+			sideways(movement);
 			break;
 
 	}
@@ -103,31 +104,31 @@ void Enemy::update(){
 }
 bool 	Enemy::collideWith(Actor *anActor) {return false;}
 
-void Enemy::circle(){}
-void Enemy::diamond(){
+void Enemy::circle(float movement){}
+void Enemy::diamond(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
 		if(x-sX < 2 && y-sY < 2){
-			location_x+= 0.005f;
-			location_y+= 0.005f;
+			location_x+= movement;
+			location_y+= movement;
 		}
 		else if(x-sX < 4 && y-sY > 0){
-			location_x+= 0.005f;
-			location_y-= 0.005f;
+			location_x+= movement;
+			location_y-= movement;
 		}else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 2 && y-sY > -2){
-			location_x -= 0.005f;
-			location_y -= 0.005f;
+			location_x -= movement;
+			location_y -= movement;
 		}
 		else if( x > sX && y < sY){
-			location_x -= 0.005f;
-			location_y += 0.005f;
+			location_x -= movement;
+			location_y += movement;
 			if(x-0.1 == sX)
 				spot = false;
 		}
@@ -135,79 +136,79 @@ void Enemy::diamond(){
 			spot = false;
 	}
 }
-void Enemy::vertical(){
+void Enemy::vertical(float movement){
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
 		if(y-sY < 2){
-			location_y+= 0.005f;
+			location_y+= movement;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(y-sY > 0){
-			location_y-=0.005f;
+			location_y-= movement;
 		}else
 			spot = false;
 	}
 }
-void Enemy::sideways(){
+void Enemy::sideways(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.005f;
+			location_x+= movement;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.005f;
+			location_x-=movement;
 		}else
 			spot = false;
 	}
 }
-void Enemy::diagonal(){
+void Enemy::diagonal(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.005f;
-			location_y+= 0.005f;
+			location_x+=movement;
+			location_y+=movement;
 		}
 		else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.005f;
-			location_y-=0.005f;
+			location_x-=movement;
+			location_y-=movement;
 		}else
 			spot = false;
 	}
 }
-void Enemy::square(){
+void Enemy::square(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
 		if(x-sX < 2){
-			location_x+= 0.005f;
+			location_x+=movement;
 		}
 		else if(y-sY< 2){
-			location_y+=0.005f;
+			location_y+=movement;
 		}else
 			spot = true;
 	}
 	if(spot){
 		if(x-sX > 0){
-			location_x-=0.005f;
+			location_x-=movement;
 		}
 		else if(y-sY > 0)
-			location_y-=0.005f;
+			location_y-=movement;
 		else
 			spot = false;
 	}
