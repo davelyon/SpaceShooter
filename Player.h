@@ -24,6 +24,8 @@ public:
 	float getX();
 	float getY();
 	
+	void holdPosition(bool should);
+	
 	
 private:
 	int health;
@@ -35,6 +37,8 @@ private:
 	int numLasers;
 	struct laser_shot lasers[MAX_LASERS];
 	int last_move;
+	
+	bool isMoving;
 };
 
 #endif

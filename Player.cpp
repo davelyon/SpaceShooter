@@ -19,14 +19,40 @@ Player::Player(int playerNumber) {
 	this->shotTexture = load_texture(PARTICLE);
 	this->numLasers = 0;
 	
+	this->isMoving = false;
 }
 
 Player::~Player() {}
 
 void 	Player::update(int ticks, int movedir) {
+		
+	for (int i = 0; i < numLasers; i++) {
+		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
+		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 2.0f;
+	}
+	
+	if(location_x > 2.4f) {
+		location_x = 2.4f;
+	}
+	
+	if(location_x < -2.4f) {
+		location_x = -2.4f;
+	}
+	
+	if(location_y > 2.9f) {
+		location_y = 2.9f;
+	}
+	
+	if(location_y < -2.9f) {
+		location_y = -2.9f;
+	}
+	
+	if(isMoving) {
+		return;
+	}
 	
 	float movPixels = ((float)ticks/1000.0f) * 2.00f;
-		
+	
 	if(movedir == MOVE_NONE)
 		movedir = last_move;
 	else 
@@ -49,28 +75,13 @@ void 	Player::update(int ticks, int movedir) {
 			break;
 	}
 	
-	for (int i = 0; i < numLasers; i++) {
-		lasers[i].y += ((float)ticks/1000.0f) * 4.66f;
-		lasers[i].accum_rotation += ((float)ticks/1000.0f) * 2.0f;
-	}
-	
-	if(location_x > 2.4f) {
-		location_x = 2.4f;
-	}
-	
-	if(location_x < -2.4f) {
-		location_x = -2.4f;
-	}
-	
-	if(location_y > 2.9f) {
-		location_y = 2.9f;
-	}
-	
-	if(location_y < -2.9f) {
-		location_y = -2.9f;
-	}
 	
 }
+
+void Player::holdPosition(bool should){
+	isMoving = should;
+}	
+
 void 	Player::draw() {
 	glLoadIdentity();
 	glTranslatef(location_x,location_y,-8.0f);

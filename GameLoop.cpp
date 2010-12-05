@@ -98,12 +98,24 @@ void GameLoop::handleKeyInput()
 				case SDLK_RETURN:
 					paused = false;
 					break;
+				case SDLK_RSHIFT:
+				case SDLK_LSHIFT:
+					player1->holdPosition(TRUE);
+					break;
 				case SDLK_ESCAPE:
 					running = -1;
 					exit(1);
 					break;
 				default:
 					break;
+			} else if (event.type==SDL_KEYUP) {
+				switch (event.key.keysym.sym) {
+					case SDLK_RSHIFT:
+					case SDLK_LSHIFT:
+						player1->holdPosition(FALSE);
+						break;
+
+				}
 			}
 	}
 	
