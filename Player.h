@@ -22,7 +22,7 @@ public:
 	
 	// Actions
 	void 	update(int ticks, int movdir);
-	void 	draw();
+	void 	draw(bool two);
 	void	shoot(int ticks);
 	bool 	collideWith(Actor *anActor);
 	int 	points();

@@ -85,13 +85,13 @@ void Player::holdPosition(bool should){
 	isMoving = should;
 }	
 
-void 	Player::draw() {
+void 	Player::draw(bool two) {
 	bool firstDraw = true;
 	while(true){
 		glLoadIdentity();
 		if(firstDraw)
 			glTranslatef(location_x,location_y,-8.0f);
-		else
+		else if(two)
 			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
 		glScalef(0.5f, 0.5f, 1.0f);
 		
