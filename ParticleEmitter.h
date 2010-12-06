@@ -77,15 +77,12 @@ public:
 	void emitExploder(float xloc, float yloc);
 	
 	// Called by gameloop to render all active particles
-	void renderShipParticles(int tick, float ship_x, float ship_y);
-	void renderLaserParticles(int tick, int x, int y);
-	void ResetLaserParticle( int num, int color, float xDir, float yDir, float zDir, bool living );
+	void renderParticles(int tick, float ship_x, float ship_y);
 	
 	static ParticleEmitter* Instance();
 	
 private:
 	particle shipParticles[MAX_PARTICLES];
-	particle laserParticles[50];
 	void ResetParticle( int num, int color, float xDir, float yDir, float zDir );
 	void renderSetup(void);
 	void renderTeardown(void);
