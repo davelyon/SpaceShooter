@@ -13,4 +13,7 @@ bool Actor::collideWith(Actor *anActor) {
 
 int Actor::points()			{ return pointValue; 	}
 int Actor::belongsTo() 	{ return owner;				}
+
+float Actor::getX()				{ return 0;}
+float Actor::getY()				{ return 0;}
 bool Actor::living()		{	return isLiving;			}

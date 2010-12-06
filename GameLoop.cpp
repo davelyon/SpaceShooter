@@ -83,7 +83,6 @@ void GameLoop::handleKeyInput()
 	
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		
 		if (event.type==SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 				case SDLK_DOWN:
@@ -161,8 +160,10 @@ void GameLoop::tickActors()
 		player1->otherPlayer.y = b[1];
 	}
 	monster1->update(tick);
-	for(int i = 0; i < size; i++)
+	for(int i = 0; i < size; i++){
 		crazies[i]->update(tick);
+		crazies[i]->collideWith(player1);
+	}
 }
 
 void GameLoop::drawScene() {
