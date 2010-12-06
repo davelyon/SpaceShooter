@@ -25,7 +25,7 @@
 static void createSurface (int fullscreen)
 {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
-	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL);
+	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL|SDL_SWSURFACE);
 	SDL_WM_SetCaption("Space Peaux Peaux",NULL);
 	SDL_EnableKeyRepeat(1,100);
 }
