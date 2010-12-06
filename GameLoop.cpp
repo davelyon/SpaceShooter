@@ -11,20 +11,18 @@ GameLoop::GameLoop(){
 	monster1 = new Enemy(0,1,-1,0,100);
 //	for(int i = 0; i < 100; i++)
 //		crazies[i] = new Enemy();
-//client->NoServerCall(5, crazies, "level1.txt");
-#ifdef MAC_OSX_BUILD_MODE
-	client = new Client(1);
-	client->TellPlayerAmount(1);
-#else
 	client = new Client();
 	client->TellPlayerAmount(2);
-#endif
 	size = client->GetArraySize();
+	if(client->noServer)
+		size = client->LineCount("level1.txt");
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
-
-	client->GetEnemyList(crazies);
-	
+	if(client->noServer){
+		cout << "NoServerCall" << endl;
+		client->NoServerCall(size, crazies, "level1.txt");
+	}else
+		client->GetEnemyList(crazies);
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
