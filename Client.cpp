@@ -103,7 +103,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 	int quit = 0;
 	int count = 0;
 	int* params;
-	char * temp = new char[6];
+	char * temp = (char *)malloc(sizeof(char) * 6);
 	strcpy(temp, "ready");
 	p->data = (Uint8 *)temp;
 	p->len = 6;
