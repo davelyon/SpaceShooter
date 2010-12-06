@@ -56,8 +56,8 @@ public:
 	void tickActors();
 	void drawScene();
 	
-	void waitForStart();
-	void pauseWait();
+	void displayTextScreen(char * displayText);
+	//void pauseWait();
 	
 	TTF_Font *font;
 	
