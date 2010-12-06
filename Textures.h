@@ -19,12 +19,12 @@
 
 
 #ifdef MAC_OSX_BUILD_MODE
-#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship3.bmp"
-#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship3.bmp"
+#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship3s.bmp"
+#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship3s.bmp"
 #define PARTICLE "/Users/dave/Code/SpaceRedux/particle.bmp"
 #else
-#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship3.bmp"
-#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship3.bmp"
+#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship3s.bmp"
+#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship3s.bmp"
 #define PARTICLE "/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"
 #endif
 
