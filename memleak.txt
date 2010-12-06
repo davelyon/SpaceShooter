@@ -1,0 +1,6 @@
+updated enemy: 0
+updated enemy: 1
+updated enemy: 2
+updated enemy: 3
+updated enemy: 4
+leaving
