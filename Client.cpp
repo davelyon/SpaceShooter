@@ -19,7 +19,6 @@ Client::Client(){
 			exit(EXIT_FAILURE);
 		}
 	}
- 	cout << "going" << endl;
 	/* Resolve server name  */
 	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
 	{
