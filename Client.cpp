@@ -55,10 +55,20 @@ float* Client::Position(float x, float y){
 	SDLNet_UDP_Send(sd, -1, p);
 	while(true){
 		if(SDLNet_UDP_Recv(sd, p)){
-			float * a;
-			a = myParser->OtherPlayer((char *) p->data);
-			cout <<"x: " << a[0] << " y: " << a[1] <<endl;
-			return a;
+			if(strcmp((char*) p->data, "Not Ready") != 0){
+				float * a;
+				a = myParser->OtherPlayer((char *) p->data);
+				cout <<"x: " << a[0] << " y: " << a[1] <<endl;
+				return a;
+			}else{
+				cout << "Server said waiting for 2nd player" << endl;
+				SDL_Delay(500);
+				char * temp = new char[23];
+				sprintf(temp, "position %f %f", x, y);
+				strcpy((char *)p->data, temp);
+				p->len = strlen((char *)p->data);
+				SDLNet_UDP_Send(sd, -1, p);
+			}
 		}
 	}
 }
@@ -79,14 +89,14 @@ int Client::GetArraySize(){
 				quit = 1;
 				break;
 			}
-			if(!attempt){
+	/*		if(!attempt){
 				sleep(4);
 				attempt = true;
 			}else{
 				noServer = true;
 				quit=1;
 				break;
-			}
+			}*/
 		}
 		delete[] temp;
 	}
@@ -108,11 +118,12 @@ void Client::GetEnemyList(Enemy **enemyList){
 				break;
 			//parse the char* //update the monster. move on
 			char * r = (char *)p->data;
-			string b = r;
-			params = myParser->CreateMonsterObject(b);
+			params = myParser->CreateMonsterObject(r);
 			enemyList[count++]->update(params[0], params[1], params[2], params[3], params[4]);
+			cout << "updated enemy: " << count-1 << endl;
 		}
 	}
+		cout << "leaving" << endl;
 }
 int Client::LineCount(string fileName){
 	ifstream openForLines;

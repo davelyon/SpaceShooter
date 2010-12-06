@@ -112,6 +112,10 @@ int main(int argc, char *argv[])
 					PlayerTwo.port = SDLNet_Read16(&(p->address.port));
 					PlayerTwo.host = SDLNet_Read32(&(p->address.host));
 				}
+			}else if(strncmp(incoming, "position", 8) == 0){
+				strcpy((char *)p->data, "Not Ready");
+				p->len = strlen((char *)p->data)+1;
+				SDLNet_UDP_Send(mySocketDesc, -1, p);
 			}
 		}
 		SDL_Delay(100);
