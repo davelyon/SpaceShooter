@@ -28,13 +28,16 @@ GameLoop::GameLoop(){
 		displayTextScreen((char *)"Press 1 for 1 player", (char *)"Press 2 for 2 player");
 	}
 	//set up client
+	displayTextScreen((char *)"loading.");
 	client = new Client();
 	client->TellPlayerAmount(playersInGame);
 	size = client->GetArraySize();
 	if(client->noServer)
 		size = client->LineCount("level1.txt");
+	displayTextScreen((char *)"loading..");
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
+	displayTextScreen((char *)"loading...");
 	if(client->noServer)
 		client->NoServerCall(size, crazies, "level1.txt");
 	else
@@ -50,7 +53,6 @@ void GameLoop::start() {
 
 	while(paused) 
 		displayTextScreen((char *)"Press Start");
-	
 	while(running) {
 		
 		int copy = SDL_GetTicks();
