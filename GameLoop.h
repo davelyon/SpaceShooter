@@ -28,7 +28,7 @@
 #include <GL/glu.h>
 #include <SDL/SDL_audio.h>
 #endif
-
+#include "Actor.h"
 #include "Client.h"
 #include "Player.h"
 #include "Enemy.h"

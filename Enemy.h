@@ -18,7 +18,7 @@ public:
 	void 	update(int uID, float xI, float y, int health, int pointValue);
 	void update(int tick);
 	void 	draw();
-	bool 	collideWith(Player *anActor);
+	bool 	collideWith(Actor *anActor);
 	void toString(char * output);
 private:
 	int uniqueID;
@@ -35,6 +35,8 @@ private:
 	void diamond(float movement);
 	void sideways(float movement);
 	void vertical(float movement);
+	float getX();
+	float getY();
 #ifndef SERVER_COMPILE_FLAG
 	GLuint texture;
 #endif

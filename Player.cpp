@@ -4,8 +4,6 @@
 
 Player::Player(int playerNumber) {
 	
-	//generateTextures();
-	
 	this->pointValue = 0;
 	this->owner = playerNumber;
 	
@@ -15,7 +13,7 @@ Player::Player(int playerNumber) {
 	this->location_x = 0.0f;
 	this->location_y = 0.0f;
 	
-	this->texture = ship_texture();//load_texture(PLAYER1);
+	this->texture = ship_texture();
 	this->shotTexture = part_texture();
 	this->numLasers = 0;
 	
@@ -170,6 +168,8 @@ void 	Player::draw(bool two) {
 		
 }
 bool 	Player::collideWith(Actor *anActor) {
+	
+	
 	return false;
 }
 int 	Player::points() 		{ return 0;}

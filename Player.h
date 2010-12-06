@@ -1,12 +1,16 @@
 #ifndef TheActualPlayer
 #define TheActualPlayer
-#include "Actor.h"
 #define MAX_LASERS 30
+
+#include "Actor.h"
+#include "Enemy.h"
+
 
 struct laser_shot {
 	float x;
 	float y;
 	float accum_rotation;
+	float living;
 };
 struct SecondPlayer{
 	float x;

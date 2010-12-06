@@ -111,7 +111,7 @@ void 	Enemy::draw() 	{
 	glEnd();
 #endif
 }
-bool Enemy::collideWith(Player *anActor) {
+bool Enemy::collideWith(Actor *anActor) {
 	
 	if (myHealth <= 0) {
 		return false;
@@ -245,3 +245,6 @@ void Enemy::square(float movement){
 			spot = false;
 	}
 }
+
+float Enemy::getX() { return location_x; } 
+float Enemy::getY() { return location_y; } 

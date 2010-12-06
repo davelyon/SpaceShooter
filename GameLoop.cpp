@@ -162,7 +162,7 @@ void GameLoop::tickActors()
 	monster1->update(tick);
 	for(int i = 0; i < size; i++){
 		crazies[i]->update(tick);
-		crazies[i]->collideWith(player1);
+		crazies[i]->collideWith((Actor *)player1);
 	}
 }
 
