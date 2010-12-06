@@ -7,7 +7,7 @@ Parser::~Parser(){
 }
 int* Parser::CreateMonsterObject(string monsterCreationParams){
 	string uID, x, y, img, points;
-	int* returnable = (char *)malloc(sizeof(char) * 5);;
+	int* returnable = (int *)malloc(sizeof(int) * 5);;
 	SpaceParser(&monsterCreationParams, &uID);
 	returnable[0] = atoi(uID.c_str());
 	SpaceParser(&monsterCreationParams, &x);
