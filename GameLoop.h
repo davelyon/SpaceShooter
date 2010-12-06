@@ -58,7 +58,6 @@ public:
 	
 	void displayTextScreen(char * displayText);
 	void displayTextScreen(char * displayTop, char * displayBot);
-	//void pauseWait();
 	
 	TTF_Font *font;
 	
@@ -77,6 +76,7 @@ public:
 	Client *client;
 	SoundManager *soundManager;
 	ParticleEmitter *partEmitter;
+	ParticleEmitter *secondEmitter;
 	
 	int movePlayer;
 	

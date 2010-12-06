@@ -8,7 +8,8 @@ GameLoop::GameLoop(){
 	player1 = new Player(1);
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
-	monster1 = new Enemy(0,-4,-1,0,100);
+	secondEmitter = new ParticleEmitter();
+	monster1 = new Enemy(0,-1,-1,0,100);
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
@@ -156,6 +157,9 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
+	//if(playersInGame == 2){
+		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
+	//}
 	player1->draw();
 	monster1->draw();
 	for(int i = 0; i < size; i++)
