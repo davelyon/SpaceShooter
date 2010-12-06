@@ -83,7 +83,7 @@ void GameLoop::handleKeyInput()
 	
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		if( event = NULL) continue;
+		
 		if (event.type==SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 				case SDLK_DOWN:
