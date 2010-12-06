@@ -19,7 +19,7 @@ Client::Client(){
 			exit(EXIT_FAILURE);
 		}
 	}
- 
+ 	cout << "going" << endl;
 	/* Resolve server name  */
 	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
 	{
@@ -34,6 +34,7 @@ Client::Client(){
 	}
 	p->address.host = srvadd.host;
 	p->address.port = srvadd.port;
+	noServer = false;
 }
 Client::~Client(){
 	SDLNet_FreePacket(p);
@@ -72,10 +73,19 @@ int Client::GetArraySize(){
 		p->data = (Uint8 *)temp;
 		p->len = 5;
 		SDLNet_UDP_Send(sd, -1, p);
+		int attempt = false;
  		while(true){
 			if(SDLNet_UDP_Recv(sd, p)){
 				arraySize = atoi((char *)p->data);
 				quit = 1;
+				break;
+			}
+			if(!attempt){
+				sleep(4);
+				attempt = true;
+			}else{
+				noServer = true;
+				quit=1;
 				break;
 			}
 		}
@@ -105,8 +115,16 @@ void Client::GetEnemyList(Enemy **enemyList){
 		}
 	}
 }
-Client::Client(int a){
-	myParser = new Parser();
+int Client::LineCount(string fileName){
+	ifstream openForLines;
+	openForLines.open(fileName.c_str());
+	int count = 0;
+	while(!openForLines.eof()){
+		getline(openForLines, fileName);
+		count++;
+	}
+	openForLines.close();
+	return count-1;
 }
 void Client::NoServerCall(int numOfLines, Enemy **currentMonsters, string filename){
 	/* read the line. parse the line. create the monster. quit at eof*/
