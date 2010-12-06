@@ -58,7 +58,6 @@ void GameLoop::start() {
 		int copy = SDL_GetTicks();
 		tick =  copy - realtick;
 		realtick = copy;
-				
 		paused ? displayTextScreen((char *)"Game Paused") : run();
 	}
 }
@@ -141,10 +140,12 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
-	float * b;
-	b = client->Position(player1->getX(), player1->getY());
-	player1->otherPlayer.x = b[0];
-	player1->otherPlayer.y = b[1];
+	if(playersInGame == 2){
+		float * b;
+		b = client->Position(player1->getX(), player1->getY());
+		player1->otherPlayer.x = b[0];
+		player1->otherPlayer.y = b[1];
+	}
 	monster1->update(tick);
 	for(int i = 0; i < size; i++)
 		crazies[i]->update(tick);
@@ -173,24 +174,6 @@ void GameLoop::drawScene() {
 	SDL_GL_SwapBuffers();
 
 }
-
-/*void GameLoop::pauseWait() {
-	handleKeyInput();
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	glLoadIdentity();
-
-	SDL_Rect location ;
-	location.x = 270;
-	location.y = 350;
-	SDL_Color color = {255,255,255};
-	char * GamePause= new char[13];
-	strcpy(GamePause, "Game Paused.");
-	SDL_GL_RenderText(GamePause, font, color, &location);
-	SDL_Delay(100); // Render menu @ 10fps
-	SDL_GL_SwapBuffers();
-
-}*/
-
 void GameLoop::displayTextScreen(char * displayTop, char * displayBot) {
 	handleKeyInput();
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
