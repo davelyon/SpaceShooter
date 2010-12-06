@@ -79,6 +79,6 @@ public:
 	ParticleEmitter *secondEmitter;
 	
 	int movePlayer;
-	
+	int ratelimiter;
 };
 #endif
