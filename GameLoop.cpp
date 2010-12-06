@@ -57,10 +57,12 @@ void GameLoop::start() {
 
 	while(paused) 
 		displayTextScreen((char *)"Press Start");
+	
+	ratelimiter = 0;
+
 	while(running) {
 		
 		int copy = SDL_GetTicks();
-		ratelimiter = 0;
 		tick =  copy - realtick;
 		realtick = copy;
 		paused ? displayTextScreen((char *)"Game Paused") : run();
