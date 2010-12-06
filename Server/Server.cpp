@@ -12,6 +12,7 @@ struct CurrentPlayer{
 	float x_Position;
 	float y_Position;
 	bool ready;
+	unsigned int check;
 };
 void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **currentMonsters, UDPpacket *p, UDPsocket mySocketDesc);
 int main(int argc, char *argv[])
@@ -78,6 +79,7 @@ int main(int argc, char *argv[])
 	PlayerTwo.ready = false;
 	while (true) {
 		if (SDLNet_UDP_Recv(mySocketDesc, p)){
+			unsigned int somePlayer = SDLNet_Read32(&(p->address.host))*SDLNet_Read16(&(p->address.port));
 			char * incoming = (char *) p->data;
 			if(strcmp(incoming, "size") == 0){
 				cout << "sending size" << endl;
@@ -91,9 +93,9 @@ int main(int argc, char *argv[])
 				cout << "sending level" << endl;
 				sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
 				count = 0;
-				if(SDLNet_Read16(&(p->address.port)) == PlayerOne.port)
+				if(somePlayer == PlayerOne.check)
 					PlayerOne.ready = true;
-				else if(SDLNet_Read16(&(p->address.port)) == PlayerTwo.port)
+				else if(somePlayer == PlayerTwo.check)
 					PlayerTwo.ready = true;
 				if(PlayerOne.ready && PlayerTwo.ready){
 					cout << "entering loop" << endl;
@@ -107,10 +109,12 @@ int main(int argc, char *argv[])
 				if(PlayerOne.port == 0){
 					PlayerOne.port = SDLNet_Read16(&(p->address.port));
 					PlayerOne.host = SDLNet_Read32(&(p->address.host));
+					PlayerOne.check = PlayerOne.host * PlayerOne.port;
 				}
 				if(SDLNet_Read16(&(p->address.port)) != PlayerOne.port && PlayerOne.port != PlayerTwo.port){
 					PlayerTwo.port = SDLNet_Read16(&(p->address.port));
 					PlayerTwo.host = SDLNet_Read32(&(p->address.host));
+					PlayerTwo.check = PlayerTwo.host * PlayerTwo.port;
 				}
 			}else if(strncmp(incoming, "position", 8) == 0){
 				strcpy((char *)p->data, "Not Ready");
