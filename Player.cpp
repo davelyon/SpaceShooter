@@ -15,7 +15,7 @@ Player::Player(int playerNumber) {
 	this->location_x = 0.0f;
 	this->location_y = 0.0f;
 	
-	this->texture = load_texture(PLAYER1);
+	this->texture = ship_texture();//load_texture(PLAYER1);
 	this->shotTexture = load_texture(PARTICLE);
 	this->numLasers = 0;
 	

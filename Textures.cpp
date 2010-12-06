@@ -6,10 +6,18 @@ int nextpoweroftwo(int x)
 	return round(pow(2,ceil(logbase2)));
 }
 
+static GLuint shipTexture = -1;
+GLuint ship_texture() {
+	if(shipTexture == -1) {
+		shipTexture = load_texture(PLAYER1);
+	}
+	return shipTexture;
+}
+
 
 GLuint load_texture(const char* file)
 {
-
+	
 	SDL_Surface* surface;	GLuint texture;	
 	
 	

@@ -14,7 +14,7 @@ Enemy::Enemy(){
 	this->location_y = 0.0f;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
-	this->texture = load_texture(PLAYER2);
+	this->texture = ship_texture();
 #endif	
 	uniqueID = 0;
 	myHealth = 0;

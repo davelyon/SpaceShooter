@@ -28,6 +28,7 @@
 #define PARTICLE "/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"
 #endif
 
+GLuint ship_texture();
 GLuint load_texture(const char* file);
 void SDL_GL_RenderText(char *text, 
 											 TTF_Font *font,
