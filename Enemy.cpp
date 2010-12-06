@@ -57,7 +57,7 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f)*2.00f;
-	switch(movementPattern){
+	/*switch(movementPattern){
 		case 1:
 			square(movement);
 			break;
@@ -77,7 +77,8 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 			sideways(movement);
 			break;
 
-	}
+	}*/
+	square(movement);
 } void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	glMatrixMode(GL_TEXTURE);
@@ -89,7 +90,7 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	
-	glScalef(0.2f, 0.2f, 0.01f);
+	glScalef(0.5f, 0.5f, 0.01f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
