@@ -8,7 +8,7 @@ GameLoop::GameLoop(){
 	player1 = new Player(1);
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
-	monster1 = new Enemy(0,1,-1,0,100);
+	monster1 = new Enemy(0,-4,-1,0,100);
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
@@ -158,8 +158,8 @@ void GameLoop::drawScene() {
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	player1->draw();
 	monster1->draw();
-//	for(int i = 0; i < size; i++)
-//		crazies[i]->draw();
+	for(int i = 0; i < size; i++)
+		crazies[i]->draw();
 
 	SDL_Color color = {255,255,255};
 	SDL_Rect location ;
