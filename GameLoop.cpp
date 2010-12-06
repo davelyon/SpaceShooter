@@ -148,7 +148,7 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	if(playersInGame == 2 && ratelimiter + 30 <= realtick){
-		printf("Sending server data at %d -- last at %d", realtick, ratelimiter);
+		printf("Sending server data at %d -- last at %d\n", realtick, ratelimiter);
 		ratelimiter = realtick;
 		
 		float * b;
