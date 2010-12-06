@@ -57,6 +57,7 @@ public:
 	void drawScene();
 	
 	void displayTextScreen(char * displayText);
+	void displayTextScreen(char * displayTop, char * displayBot);
 	//void pauseWait();
 	
 	TTF_Font *font;
@@ -64,14 +65,13 @@ public:
 	int realtick;
 	int tick;
 	int size;
-	
+	int playersInGame;	
 	int pausedBeganTick;
 	
 	bool paused;
 	bool running;
 
 	Player *player1;
-	Player *player2;
 	Enemy *monster1;
 	Enemy *crazies[100];
 	Client *client;

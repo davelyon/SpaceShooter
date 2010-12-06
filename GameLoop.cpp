@@ -9,20 +9,6 @@ GameLoop::GameLoop(){
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	monster1 = new Enemy(0,1,-1,0,100);
-//	for(int i = 0; i < 100; i++)
-//		crazies[i] = new Enemy();
-	client = new Client();
-	client->TellPlayerAmount(2);
-	size = client->GetArraySize();
-	if(client->noServer)
-		size = client->LineCount("level1.txt");
-	for(int i = 0; i < size; i++)
-		crazies[i] = new Enemy();
-	if(client->noServer){
-		cout << "NoServerCall" << endl;
-		client->NoServerCall(size, crazies, "level1.txt");
-	}else
-		client->GetEnemyList(crazies);
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
@@ -36,7 +22,23 @@ GameLoop::GameLoop(){
     printf("TTF_OpenFont: %s\n", TTF_GetError());
     exit(7);
 	}
-	
+	while(true){
+		if(playersInGame == 1 || playersInGame ==2)
+			break;
+		displayTextScreen((char *)"Press 1 for 1 player", (char *)"Press 2 for 2 player");
+	}
+	//set up client
+	client = new Client();
+	client->TellPlayerAmount(playersInGame);
+	size = client->GetArraySize();
+	if(client->noServer)
+		size = client->LineCount("level1.txt");
+	for(int i = 0; i < size; i++)
+		crazies[i] = new Enemy();
+	if(client->noServer)
+		client->NoServerCall(size, crazies, "level1.txt");
+	else
+		client->GetEnemyList(crazies);
 }
 
 GameLoop::~GameLoop(){
@@ -107,6 +109,12 @@ void GameLoop::handleKeyInput()
 				case SDLK_ESCAPE:
 					running = -1;
 					exit(1);
+					break;
+				case SDLK_1:
+					playersInGame = 1;
+					break;
+				case SDLK_2:
+					playersInGame = 2;
 					break;
 				default:
 					break;
@@ -181,6 +189,21 @@ void GameLoop::drawScene() {
 
 }*/
 
+void GameLoop::displayTextScreen(char * displayTop, char * displayBot) {
+	handleKeyInput();
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glLoadIdentity();
+	
+	SDL_Rect location ;
+	location.x = 250;
+	location.y = 360;
+	SDL_Color color = {255,255,255};
+	SDL_GL_RenderText(displayTop, font, color, &location);
+	location.y = 340;
+	SDL_GL_RenderText(displayBot, font, color, &location);
+	SDL_Delay(50); // Render menu @ 10fps
+	SDL_GL_SwapBuffers();
+}
 void GameLoop::displayTextScreen(char * displayText) {
 	handleKeyInput();
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -193,6 +216,4 @@ void GameLoop::displayTextScreen(char * displayText) {
 	SDL_GL_RenderText(displayText, font, color, &location);
 	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
-	
-	
 }
