@@ -159,7 +159,7 @@ void GameLoop::tickActors()
 		player1->otherPlayer.x = b[0];
 		player1->otherPlayer.y = b[1];
 	}
-	monster1->update(tick);
+	//monster1->update(tick);
 	for(int i = 0; i < size; i++){
 		crazies[i]->update(tick);
 		crazies[i]->collideWith((Actor *)player1);
@@ -174,9 +174,10 @@ void GameLoop::drawScene() {
 	if(playersInGame == 2){
 		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
 		player1->draw(true);
-	}else
+	}else{
 		player1->draw(false);
-	monster1->draw();
+	}
+	//monster1->draw();
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
 

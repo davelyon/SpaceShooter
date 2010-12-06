@@ -1,6 +1,6 @@
 #ifndef TheActualPlayer
 #define TheActualPlayer
-#define MAX_LASERS 30
+#define MAX_LASERS 60
 
 #include "Actor.h"
 #include "Enemy.h"

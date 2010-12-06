@@ -53,16 +53,16 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 		xI = -2.0f;
 	if(xI > 2.0f)
 		xI = 2.0f;
-	this->location_x = xI;
-	this->start_x_loc = this->location_x;
-	this->location_y = yI;
-	this->start_y_loc = this->location_y;
+//	this->location_x = xI;
+//	this->start_x_loc = this->location_x;
+//	this->location_y = yI;
+//	this->start_y_loc = this->location_y;
 	uniqueID = uID;
-	myHealth = health +1;
+	//myHealth = health +1;
 	this->pointValue = pointValue;
 }
 void Enemy::update(int ticks){
-float movement = ((float)ticks/1000.0f)*2.00f;
+//float movement = ((float)ticks/1000.0f)*2.00f;
 //	switch(movementPattern){
 //		case 1:
 //			square(movement);
@@ -89,7 +89,7 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	if (this->myHealth <= 0) {
-		printf("I'm dead :(\n");
+		//printf("I'm dead :(\n");
 		return;
 	}
 	glLoadIdentity();
@@ -120,19 +120,21 @@ bool Enemy::collideWith(Actor *anActor) {
 	float x = anActor->getX();
 	float y = anActor->getY();
 	
+	bool killedByPlayer = anActor->collideWith(this);;
+	
+	if (killedByPlayer) {
+		// ADD TO SCORE
+		this->myHealth = 0;
+		return true;
+	}
+	
 	if ( x < (location_x - 0.7f) || x > (location_x + 0.7f)){
 		return false;
-	}
-			
-	if ( y < (location_y - 0.7f) || y > (location_y + 0.7f)){
+	}else if ( y < (location_y - 0.7f) || y > (location_y + 0.7f)){
 		return false;
-	}
-	
-	this->myHealth = 0;
-	printf("Collideded\n");
+	} 	
+	// Colided with player... should probably damage player..
 	return true;
-	
-	return false;
 
 }
 
