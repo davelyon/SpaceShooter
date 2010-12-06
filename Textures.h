@@ -29,6 +29,7 @@
 #endif
 
 GLuint ship_texture();
+GLuint part_texture();
 GLuint load_texture(const char* file);
 void SDL_GL_RenderText(char *text, 
 											 TTF_Font *font,

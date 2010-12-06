@@ -13,7 +13,7 @@ ParticleEmitter* ParticleEmitter::singletonInstance = NULL;
 
 ParticleEmitter::ParticleEmitter() {
 	rainbow = TRUE;    /* Toggle rainbow effect                              */
-	texture = load_texture(PARTICLE);
+	texture = part_texture();
 	slowdown = 4.0f; /* Slow Down Particles                                */
 	zoom = -8.0f;   /* Used To Zoom Out                                   */
 	col = 0;

@@ -13,6 +13,13 @@ GLuint ship_texture() {
 	}
 	return shipTexture;
 }
+static GLuint partTexture = -1;
+GLuint part_texture() {
+	if(partTexture == -1) {
+		partTexture = load_texture(PARTICLE);
+	}
+	return partTexture;
+}
 
 
 GLuint load_texture(const char* file)
