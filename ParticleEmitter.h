@@ -1,3 +1,6 @@
+#ifndef PART_EMIT
+#define PART_EMIT
+
 /*
  *  ParticleEmitter.h
  *  SpaceRedux
@@ -74,11 +77,15 @@ public:
 	void emitExploder(float xloc, float yloc);
 	
 	// Called by gameloop to render all active particles
-	void renderParticles(int tick, float ship_x, float ship_y);
+	void renderShipParticles(int tick, float ship_x, float ship_y);
+	void renderLaserParticles(int tick, int x, int y);
+	void ResetLaserParticle( int num, int color, float xDir, float yDir, float zDir, bool living );
 	
+	static ParticleEmitter* Instance();
 	
 private:
-	particle particles[MAX_PARTICLES];
+	particle shipParticles[MAX_PARTICLES];
+	particle laserParticles[50];
 	void ResetParticle( int num, int color, float xDir, float yDir, float zDir );
 	void renderSetup(void);
 	void renderTeardown(void);
@@ -95,4 +102,7 @@ private:
 	GLuint loop;           /* Misc Loop Variable                                 */
 	GLuint col;        /* Current Color Selection                            */
 
+	int exploderCounter;
 };
+
+#endif
