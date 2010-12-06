@@ -87,12 +87,12 @@ void Player::holdPosition(bool should){
 
 void 	Player::draw() {
 	bool firstDraw = true;
-//	while(true){
+	while(true){
 		glLoadIdentity();
-	//	if(firstDraw)
+		if(firstDraw)
 			glTranslatef(location_x,location_y,-8.0f);
-	//	else
-	//		glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
+		else
+			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
 		glScalef(0.5f, 0.5f, 1.0f);
 		
 		glMatrixMode(GL_TEXTURE);
@@ -108,14 +108,14 @@ void 	Player::draw() {
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 		glEnd();
-		glFinish();
-		glMatrixMode(GL_TEXTURE);
-		glLoadIdentity();
-/*		if(firstDraw)
+		if(firstDraw)
 			firstDraw = false;
 		else
 			break;
-	}*/
+	}
+	glFinish();
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
 	
 
 	
