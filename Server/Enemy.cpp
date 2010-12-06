@@ -9,102 +9,189 @@ Enemy::Enemy(){
 	this->owner = OWNER_GAME;
 	
 	this->isLiving = true;
-	this->location_x = -5.0f;
-	this->location_y = -5.0f;
-#ifndef SERVER_COMPILE_FLAG
+	this->location_x = 0.0f;
+	this->start_x_loc = this->location_x;
+	this->location_y = 0.0f;
+	this->start_y_loc = this->location_y;
 	this->texture = -1;
-#endif	
 	uniqueID = 0;
 	myHealth = 0;
-
+	movementPattern = (rand()%5)+1;
+	spot = false;
 }
 
 Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
-	
+		
 	this->isLiving = true;
-	this->location_x = (float)xI;
-	this->location_y = (float)yI;
-#ifndef SERVER_COMPILE_FLAG
+	this->location_x = xI ;
+	this->start_x_loc = this->location_x;
+	this->location_y = yI ;
+	this->start_y_loc = this->location_y;
 	this->texture = -1;
-#endif
 	uniqueID = uID;
 	myHealth = health;
+	movementPattern = (rand()%5)+1;
+	
+	spot = false;
 }
 
 Enemy::~Enemy() {
 	
 }
 void Enemy::toString(char * output){
-	sprintf(output, "%d %f %f %d %d", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+	sprintf(output, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+
 }
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
+	if(xI < -2.0f)
+		xI = -2.0f;
+	if(xI > 2.0f)
+		xI = 2.0f;
 	this->location_x = xI;
+	this->start_x_loc = this->location_x;
 	this->location_y = yI;
+	this->start_y_loc = this->location_y;
 	uniqueID = uID;
 	myHealth = health;
 	this->pointValue = pointValue;
 }
-void Enemy::update(){
-	int direction = (rand()%4)+1;
-	switch(direction){
+void Enemy::update(int ticks){
+float movement = ((float)ticks/1000.0f)*2.00f;
+	switch(movementPattern){
 		case 1:
-			this->location_x += 0.2f;
-			this->location_y += 0.2f;
+			square(movement);
 			break;
 		case 2:
-			this->location_x += 0.2f;
-			this->location_y -= 0.2f;
+			vertical(movement);
 			break;
 		case 3:
-			this->location_x -= 0.2f;
-			this->location_y += 0.2f;
+			sideways(movement);
 			break;
 		case 4:
-			this->location_x -= 0.2f;
-			this->location_y -= 0.2f;
+			diamond(movement);
 			break;
+		case 5:
+			diagonal(movement);
+			break;
+		default:
+			sideways(movement);
+			break;
+
 	}
+//	square(movement);
 }
 void 	Enemy::draw() 	{
 }
 bool 	Enemy::collideWith(Actor *anActor) {return false;}
 
-//	glLoadIdentity();
-//	
-//	glTranslatef(location_x,location_y, -8.0f);
-//	glRotatef( 45, 0.0f, -1.0f, 0.0f );
-//	float corners = .2;
-//	float top = .75;
-//	float stretch = -0.2;
-//	glBegin( GL_TRIANGLES );             /* Drawing Using Triangles       */
-//	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-//	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (left)       */  
-//	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */   
-//	glVertex3f( -corners, stretch,  corners ); /* Left Of Triangle (left)      */
-//	glColor3f(   0.0f,  0.2f,  0.0f ); /* Set The Color To Green           */   
-//	glVertex3f(  corners, 0.0f,  corners ); /* Right Of Triangle (left)     */
-//	
-//	
-//	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-//	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (right)       */ 
-//	glColor3f(   0.0f,  0.2f,  0.0f ); /* Set The Color To Green           */   
-//	glVertex3f(  corners, 0.0f,  corners ); /* Left Of Triangle (right)     */
-//	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */    
-//	glVertex3f(  corners, stretch, -corners ); /* Right Of Triangle (right)      */
-//	
-//	glColor3f(   1.0f,  0.0f,  0.0f ); /* Red                           */
-//	glVertex3f(  0.0f,  top,  0.0f ); /* Top Of Triangle (bottom)       */  
-//	glColor3f(   0.0f,  0.5f,  0.0f ); /* Set The Color To Green           */       
-//	glVertex3f(  corners, stretch, -corners ); /* Left Of Triangle (bottom)      */
-//	glVertex3f( -corners, stretch,  corners ); /* Right Of Triangle (bottom)     */
-//	
-//	
-//	glColor3f(   0.0f,  0.2f,  0.0f ); 
-//	glVertex3f(  corners, 0.0f,  corners ); 
-//	glColor3f(   0.0f,  0.5f,  0.0f );   
-//	glVertex3f(  corners, stretch, -corners );
-//	glVertex3f( -corners, stretch,  corners );
-//	glEnd( );
-
+void Enemy::circle(float movement){}
+void Enemy::diamond(float movement){
+	float x = location_x;
+	float sX = start_x_loc;
+	float y = location_y;
+	float sY = start_y_loc;
+	if(!spot){
+		if(x-sX < 1 && y-sY < 1){
+			location_x+= movement;
+			location_y+= movement;
+		}
+		else if(x-sX < 2 && y-sY > 0){
+			location_x+= movement;
+			location_y-= movement;
+		}else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 2 && y-sY > -2){
+			location_x -= movement;
+			location_y -= movement;
+		}
+		else if( x > sX && y < sY){
+			location_x -= movement;
+			location_y += movement;
+			if(x-0.1 == sX)
+				spot = false;
+		}
+		else
+			spot = false;
+	}
+}
+void Enemy::vertical(float movement){
+	float y = location_y;
+	float sY = start_y_loc;
+	if(!spot){
+		if(y-sY < 2){
+			location_y+= movement;
+		}
+		else
+			spot = true;
+	}
+	if(spot){
+		if(y-sY > 0){
+			location_y-= movement;
+		}else
+			spot = false;
+	}
+}
+void Enemy::sideways(float movement){
+	float x = location_x;
+	float sX = start_x_loc;
+	if(!spot){
+		if(x-sX < 2){
+			location_x+= movement;
+		}
+		else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 0){
+			location_x-=movement;
+		}else
+			spot = false;
+	}
+}
+void Enemy::diagonal(float movement){
+	float x = location_x;
+	float sX = start_x_loc;
+	if(!spot){
+		if(x-sX < 2){
+			location_x+=movement;
+			location_y+=movement;
+		}
+		else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 0){
+			location_x-=movement;
+			location_y-=movement;
+		}else
+			spot = false;
+	}
+}
+void Enemy::square(float movement){
+	float x = location_x;
+	float sX = start_x_loc;
+	float y = location_y;
+	float sY = start_y_loc;
+	if(!spot){
+		if(x-sX < 1){
+			location_x+=movement;
+		}
+		else if(y-sY< 1){
+			location_y+=movement;
+		}else
+			spot = true;
+	}
+	if(spot){
+		if(x-sX > 0){
+			location_x-=movement;
+		}
+		else if(y-sY > 0)
+			location_y-=movement;
+		else
+			spot = false;
+	}
+}

@@ -18,7 +18,7 @@ Client::Client(){
 		exit(EXIT_FAILURE);
 	}
 	/* Resolve server name  */
-	if (SDLNet_ResolveHost(&srvadd, "198.110.193.214",18844))
+	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
 	{
 		fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "127.0.0.1", 12345, SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -52,11 +52,14 @@ float* Client::Position(float x, float y){
 	strcpy((char *)p->data, temp);
 	p->len = strlen((char *)p->data);
 	SDLNet_UDP_Send(sd, -1, p);
+	SDLNet_ResizePacket(p, packetSize);
 	while(true){
 		if(SDLNet_UDP_Recv(sd, p)){
 			if(strcmp((char*) p->data, "Not Ready") != 0){
 				float * a;
 				a = myParser->OtherPlayer((char *) p->data);
+				free(temp);
+				free(temp2);
 				return a;
 			}else{
 				cout << "Server said waiting for 2nd player" << endl;
@@ -65,29 +68,21 @@ float* Client::Position(float x, float y){
 				strcpy((char *)p->data, temp);
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
+				SDLNet_ResizePacket(p, packetSize);
 			}
 		}
 	}
-	free(temp);
-	free(temp2);
 }
 int Client::GetArraySize(){
 	int quit = 0;
 	int arraySize = -1;
 	while(!quit)
 	{
-	strcpy((char *)p->data, "size");
-	p->len = 5;
+		strcpy((char *)p->data, "size");
+		p->len = 5;
 		SDLNet_UDP_Send(sd, -1, p);
 		int attempt = false;
-	SDLNet_FreePacket(p);
-	if (!(p = SDLNet_AllocPacket(packetSize)))
-	{
-		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
-	}
-	p->address.host = srvadd.host;
-	p->address.port = srvadd.port;
+		SDLNet_ResizePacket(p, packetSize);
  		while(true){
 			if(SDLNet_UDP_Recv(sd, p)){
 			printf("p->data: %s\n", (char *)p->data);
@@ -116,14 +111,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 	strcpy((char *)p->data, "ready");
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
-	SDLNet_FreePacket(p);
-	if (!(p = SDLNet_AllocPacket(packetSize)))
-	{
-		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
-	}
-	p->address.host = srvadd.host;
-	p->address.port = srvadd.port;
+	SDLNet_ResizePacket(p, packetSize);
 	while(true){
 		if(SDLNet_UDP_Recv(sd, p)){
 			printf("p->data: %s\n", (char *)p->data);

@@ -5,6 +5,7 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 void addScore(UDPpacket *p, UDPsocket sd);
 int lineCount(string fileName);
 int numOfLines = 0;
+int packetSize = 64;
 struct CurrentPlayer{
 	int port;
 	unsigned int host;
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
 	}
  
 	/* Make space for the packet */
-	if (!(p = SDLNet_AllocPacket(1024)))
+	if (!(p = SDLNet_AllocPacket(packetSize)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -53,22 +54,26 @@ int main(int argc, char *argv[])
 	int count = 0;
 	bool firstPlayerSignedIn = false;
 	CurrentPlayer PlayerOne;
-	PlayerOne.port = 0;
-	PlayerOne.host = 0;
-	PlayerOne.score = 0;
-	PlayerOne.x_Position = 0;
-	PlayerOne.y_Position = 0;
-	PlayerOne.ready = false;
+		PlayerOne.port = 0;
+		PlayerOne.host = 0;
+		PlayerOne.score = 0;
+		PlayerOne.x_Position = 0;
+		PlayerOne.y_Position = 0;
+		PlayerOne.ready = false;
+		PlayerOne.check = 0;
 	CurrentPlayer PlayerTwo; 
-	PlayerTwo.port = 0;
-	PlayerTwo.host = 0;
-	PlayerTwo.score = 0;
-	PlayerTwo.x_Position = 0;
-	PlayerTwo.y_Position = 0;
-	PlayerTwo.ready = false;
+		PlayerTwo.port = 0;
+		PlayerTwo.host = 0;
+		PlayerTwo.score = 0;
+		PlayerTwo.x_Position = 0;
+		PlayerTwo.y_Position = 0;
+		PlayerTwo.ready = false;
+		PlayerTwo.check = 0;
 	while (true) {
 		if (SDLNet_UDP_Recv(mySocketDesc, p)){
-			unsigned int somePlayer = SDLNet_Read32(&(p->address.host))*SDLNet_Read16(&(p->address.port));
+			unsigned int sPHost = SDLNet_Read32(&(p->address.host));
+			int sPPort = SDLNet_Read16(&(p->address.port));
+			unsigned int somePlayer = sPHost*sPPort;
 			char * incoming = (char *) p->data;
 			if(strcmp(incoming, "size") == 0){
 				cout << "sending size" << endl;
@@ -110,6 +115,12 @@ int main(int argc, char *argv[])
 				p->len = strlen((char *)p->data)+1;
 				SDLNet_UDP_Send(mySocketDesc, -1, p);
 			}
+			SDLNet_FreePacket(p);
+			if(!(p = SDLNet_AllocPacket(packetSize)))
+			{
+				fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+				exit(EXIT_FAILURE);
+			}
 		}
 		SDL_Delay(100);
 	}
@@ -146,19 +157,31 @@ void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename
 	openForParse.close();
 }
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength){
-	sleep(2);
+	unsigned int sPHost = SDLNet_Read32(&(p->address.host));
+	int sPPort = SDLNet_Read16(&(p->address.port));
 	int count = 0;
-	char * temp = (char *)malloc(sizeof(char) * 25);;
+	char * temp = (char *)malloc(sizeof(char) * 50);
+	SDLNet_ResizePacket(p, packetSize);
 	while (count < arrayLength){
 		currentMonsters[count++]->toString(temp);
 		p->data =(Uint8 *) temp;
 		p->len = strlen(temp)+1;
 		SDLNet_UDP_Send(sd, -1, p);
-	}
+		SDLNet_ResizePacket(p, packetSize);
+	}	
+	SDLNet_ResizePacket(p, packetSize);
+	free(temp);
 	strcpy((char *)p->data, "quit");
 	p->len = 5;
 	SDLNet_UDP_Send(sd, -1, p);
 }
+			/* takes a position call. on any call we ALWAYS send updates 
+			 * to store updates. Create a new monster array,
+			 * only update on the new array never on the old. Position should only set
+			 * player position. Destroyed will check if something was destroyed or if it can be
+			 * and return a score. a score of 0 is already dead stop fucking with me
+			 * anything else is it got the points
+			 */
 void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **currentMonsters, UDPpacket *p, UDPsocket mySocketDesc){
 	unsigned int p1Check, p2Check;
 	p1Check = PlayerOne.host * PlayerOne.port;
@@ -205,15 +228,13 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 				}
 			}
 
-			/* takes a position call. on any call we ALWAYS send updates 
-			 * to store updates. Create a new monster array,
-			 * only update on the new array never on the old. Position should only set
-			 * player position. Destroyed will check if something was destroyed or if it can be
-			 * and return a score. a score of 0 is already dead stop fucking with me
-			 * anything else is it got the points
-			 */
+			SDLNet_FreePacket(p);
+			if(!(p = SDLNet_AllocPacket(packetSize)))
+			{
+				fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+				exit(EXIT_FAILURE);
+			}
 		}
-
 	}
 	cout << "finished" <<endl;
 }

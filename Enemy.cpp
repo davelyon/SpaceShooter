@@ -45,7 +45,7 @@ Enemy::~Enemy() {
 	
 }
 void Enemy::toString(char * output){
-	sprintf(output, "%d %f %f %d %d", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+	sprintf(output, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
 
 }
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
