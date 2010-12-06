@@ -11,7 +11,7 @@ Client::Client(){
 	}
 	
 	/* Open a socket on random port */
-	if (!(sd = SDLNet_UDP_Open(14359)))
+	if (!(sd = SDLNet_UDP_Open(0)))
 	{
 		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
