@@ -18,8 +18,7 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 int main(int argc, char *argv[])
 {
 	UDPsocket mySocketDesc;       /* Socket descriptor */
-	UDPpacket *p1, *p2, *p;       /* Pointer to packet memory */
-	IPaddress p1IpAddress, p2IpAddress;
+	UDPpacket *p;       /* Pointer to packet memory */
 	int quit;
  
 	/* Initialize SDL_net */
@@ -37,17 +36,7 @@ int main(int argc, char *argv[])
 	}
  
 	/* Make space for the packet */
-	if (!(p1 = SDLNet_AllocPacket(512)))
-	{
-		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
-	}
-	if (!(p2 = SDLNet_AllocPacket(512)))
-	{
-		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-		exit(EXIT_FAILURE);
-	}
-	if (!(p = SDLNet_AllocPacket(512)))
+	if (!(p = SDLNet_AllocPacket(1024)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
