@@ -13,11 +13,8 @@ Client::Client(){
 	/* Open a socket on random port */
 	if (!(sd = SDLNet_UDP_Open(14359)))
 	{
-		if (!(sd = SDLNet_UDP_Open(15098)))
-		{
-			fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-			exit(EXIT_FAILURE);
-		}
+		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
 	}
 	/* Resolve server name  */
 	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
