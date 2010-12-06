@@ -25,11 +25,11 @@ Enemy::Enemy(){
 Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
-	
+		
 	this->isLiving = true;
-	this->location_x = xI / 64.0f;
+	this->location_x = xI ;
 	this->start_x_loc = this->location_x;
-	this->location_y = yI / 64.0f;
+	this->location_y = yI ;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
 	this->texture = load_texture(PLAYER2);
@@ -47,6 +47,10 @@ void Enemy::toString(char * output){
 
 }
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
+	if(xI < -2.0f)
+		xI = -2.0f;
+	if(xI > 2.0f)
+		xI = 2.0f;
 	this->location_x = xI;
 	this->start_x_loc = this->location_x;
 	this->location_y = yI;
@@ -57,7 +61,7 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f)*2.00f;
-	/*switch(movementPattern){
+	switch(movementPattern){
 		case 1:
 			square(movement);
 			break;
@@ -77,7 +81,7 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 			sideways(movement);
 			break;
 
-	}*/
+	}
 //	square(movement);
 }
 void 	Enemy::draw() 	{
