@@ -18,7 +18,7 @@ Client::Client(){
 		exit(EXIT_FAILURE);
 	}
 	/* Resolve server name  */
-	if (SDLNet_ResolveHost(&srvadd, "204.38.16.147",18844))
+	if (SDLNet_ResolveHost(&srvadd, "198.110.193.214",18844))
 	{
 		fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "127.0.0.1", 12345, SDLNet_GetError());
 		exit(EXIT_FAILURE);
