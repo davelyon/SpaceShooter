@@ -121,6 +121,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 			cout << "updated enemy: " << count-1 << endl;
 		}
 	}
+	free(temp);
 		cout << "leaving" << endl;
 }
 int Client::LineCount(string fileName){
