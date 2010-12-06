@@ -1,6 +1,6 @@
 #ifndef TheEnemy
 #define TheEnemy
-#include "Actor.h"
+#include "Player.h"
 #include <string>
 
 #ifndef SERVER_COMPILE_FLAG
@@ -18,7 +18,7 @@ public:
 	void 	update(int uID, float xI, float y, int health, int pointValue);
 	void update(int tick);
 	void 	draw();
-	bool 	collideWith(Actor *anActor);
+	bool 	collideWith(Player *anActor);
 	void toString(char * output);
 private:
 	int uniqueID;

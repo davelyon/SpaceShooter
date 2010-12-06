@@ -47,7 +47,9 @@ public:
 	virtual int 	points();
 	virtual int 	belongsTo(); // Who owns this? 1,2 are players, 3 is 'game'
 	virtual bool 	living();
-		
+	
+	virtual float getX();
+	virtual float getY();
 	int pointValue;
 	int owner;
 	

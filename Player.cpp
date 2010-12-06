@@ -169,7 +169,9 @@ void 	Player::draw(bool two) {
 	glFinish();
 		
 }
-bool 	Player::collideWith(Actor *anActor) {return false;}
+bool 	Player::collideWith(Actor *anActor) {
+	return false;
+}
 int 	Player::points() 		{ return 0;}
 
 void Player::shoot(int ticks) {

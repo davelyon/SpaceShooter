@@ -13,9 +13,9 @@ GLuint ship_texture() {
 	}
 	return shipTexture;
 }
-static GLuint partTexture = -1;
+static GLuint partTexture = -2;
 GLuint part_texture() {
-	if(partTexture == -1) {
+	if(partTexture == -2) {
 		partTexture = load_texture(PARTICLE);
 	}
 	return partTexture;
