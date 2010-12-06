@@ -107,7 +107,6 @@ void Client::GetEnemyList(Enemy **enemyList){
 	int* params;
 	char * temp = (char *)malloc(sizeof(char) * 6);
 	strcpy(temp, "ready");
-	printf("Quick test: %d \n", strlen(temp) );
 	p->data = (Uint8 *)temp;
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
