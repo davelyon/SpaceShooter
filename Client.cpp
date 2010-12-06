@@ -23,7 +23,7 @@ Client::Client(){
 		exit(EXIT_FAILURE);
  	}
 	/* Allocate memory for the packet */
-	if (!(p = SDLNet_AllocPacket(512)))
+	if (!(p = SDLNet_AllocPacket(1024)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -86,14 +86,14 @@ int Client::GetArraySize(){
 				quit = 1;
 				break;
 			}
-	/*		if(!attempt){
+			if(!attempt){
 				sleep(4);
 				attempt = true;
 			}else{
 				noServer = true;
 				quit=1;
 				break;
-			}*/
+			}
 		}
 		delete[] temp;
 	}
