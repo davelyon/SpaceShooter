@@ -3,7 +3,7 @@
 
 GameLoop::GameLoop(){
 	realtick = 0;
-
+	movePlayer = MOVE_DOWN;
 	ratelimiter = 0;
 	paused = true;
 	running = true;
@@ -25,6 +25,7 @@ GameLoop::GameLoop(){
     printf("TTF_OpenFont: %s\n", TTF_GetError());
     exit(7);
 	}
+	playersInGame = 0;
 	while(true){
 		if(playersInGame == 1 || playersInGame ==2)
 			break;
@@ -81,7 +82,8 @@ void GameLoop::handleKeyInput()
 {
 	
 	SDL_Event event;
-	while (SDL_PollEvent (&event)) {
+	while (SDL_PollEvent(&event)) {
+		if( event = NULL) continue;
 		if (event.type==SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 				case SDLK_DOWN:

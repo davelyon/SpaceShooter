@@ -19,7 +19,7 @@ Enemy::Enemy(){
 	uniqueID = 0;
 	myHealth = 0;
 	movementPattern = (rand()%5)+1;
-
+	spot = false;
 }
 
 Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
@@ -37,6 +37,8 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	uniqueID = uID;
 	myHealth = health;
 	movementPattern = (rand()%5)+1;
+	
+	spot = false;
 }
 
 Enemy::~Enemy() {
