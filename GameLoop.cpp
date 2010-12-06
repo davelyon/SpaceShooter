@@ -3,6 +3,8 @@
 
 GameLoop::GameLoop(){
 	realtick = 0;
+
+	ratelimiter = 0;
 	paused = true;
 	running = true;
 	player1 = new Player(1);
@@ -46,6 +48,7 @@ GameLoop::GameLoop(){
 		client->NoServerCall(size, crazies, "level1.txt");
 	else
 		client->GetEnemyList(crazies);
+		cout << "ok" << endl;
 }
 
 GameLoop::~GameLoop(){
@@ -53,12 +56,10 @@ GameLoop::~GameLoop(){
 }
 
 void GameLoop::start() {
-	SDL_GL_SwapBuffers();
 
 	while(paused) 
 		displayTextScreen((char *)"Press Start");
 	
-	ratelimiter = 0;
 
 	while(running) {
 		
@@ -148,7 +149,7 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	if(playersInGame == 2 && ratelimiter + 30 <= realtick){
-		printf("Sending server data at %d -- last at %d\n", realtick, ratelimiter);
+	//	printf("Sending server data at %d -- last at %d\n", realtick, ratelimiter);
 		ratelimiter = realtick;
 		
 		float * b;
@@ -166,9 +167,9 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
-	//if(playersInGame == 2){
+	if(playersInGame == 2){
 		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
-	//}
+	}
 	player1->draw();
 	monster1->draw();
 	for(int i = 0; i < size; i++)
@@ -180,8 +181,8 @@ void GameLoop::drawScene() {
 	location.y = 766;
 	char text[100];
 	int fps = SDL_GetTicks() - realtick;
-	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
-	SDL_GL_RenderText(text, font, color, &location);
+//	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
+//	SDL_GL_RenderText(text, font, color, &location);
 	
 	
 	SDL_GL_SwapBuffers();
@@ -199,7 +200,7 @@ void GameLoop::displayTextScreen(char * displayTop, char * displayBot) {
 	SDL_GL_RenderText(displayTop, font, color, &location);
 	location.y = 340;
 	SDL_GL_RenderText(displayBot, font, color, &location);
-	SDL_Delay(50); // Render menu @ 10fps
+	SDL_Delay(100); // Render menu @ 10fps
 	SDL_GL_SwapBuffers();
 }
 void GameLoop::displayTextScreen(char * displayText) {

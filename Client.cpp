@@ -55,7 +55,6 @@ float* Client::Position(float x, float y){
 			if(strcmp((char*) p->data, "Not Ready") != 0){
 				float * a;
 				a = myParser->OtherPlayer((char *) p->data);
-				cout <<"x: " << a[0] << " y: " << a[1] <<endl;
 				return a;
 			}else{
 				cout << "Server said waiting for 2nd player" << endl;

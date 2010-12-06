@@ -81,16 +81,16 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 	square(movement);
 } void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
+	glLoadIdentity();
+	glTranslatef(location_x,location_y, -8.0f);
+	glScalef(0.2f, 0.2f, 1.0f);
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(location_x,location_y, -8.0f);
 	//glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	
-	glScalef(0.5f, 0.5f, 0.01f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
