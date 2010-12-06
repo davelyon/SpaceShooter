@@ -33,8 +33,11 @@ GameLoop::GameLoop(){
 	client = new Client();
 	client->TellPlayerAmount(playersInGame);
 	size = client->GetArraySize();
-	if(client->noServer)
+	if(client->noServer){
+		cout << "caught timeout" << endl;
+		playersInGame = 1;
 		size = client->LineCount("level1.txt");
+	}
 	displayTextScreen((char *)"loading..");
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
