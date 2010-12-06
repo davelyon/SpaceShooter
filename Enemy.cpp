@@ -78,8 +78,9 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 			break;
 
 	}*/
-	square(movement);
-} void 	Enemy::draw() 	{
+//	square(movement);
+}
+void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -8.0f);
@@ -193,10 +194,10 @@ void Enemy::square(float movement){
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
-		if(x-sX < 2){
+		if(x-sX < 1){
 			location_x+=movement;
 		}
-		else if(y-sY< 2){
+		else if(y-sY< 1){
 			location_y+=movement;
 		}else
 			spot = true;
