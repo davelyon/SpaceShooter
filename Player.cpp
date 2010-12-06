@@ -87,12 +87,12 @@ void Player::holdPosition(bool should){
 
 void 	Player::draw() {
 	bool firstDraw = true;
-	while(true){
+//	while(true){
 		glLoadIdentity();
-		if(firstDraw)
+	//	if(firstDraw)
 			glTranslatef(location_x,location_y,-8.0f);
-		else
-			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
+	//	else
+	//		glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
 		glScalef(0.5f, 0.5f, 1.0f);
 		
 		glMatrixMode(GL_TEXTURE);
@@ -111,11 +111,11 @@ void 	Player::draw() {
 		glFinish();
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
-		if(firstDraw)
+/*		if(firstDraw)
 			firstDraw = false;
 		else
 			break;
-	}
+	}*/
 	
 
 	
@@ -174,7 +174,7 @@ int 	Player::points() 		{ return 0;}
 
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;
-	printf("Shot from...(%f,%f)", location_x, location_y);
+	//printf("Shot from...(%f,%f)", location_x, location_y);
 	
 	lasers[numLasers].x = this->location_x;
 	lasers[numLasers].y = this->location_y;
