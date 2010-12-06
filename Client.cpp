@@ -17,7 +17,7 @@ Client::Client(){
 		exit(EXIT_FAILURE);
 	}
 	/* Resolve server name  */
-	if (SDLNet_ResolveHost(&srvadd, "127.0.0.1",18844))
+	if (SDLNet_ResolveHost(&srvadd, "204.38.16.147",18844))
 	{
 		fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "127.0.0.1", 12345, SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -75,14 +75,21 @@ int Client::GetArraySize(){
 	int arraySize = -1;
 	while(!quit)
 	{
-		char * temp = (char *)malloc(sizeof(char) * 5);;
-		strcpy(temp, "size");
-		p->data = (Uint8 *)temp;
-		p->len = 5;
+	strcpy((char *)p->data, "size");
+	p->len = 5;
 		SDLNet_UDP_Send(sd, -1, p);
 		int attempt = false;
+	SDLNet_FreePacket(p);
+	if (!(p = SDLNet_AllocPacket(1024)))
+	{
+		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+	p->address.host = srvadd.host;
+	p->address.port = srvadd.port;
  		while(true){
 			if(SDLNet_UDP_Recv(sd, p)){
+			printf("p->data: %s\n", (char *)p->data);
 				arraySize = atoi((char *)p->data);
 				quit = 1;
 				break;
@@ -96,8 +103,8 @@ int Client::GetArraySize(){
 				break;
 			}
 		}
-		free(temp);
 	}
+	
 	return arraySize;
 }
 
@@ -105,23 +112,28 @@ void Client::GetEnemyList(Enemy **enemyList){
 	int quit = 0;
 	int count = 0;
 	int* params;
-	char * temp = (char *)malloc(sizeof(char) * 6);
-	strcpy(temp, "ready");
-	p->data = (Uint8 *)temp;
+	strcpy((char *)p->data, "ready");
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
+	SDLNet_FreePacket(p);
+	if (!(p = SDLNet_AllocPacket(1024)))
+	{
+		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+		exit(EXIT_FAILURE);
+	}
+	p->address.host = srvadd.host;
+	p->address.port = srvadd.port;
 	while(true){
 		if(SDLNet_UDP_Recv(sd, p)){
+			printf("p->data: %s\n", (char *)p->data);
 			if(!strcmp((char *)p->data, "quit"))
 				break;
 			//parse the char* //update the monster. move on
-			char * r = (char *)p->data;
-			params = myParser->CreateMonsterObject(r);
+			params = myParser->CreateMonsterObject((char *)p->data);
 			enemyList[count++]->update(params[0], params[1], params[2], params[3], params[4]);
 			cout << "updated enemy: " << count-1 << endl;
 		}
 	}
-	free(temp);
 		cout << "leaving" << endl;
 }
 int Client::LineCount(string fileName){
