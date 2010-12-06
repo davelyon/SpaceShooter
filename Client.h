@@ -23,6 +23,7 @@ class Client{
 		UDPpacket *p;
 		IPaddress srvadd;
 		Parser *myParser;
+		int packetSize;
 		
 	public:
 		Client();

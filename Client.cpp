@@ -3,6 +3,7 @@
 Client::Client(){
 	/* Check for parameters */
 	/* Initialize SDL_net */
+	packetSize = 64;
 	myParser = new Parser();
 	if (SDLNet_Init() < 0)
 	{
@@ -23,7 +24,7 @@ Client::Client(){
 		exit(EXIT_FAILURE);
  	}
 	/* Allocate memory for the packet */
-	if (!(p = SDLNet_AllocPacket(1024)))
+	if (!(p = SDLNet_AllocPacket(packetSize)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -80,7 +81,7 @@ int Client::GetArraySize(){
 		SDLNet_UDP_Send(sd, -1, p);
 		int attempt = false;
 	SDLNet_FreePacket(p);
-	if (!(p = SDLNet_AllocPacket(1024)))
+	if (!(p = SDLNet_AllocPacket(packetSize)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -116,7 +117,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);
 	SDLNet_FreePacket(p);
-	if (!(p = SDLNet_AllocPacket(1024)))
+	if (!(p = SDLNet_AllocPacket(packetSize)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
