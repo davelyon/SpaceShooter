@@ -169,8 +169,9 @@ void GameLoop::drawScene() {
 	partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	if(playersInGame == 2){
 		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
-	}
-	player1->draw();
+		player1->draw(true);
+	}else
+		player1->draw(false);
 	monster1->draw();
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
