@@ -45,7 +45,8 @@ void Client::TellPlayerAmount(int players){
 	SDLNet_UDP_Send(sd, -1, p);
 }
 float* Client::Position(float x, float y){
-	char * temp = new char[23];
+	char * temp = (char *)malloc(sizeof(char) * 23);//new char[23];
+	char * temp2 = (char *)malloc(sizeof(char) * 23);
 	sprintf(temp, "position %f %f", x, y);
 	strcpy((char *)p->data, temp);
 	p->len = strlen((char *)p->data);
@@ -58,22 +59,23 @@ float* Client::Position(float x, float y){
 				return a;
 			}else{
 				cout << "Server said waiting for 2nd player" << endl;
-				SDL_Delay(500);
-				char * temp = new char[23];
-				sprintf(temp, "position %f %f", x, y);
+				SDL_Delay(200);
+				sprintf(temp2, "position %f %f", x, y);
 				strcpy((char *)p->data, temp);
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
 			}
 		}
 	}
+	free(temp);
+	free(temp2);
 }
 int Client::GetArraySize(){
 	int quit = 0;
 	int arraySize = -1;
 	while(!quit)
 	{
-		char * temp = new char[5];
+		char * temp = (char *)malloc(sizeof(char) * 5);;
 		strcpy(temp, "size");
 		p->data = (Uint8 *)temp;
 		p->len = 5;
@@ -94,7 +96,7 @@ int Client::GetArraySize(){
 				break;
 			}
 		}
-		delete[] temp;
+		free(temp);
 	}
 	return arraySize;
 }
@@ -105,6 +107,7 @@ void Client::GetEnemyList(Enemy **enemyList){
 	int* params;
 	char * temp = (char *)malloc(sizeof(char) * 6);
 	strcpy(temp, "ready");
+	printf("Quick test: %d \n", strlen(temp) );
 	p->data = (Uint8 *)temp;
 	p->len = 6;
 	SDLNet_UDP_Send(sd, -1, p);

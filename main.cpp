@@ -26,7 +26,7 @@ static void createSurface (int fullscreen)
 {
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL|SDL_SWSURFACE);
-	SDL_WM_SetCaption("Space Peaux Peaux",NULL);
+	SDL_WM_SetCaption("Space Pew Pew ",NULL);
 	SDL_EnableKeyRepeat(1,100);
 }
 
@@ -51,9 +51,6 @@ static void initGL ()
 	glEnable(GL_BLEND);					// Enable Blending
 	
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-	//glBlendFunc(GL_ONE, GL_SRC_ALPHA);
-
-	//glBlendColor(0, 0, 0, 1);
 }
 
 static void mainLoop ()

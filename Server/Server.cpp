@@ -72,12 +72,12 @@ int main(int argc, char *argv[])
 			char * incoming = (char *) p->data;
 			if(strcmp(incoming, "size") == 0){
 				cout << "sending size" << endl;
-				char * temp = new char[25];
+				char * temp = (char *)malloc(sizeof(char) * 25);;
 				sprintf(temp, "%d", numOfLines);
 				strcpy((char *)p->data, temp);
 				p->len = strlen((char *)p->data)+1;
 				SDLNet_UDP_Send(mySocketDesc, -1, p);
-				delete [] temp;
+				free(temp);
 			}else if (strcmp(incoming, "ready") == 0){
 				cout << "sending level" << endl;
 				sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 }
 void addScore(UDPpacket *p, UDPsocket sd){
 	while(!SDLNet_UDP_Recv(sd, p)){}
-	char * temp = new char[25];
+	char * temp = (char *)malloc(sizeof(char) * 25);;
 	strcpy(temp, (char *)p->data);
 	ofstream hsFile;
 	hsFile.open("HighScores.txt");
@@ -148,7 +148,7 @@ void createMonsterArray(int numOfLines, Enemy **currentMonsters, string filename
 void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLength){
 	sleep(2);
 	int count = 0;
-	char * temp = new char[25];
+	char * temp = (char *)malloc(sizeof(char) * 25);;
 	while (count < arrayLength){
 		currentMonsters[count++]->toString(temp);
 		p->data =(Uint8 *) temp;
@@ -170,12 +170,12 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 			if(somePlayer != p1Check && somePlayer != p2Check){
 				char * incoming = (char *) p->data;
 				if(strcmp(incoming, "size") == 0){
-					char * temp = new char[25];
+					char * temp = (char *)malloc(sizeof(char) * 25);
 					sprintf(temp, "%d", numOfLines);
 					strcpy((char *)p->data, temp);
 					p->len = strlen((char *)p->data)+1;
 					SDLNet_UDP_Send(mySocketDesc, -1, p);
-					delete [] temp;
+					free(temp);
 				}else if (strcmp(incoming, "ready") == 0){
 					cout << "sending level" << endl;
 					sendLevel(p, mySocketDesc, currentMonsters, numOfLines);
@@ -187,7 +187,7 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 				if(strncmp(incoming, "position", 8) == 0){
 					float * a;			
 					a = myParser->Position(incoming);
-					char * temp = new char[15];
+					char * temp = (char *)malloc(sizeof(char) * 15);;
 					if(p1Check == somePlayer){
 						PlayerOne.x_Position = a[0];
 						PlayerOne.y_Position = a[1];
@@ -201,6 +201,7 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 					strcpy((char *)p->data, temp);
 					p->len = strlen((char *)p->data)+1;
 					SDLNet_UDP_Send(mySocketDesc, -1, p);
+					free(temp);
 				}
 			}
 
@@ -212,7 +213,7 @@ void waitForUpdates(CurrentPlayer PlayerOne, CurrentPlayer PlayerTwo, Enemy **cu
 			 * anything else is it got the points
 			 */
 		}
-		SDL_Delay(100);
+
 	}
 	cout << "finished" <<endl;
 }
