@@ -7,7 +7,7 @@ Parser::~Parser(){
 }
 int* Parser::CreateMonsterObject(string monsterCreationParams){
 	string uID, x, y, img, points;
-	int* returnable = (int *)malloc(sizeof(int) * 5);;
+	int* returnable = (int *)malloc(sizeof(int) * 5);
 	SpaceParser(&monsterCreationParams, &uID);
 	returnable[0] = atoi(uID.c_str());
 	SpaceParser(&monsterCreationParams, &x);
@@ -22,7 +22,7 @@ int* Parser::CreateMonsterObject(string monsterCreationParams){
 }
 float* Parser::Position(string XYPositions){
 	string xPos, yPos, junk;
-	float* returnable = new float[2];
+	float* returnable = (float *)malloc(sizeof(float) * 2);
 	SpaceParser(&XYPositions, &junk);
 	SpaceParser(&XYPositions, &xPos);
 	returnable[0] = atof(xPos.c_str());
@@ -32,7 +32,7 @@ float* Parser::Position(string XYPositions){
 }
 float* Parser::OtherPlayer(string XYPositions){
 	string xPos, yPos;
-	float* returnable = new float[2];
+	float* returnable = (float *)malloc(sizeof(float) * 2);
 	SpaceParser(&XYPositions, &xPos);
 	returnable[0] = atof(xPos.c_str());
 	SpaceParser(&XYPositions, &yPos);
