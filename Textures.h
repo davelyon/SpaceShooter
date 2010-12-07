@@ -22,13 +22,16 @@
 #define PLAYER1 "player1.bmp"
 #define PLAYER2 "player2.bmp"
 #define PARTICLE "particle.bmp"
+#define ENEMY	"enemy.bmp"
 #else
 #define PLAYER1 "./player1.bmp"
 #define PLAYER2 "./player2.bmp"
 #define PARTICLE "./particle.bmp"
+#define ENEMY	"./enemy.bmp"
 #endif
 
 GLuint ship_texture();
+GLuint enem_texture();
 GLuint ship_texture2();
 GLuint part_texture();
 GLuint load_texture(const char* file);

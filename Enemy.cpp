@@ -14,7 +14,7 @@ Enemy::Enemy(){
 	this->location_y = 0.0f;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
-	this->texture = ship_texture();
+	this->texture = enem_texture();
 #endif	
 	uniqueID = 0;
 	myHealth = 1;
@@ -38,7 +38,7 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->location_y = yI ;
 	this->start_y_loc = this->location_y;
 #ifndef SERVER_COMPILE_FLAG
-	this->texture = load_texture(PLAYER2);
+	this->texture = enem_texture();
 #endif
 	uniqueID = uID;
 	myHealth = 1;
@@ -109,11 +109,12 @@ void 	Enemy::draw() 	{
 	
 
 	glPushMatrix();
-
 	glTranslatef(location_x,location_y, -8.0f);
 	glScalef(0.2f, 0.2f, 1.0f);
+	glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	glColor4f(1.0f, 1.0f, 0.2f, 1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
@@ -144,7 +145,7 @@ bool Enemy::collideWith(Actor *anActor) {
 		return true;
 	}
 	
-	if ( x < (location_x - 0.7f) || x > (location_x + 0.7f)){
+	if ( x < (location_x - 0.35f) || x > (location_x + 0.35f)){
 		return false;
 	}else if ( y < (location_y - 0.7f) || y > (location_y + 0.7f)){
 		return false;
