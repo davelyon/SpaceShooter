@@ -31,7 +31,7 @@ private:
 	void diamond(float movement);
 	void sideways(float movement);
 	void vertical(float movement);
-	GLuint texture;
+
 };
 
 #endif

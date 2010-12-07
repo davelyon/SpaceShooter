@@ -13,7 +13,7 @@ Enemy::Enemy(){
 	this->start_x_loc = this->location_x;
 	this->location_y = 0.0f;
 	this->start_y_loc = this->location_y;
-	this->texture = 0;
+
 	uniqueID = 0;
 	myHealth = 0;
 	movementPattern = (rand()%5)+1;
@@ -29,7 +29,7 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->start_x_loc = this->location_x;
 	this->location_y = yI ;
 	this->start_y_loc = this->location_y;
-	this->texture = 0;
+
 	uniqueID = uID;
 	myHealth = health;
 	movementPattern = (rand()%5)+1;
