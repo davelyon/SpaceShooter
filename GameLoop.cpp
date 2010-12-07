@@ -198,20 +198,22 @@ void GameLoop::tickActors()
 {
 	player1->update(tick, movePlayer);
 	levelSpeed +=1.0f;
-	if(playersInGame == 2 && ratelimiter + 50 <= realtick){
+	if(playersInGame == 2 && ratelimiter + 10 <= realtick){
 		ratelimiter = realtick;
-		
-		float * b = NULL;
-		b = client->Position(player1->getX(), player1->getY());
-	if(b[0] != -9.0f){
-		player1->otherPlayer.x = b[0];
-		player1->otherPlayer.y = b[1];
-		}
 	}
 	//monster1->update(tick);
 	for(int i = 0; i < size; i++){
 		crazies[i]->update(tick);
 		crazies[i]->collideWith((Actor *)player1);
+	}
+		float * b = NULL;
+		if(player1->living())
+		b = client->Position(player1->getX(), player1->getY());
+		else
+		b = client->Position(-10.0, -10.0);
+	if(b[0] != -9.0f){
+		player1->otherPlayer.x = b[0];
+		player1->otherPlayer.y = b[1];
 	}
 }
 

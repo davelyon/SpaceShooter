@@ -115,7 +115,7 @@ void 	Player::draw(bool two) {
 		glPushMatrix();
 		if(firstDraw)
 			glTranslatef(location_x,location_y,-8.0f);
-		else if(two)
+		else if(two && otherPlayer.x != -10.0)
 			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
 		glScalef(0.5f, 0.5f, 1.0f);
 		

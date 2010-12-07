@@ -57,7 +57,6 @@ float* Client::Position(float x, float y){
 	while(!gameStarted){
 		if(SDLNet_UDP_Recv(sd, p)){
 			if(strcmp((char*) p->data, "Not Ready") == 0){
-				SDL_Delay(200);
 				sprintf((char *)p->data, "position %f %f", x, y);
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
