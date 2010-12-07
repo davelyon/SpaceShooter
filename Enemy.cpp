@@ -74,6 +74,7 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f)*2.00f;
+cout << this->location_x<<" "<<this->location_y << endl;
 /*	switch(movementPattern){
 		case 1:
 			square(movement);
