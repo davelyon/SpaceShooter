@@ -203,11 +203,10 @@ void GameLoop::tickActors()
 		
 		float * b = NULL;
 		b = client->Position(player1->getX(), player1->getY());
-	if(b != NULL){
+	if(b[0] != -9.0f){
 		player1->otherPlayer.x = b[0];
 		player1->otherPlayer.y = b[1];
 		}
-		free(b);
 	}
 	//monster1->update(tick);
 	for(int i = 0; i < size; i++){
