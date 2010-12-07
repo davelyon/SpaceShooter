@@ -23,9 +23,9 @@
 #define PLAYER2 "/Users/dave/Code/SpaceRedux/ship3s.bmp"
 #define PARTICLE "/Users/dave/Code/SpaceRedux/particle.bmp"
 #else
-#define PLAYER1 "/home/msherman/videoGames/hold/SpaceShooter/ship3s.bmp"
-#define PLAYER2 "/home/msherman/videoGames/hold/SpaceShooter/ship3s.bmp"
-#define PARTICLE "/home/msherman/videoGames/hold/SpaceShooter/particle.bmp"
+#define PLAYER1 "./ship3s.bmp"
+#define PLAYER2 "./ship3s.bmp"
+#define PARTICLE "./particle.bmp"
 #endif
 
 GLuint ship_texture();
