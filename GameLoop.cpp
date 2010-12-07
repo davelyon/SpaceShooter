@@ -3,7 +3,7 @@
 #ifdef MAC_OSX_BUILD_MODE
 #define soundFile  "/Users/dave/Code/LevelCode/laser_44100hz_16bit_stereo.wav"
 #else
-#define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser_44100hz_16bit_stereo.wav"
+#define soundFile  "./laser_44100hz_16bit_stereo.wav"
 #endif
 
 GameLoop::GameLoop(){
@@ -24,7 +24,7 @@ GameLoop::GameLoop(){
 #ifdef MAC_OSX_BUILD_MODE	
 	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
 #else
-	font = TTF_OpenFont("/home/msherman/videoGames/hold/SpaceShooter/Anonymous_Pro.ttf", 18);
+	font = TTF_OpenFont("./Anonymous_Pro.ttf", 18);
 #endif
 	if(!font) {
     printf("TTF_OpenFont: %s\n", TTF_GetError());
@@ -48,7 +48,14 @@ GameLoop::GameLoop(){
 	client->TellPlayerAmount(playersInGame);
 	size = client->GetArraySize();
 	if(client->noServer){
-		cout << "caught timeout" << endl;
+		char * noServText = (char *)malloc(sizeof(char)*16);
+		char * singlText = (char *)malloc(sizeof(char)*23);
+		strcpy(noServText, "No Server Found");
+		strcpy(singlText, "Starting Single Player");
+		displayTextScreen(noServText, singlText);
+		SDL_Delay(1500);
+		free(noServText);
+		free(singlText);
 		playersInGame = 1;
 #ifdef MAC_OSX_BUILD_MODE
 		size = client->LineCount("/Users/dave/Code/LevelCode/level1.txt");
@@ -56,7 +63,8 @@ GameLoop::GameLoop(){
 		size = client->LineCount("level1.txt");
 #endif
 	}
-	displayTextScreen((char *)"loading..");
+	if(playersInGame == 2)
+		displayTextScreen((char *)"loading..");
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
 	displayTextScreen((char *)"loading...");
