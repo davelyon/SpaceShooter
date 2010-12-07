@@ -62,19 +62,14 @@ float* Client::Position(float x, float y){
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
 				SDLNet_ResizePacket(p, packetSize);		
-				continue;
+			}else{
+				gameStarted = true;
+				return myParser->OtherPlayer((char *) p->data);
 			}
 		}
-		gameStarted = true;
 	}
-
 	if(SDLNet_UDP_Recv(sd, p)){
-		if(strcmp((char*) p->data, "Not Ready") != 0){
-			gameStarted = true;
-			float * a;
-			a = myParser->OtherPlayer((char *) p->data);
-			return a;
-		}
+			return myParser->OtherPlayer((char *) p->data);
 	}
 	
 	return bad;
