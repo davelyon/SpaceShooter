@@ -201,11 +201,12 @@ void GameLoop::tickActors()
 	if(playersInGame == 2 && ratelimiter + 50 <= realtick){
 		ratelimiter = realtick;
 		
-		float * b;
+		float * b = NULL;
 		b = client->Position(player1->getX(), player1->getY());
-
+	if(b != NULL){
 		player1->otherPlayer.x = b[0];
 		player1->otherPlayer.y = b[1];
+	}
 	}
 	//monster1->update(tick);
 	for(int i = 0; i < size; i++){

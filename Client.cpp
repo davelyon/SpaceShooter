@@ -51,11 +51,14 @@ float* Client::Position(float x, float y){
 	p->len = strlen((char *)p->data);
 	SDLNet_UDP_Send(sd, -1, p);
 	SDLNet_ResizePacket(p, packetSize);
+	bool noRec;
 	while(true){
+		noRec = true;
 		if(gameStarted)
 			SDL_Delay(20);
 		if(SDLNet_UDP_Recv(sd, p)){
 			if(strcmp((char*) p->data, "Not Ready") != 0){
+				noRec = false;
 				gameStarted = true;
 				float * a;
 				a = myParser->OtherPlayer((char *) p->data);
@@ -69,7 +72,7 @@ float* Client::Position(float x, float y){
 				SDLNet_ResizePacket(p, packetSize);
 			}
 		}
-		if(gameStarted)
+		if(gameStarted && noRec)
 			break;
 	}
 }
