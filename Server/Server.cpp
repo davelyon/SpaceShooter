@@ -160,17 +160,16 @@ void sendLevel(UDPpacket *p, UDPsocket sd, Enemy **currentMonsters, int arrayLen
 	unsigned int sPHost = SDLNet_Read32(&(p->address.host));
 	int sPPort = SDLNet_Read16(&(p->address.port));
 	int count = 0;
-	char * temp = (char *)malloc(sizeof(char) * 50);
+	string apple;
 	SDLNet_ResizePacket(p, packetSize);
 	while (count < arrayLength){
-		currentMonsters[count++]->toString(temp);
-		p->data =(Uint8 *) temp;
-		p->len = strlen(temp)+1;
+		apple = currentMonsters[count++]->toString();
+		strcpy((char *)p->data, apple.c_str());
+		p->len = apple.length()+1;
 		SDLNet_UDP_Send(sd, -1, p);
 		SDLNet_ResizePacket(p, packetSize);
 	}	
 	SDLNet_ResizePacket(p, packetSize);
-	free(temp);
 	strcpy((char *)p->data, "quit");
 	p->len = 5;
 	SDLNet_UDP_Send(sd, -1, p);

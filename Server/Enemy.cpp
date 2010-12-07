@@ -13,7 +13,7 @@ Enemy::Enemy(){
 	this->start_x_loc = this->location_x;
 	this->location_y = 0.0f;
 	this->start_y_loc = this->location_y;
-	this->texture = -1;
+	this->texture = 0;
 	uniqueID = 0;
 	myHealth = 0;
 	movementPattern = (rand()%5)+1;
@@ -40,8 +40,13 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 Enemy::~Enemy() {
 	
 }
-void Enemy::toString(char * output){
-	sprintf(output, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+string Enemy::toString(){
+	string output = "";
+	char * a;
+	sprintf(a, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+	output = a;
+	delete[] a;
+	return output;
 
 }
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {

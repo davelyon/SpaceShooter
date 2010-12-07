@@ -2,7 +2,7 @@
 #define TheEnemy
 #include "../Actor.h"
 #include <string>
-
+using namespace std;
 class Enemy : Actor
 {
 public:
@@ -15,7 +15,7 @@ public:
 	void update(int tick);
 	void 	draw();
 	bool 	collideWith(Actor *anActor);
-	void toString(char * output);
+	string toString();
 private:
 	int uniqueID;
 	int myHealth;
