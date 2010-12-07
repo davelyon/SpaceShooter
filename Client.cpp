@@ -69,6 +69,8 @@ float* Client::Position(float x, float y){
 				SDLNet_ResizePacket(p, packetSize);
 			}
 		}
+		if(gameStarted)
+			break;
 	}
 }
 int Client::GetArraySize(){
