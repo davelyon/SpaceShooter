@@ -32,6 +32,7 @@ class Client{
 		void GetEnemyList(Enemy** enemyList);
 		int LineCount(string fileName);
 		int GetArraySize();
+		bool gameStarted;
 		void TellPlayerAmount(int players);
 		float* Position(float x, float y);
 		bool noServer;
