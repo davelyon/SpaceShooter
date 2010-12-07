@@ -74,6 +74,9 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f)*2.00f;
+float screenMove = ((float)ticks/1000.0f) * -1.10f;
+	location_y += screenMove;
+	start_y_loc += screenMove;
 /*	switch(movementPattern){
 		case 1:
 			square(movement);
@@ -108,7 +111,7 @@ void 	Enemy::draw() 	{
 	glLoadIdentity();
 	
 	glLoadIdentity();
-	glTranslatef(location_x,location_y, -8.0f);
+	glTranslatef(location_x,location_y+screenMove, -8.0f);
 	glScalef(0.2f, 0.2f, 1.0f);
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();

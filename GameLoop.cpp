@@ -206,6 +206,7 @@ void GameLoop::tickActors()
 }
 
 void GameLoop::drawScene() {
+	float screenMove = 0.0f;
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 
@@ -224,7 +225,7 @@ void GameLoop::drawScene() {
 	}else{
 		player1->draw(false);
 	}
-	//monster1->draw();
+	
 	for(int i = 0; i < size; i++)
 		crazies[i]->draw();
 
