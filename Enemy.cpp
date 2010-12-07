@@ -149,7 +149,7 @@ bool Enemy::collideWith(Actor *anActor) {
 	}else if ( y < (location_y - 0.7f) || y > (location_y + 0.7f)){
 		return false;
 	} 	
-	// Colided with player... should probably damage player..
+	this->myHealth = 0;
 	return true;
 
 }
