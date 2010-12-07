@@ -222,8 +222,6 @@ int 	Player::points() 		{ return pointValue;}
 
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;
-	//printf("Shot from...(%f,%f)", location_x, location_y);
-	
 	lasers[numLasers].x = this->location_x;
 	lasers[numLasers].y = this->location_y;
 	lasers[numLasers].living = true;

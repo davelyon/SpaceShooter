@@ -78,7 +78,7 @@ GameLoop::GameLoop(){
 #endif
 	else
 		client->GetEnemyList(crazies);
-		cout << "ok" << endl;
+		//cout << "ok" << endl;
 }
 
 GameLoop::~GameLoop(){
@@ -138,7 +138,6 @@ void GameLoop::handleKeyInput()
 						movePlayer = MOVE_RIGHT;
 					break;
 				case SDLK_SPACE:
-					printf("Pressed space.\n");
 					if(!paused){
 						player1->shoot(realtick);
 #ifdef MAC_OSX_BUILD_MODE
@@ -191,7 +190,6 @@ void GameLoop::tickActors()
 	player1->update(tick, movePlayer);
 	levelSpeed +=1.0f;
 	if(playersInGame == 2 && ratelimiter + 50 <= realtick){
-	//	printf("Sending server data at %d -- last at %d\n", realtick, ratelimiter);
 		ratelimiter = realtick;
 		
 		float * b;
