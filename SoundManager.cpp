@@ -24,15 +24,10 @@ void mixaudio2(void *unused, Uint8 *stream, int len) {
     SDL_MixAudio(stream, &sounds[i].data[sounds[i].dpos],
 amount, SDL_MIX_MAXVOLUME);
     sounds[i].dpos += amount;
-	SoundManager::Instance()->set(sounds);
+	for (int i = 0; i < NUM_SOUNDS; i++)
+		SoundManager::Instance()->sounds[i] = sounds[i];
 	}
 }
-
-void SoundManager::set(sample asdf[NUM_SOUNDS]){
-	for (int i = 0; i < NUM_SOUNDS; i++)
-		sounds[i] = asdf[i];
-}
-
 
 SoundManager *SoundManager::Instance() {
 	if(singletonInstance == NULL) {

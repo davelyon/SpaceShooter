@@ -25,8 +25,6 @@ public:
 	}sounds[NUM_SOUNDS];
 
 	void PlaySound(const char *file);
-	void set(sample asdf[NUM_SOUNDS]);
-	
 	SoundManager();
 
 private:
