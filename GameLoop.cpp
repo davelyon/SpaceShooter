@@ -3,7 +3,7 @@
 #ifdef MAC_OSX_BUILD_MODE
 #define soundFile  "/Users/dave/Code/LevelCode/laser_44100hz_16bit_stereo.wav"
 #else
-#define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser2.wav"
+#define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser_44100hz_16bit_stereo.wav"
 #endif
 
 GameLoop::GameLoop(){
