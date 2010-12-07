@@ -35,7 +35,7 @@ public:
 	void takeDamage();
 	void setX(float x);
 	void setY(float y);
-	
+	inline bool living() {return isLiving;};
 	void holdPosition(bool should);
 	SecondPlayer otherPlayer;
 	

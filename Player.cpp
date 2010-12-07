@@ -7,7 +7,7 @@ Player::Player(int playerNumber) {
 	this->pointValue = 0;
 	this->owner = playerNumber;
 	
-	this->isLiving = true;
+
 	this->health = 1;
 	
 	this->location_x = 0.0f;
@@ -19,6 +19,7 @@ Player::Player(int playerNumber) {
 	
 	this->isMoving = false;
 	this->isLiving = true;
+	
 	otherPlayer.x = 0;
 	otherPlayer.y = 0;
 	otherPlayer.score = 0;
@@ -38,7 +39,7 @@ Player::~Player() {}
 void Player::takeDamage() {
 	health -= 1;
 	if(health <= 0) {
-		isLiving = 0;
+		isLiving = false;
 	}
 }
 
