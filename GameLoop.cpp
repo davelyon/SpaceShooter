@@ -31,11 +31,17 @@ GameLoop::GameLoop(){
     exit(7);
 	}
 	playersInGame = 0;
+		char * one = (char *)malloc(sizeof(char)*21);
+		char * two = (char *)malloc(sizeof(char)*21);
+		strcpy(one, "Press 1 for 1 player");
+		strcpy(two, "Press 2 for 2 player");
 	while(true){
 		if(playersInGame == 1 || playersInGame ==2)
 			break;
-		displayTextScreen((char *)"Press 1 for 1 player", (char *)"Press 2 for 2 player");
+		displayTextScreen(one, two);
 	}
+	free(one);
+	free(two);
 	//set up client
 	displayTextScreen((char *)"loading.");
 	client = new Client();
@@ -63,17 +69,22 @@ GameLoop::~GameLoop(){
 
 void GameLoop::start() {
 
-	while(paused) 
-		displayTextScreen((char *)"Press Start");
-	
+	char * startText = (char *)malloc(sizeof(char)*12);
+	strcpy(startText, "Press Start");
+	while(paused){
+		displayTextScreen(startText);
+	}
 
+	char * pauseText = (char *)malloc(sizeof(char)*12);
+	strcpy(pauseText, "Game Paused");
 	while(running) {
 		
 		int copy = SDL_GetTicks();
 		tick =  copy - realtick;
 		realtick = copy;
-		paused ? displayTextScreen((char *)"Game Paused") : run();
+		paused ? displayTextScreen(pauseText) : run();
 	}
+	free(pauseText);
 }
 
 void GameLoop::run() {

@@ -115,12 +115,7 @@ int main(int argc, char *argv[])
 				p->len = strlen((char *)p->data)+1;
 				SDLNet_UDP_Send(mySocketDesc, -1, p);
 			}
-			SDLNet_FreePacket(p);
-			if(!(p = SDLNet_AllocPacket(packetSize)))
-			{
-				fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-				exit(EXIT_FAILURE);
-			}
+			SDLNet_ResizePacket(p, packetSize);
 		}
 		SDL_Delay(100);
 	}

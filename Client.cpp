@@ -46,10 +46,7 @@ void Client::TellPlayerAmount(int players){
 	SDLNet_UDP_Send(sd, -1, p);
 }
 float* Client::Position(float x, float y){
-	char * temp = (char *)malloc(sizeof(char) * 23);//new char[23];
-	char * temp2 = (char *)malloc(sizeof(char) * 23);
-	sprintf(temp, "position %f %f", x, y);
-	strcpy((char *)p->data, temp);
+	sprintf((char *)p->data, "position %f %f", x, y);
 	p->len = strlen((char *)p->data);
 	SDLNet_UDP_Send(sd, -1, p);
 	SDLNet_ResizePacket(p, packetSize);
@@ -58,14 +55,11 @@ float* Client::Position(float x, float y){
 			if(strcmp((char*) p->data, "Not Ready") != 0){
 				float * a;
 				a = myParser->OtherPlayer((char *) p->data);
-				free(temp);
-				free(temp2);
 				return a;
 			}else{
 				cout << "Server said waiting for 2nd player" << endl;
 				SDL_Delay(200);
-				sprintf(temp2, "position %f %f", x, y);
-				strcpy((char *)p->data, temp);
+				sprintf((char *)p->data, "position %f %f", x, y);
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
 				SDLNet_ResizePacket(p, packetSize);
