@@ -27,7 +27,7 @@
 #define MAX_PARTICLES 300
 #define TRUE 1
 #define FALSE 0
-static GLfloat colors[12][3] =
+static const GLfloat colors[12][3] =
 {
 	{ 1.0f,  0.3f,  0.3f},
 	{ 1.0f,  0.5f, 0.1f},

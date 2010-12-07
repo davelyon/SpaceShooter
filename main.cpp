@@ -8,6 +8,7 @@
 #include <SDL/SDL_opengl.h>
 #include <OpenGL/glu.h>
 #include <SDL/SDL_audio.h>
+#include "MacBundle.h"
 #else // Linux includes
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
@@ -21,9 +22,9 @@
 #define WIDTH 640.0f
 #define HEIGHT 800.0f
 
-
 static void createSurface (int fullscreen)
 {
+	initializeBundleLoading();
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 	SDL_SetVideoMode(WIDTH,HEIGHT,0,SDL_OPENGL|SDL_SWSURFACE);
 	SDL_WM_SetCaption("Space Pew Pew ",NULL);

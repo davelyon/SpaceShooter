@@ -19,16 +19,17 @@
 
 
 #ifdef MAC_OSX_BUILD_MODE
-#define PLAYER1 "/Users/dave/Code/SpaceRedux/ship3s.bmp"
-#define PLAYER2 "/Users/dave/Code/SpaceRedux/ship3s.bmp"
-#define PARTICLE "/Users/dave/Code/SpaceRedux/particle.bmp"
+#define PLAYER1 "player1.bmp"
+#define PLAYER2 "player2.bmp"
+#define PARTICLE "particle.bmp"
 #else
-#define PLAYER1 "./ship3s.bmp"
-#define PLAYER2 "./ship3s.bmp"
+#define PLAYER1 "./player1.bmp"
+#define PLAYER2 "./player2.bmp"
 #define PARTICLE "./particle.bmp"
 #endif
 
 GLuint ship_texture();
+GLuint ship_texture2();
 GLuint part_texture();
 GLuint load_texture(const char* file);
 void SDL_GL_RenderText(char *text, 

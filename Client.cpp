@@ -99,7 +99,7 @@ int Client::GetArraySize(){
 }
 
 void Client::GetEnemyList(Enemy **enemyList){
-	int quit = 0;
+	//int quit = 0;
 	int count = 0;
 	int* params;
 	strcpy((char *)p->data, "ready");

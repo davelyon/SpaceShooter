@@ -1,4 +1,5 @@
 #include "Textures.h"
+#include "MacBundle.h"
 
 int nextpoweroftwo(int x)
 {
@@ -9,14 +10,36 @@ int nextpoweroftwo(int x)
 static GLuint shipTexture = -1;
 GLuint ship_texture() {
 	if(shipTexture == -1) {
+#ifdef MAC_OSX_BUILD_MODE
+		shipTexture = load_texture(absoluteBundleResourcePath(PLAYER1));
+#else
 		shipTexture = load_texture(PLAYER1);
+#endif
 	}
 	return shipTexture;
 }
+
+static GLuint shipTexture2 = -3;
+GLuint ship_texture2() {
+	if(shipTexture2 == -1) {
+#ifdef MAC_OSX_BUILD_MODE
+		shipTexture2 = load_texture(absoluteBundleResourcePath(PLAYER2));
+#else
+		shipTexture2 = load_texture(PLAYER2);
+#endif
+	}
+	return shipTexture;
+}
+
+
 static GLuint partTexture = -2;
 GLuint part_texture() {
 	if(partTexture == -2) {
+#ifdef MAC_OSX_BUILD_MODE
+		partTexture = load_texture(absoluteBundleResourcePath(PARTICLE));
+#else
 		partTexture = load_texture(PARTICLE);
+#endif
 	}
 	return partTexture;
 }

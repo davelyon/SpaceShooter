@@ -11,9 +11,10 @@ Player::Player(int playerNumber) {
 	this->health = 1;
 	
 	this->location_x = 0.0f;
-	this->location_y = -1.0f;
+	this->location_y = -2.0f;
 	
 	this->texture = ship_texture();
+	this->texture2 = ship_texture2();
 	this->shotTexture = part_texture();
 	this->numLasers = 0;
 	
@@ -120,9 +121,12 @@ void 	Player::draw(bool two) {
 		glMatrixMode(GL_TEXTURE);
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
-	
-		glBindTexture(GL_TEXTURE_2D, this->texture);
-		glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+		if (two && !firstDraw) {
+			glBindTexture(GL_TEXTURE_2D, this->texture2);
+		}else {
+			glBindTexture(GL_TEXTURE_2D, this->texture);
+		}
+		glRotatef(180.0f, 180.0f, 0.0f, 1.0f);
 		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	

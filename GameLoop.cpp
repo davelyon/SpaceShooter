@@ -1,7 +1,8 @@
 #include "GameLoop.h"
 #include <iostream>
 #ifdef MAC_OSX_BUILD_MODE
-#define soundFile  "/Users/dave/Code/LevelCode/laser_44100hz_16bit_stereo.wav"
+#include "MacBundle.h"
+#define soundFile  "laser_44100hz_16bit_stereo.wav"
 #else
 #define soundFile  "./laser_44100hz_16bit_stereo.wav"
 #endif
@@ -23,7 +24,7 @@ GameLoop::GameLoop(){
 		exit(4);
 	}
 #ifdef MAC_OSX_BUILD_MODE	
-	font = TTF_OpenFont("/Users/dave/Code/LevelCode/Anonymous_Pro.ttf", 18);
+	font = TTF_OpenFont(absoluteBundleResourcePath("Anonymous_Pro.ttf"), 18);
 #else
 	font = TTF_OpenFont("./Anonymous_Pro.ttf", 18);
 #endif
@@ -59,7 +60,7 @@ GameLoop::GameLoop(){
 		free(singlText);
 		playersInGame = 1;
 #ifdef MAC_OSX_BUILD_MODE
-		size = client->LineCount("/Users/dave/Code/LevelCode/level1.txt");
+		size = client->LineCount(absoluteBundleResourcePath("level1.txt"));
 #else
 		size = client->LineCount("level1.txt");
 #endif
@@ -71,7 +72,7 @@ GameLoop::GameLoop(){
 	displayTextScreen((char *)"loading...");
 	if(client->noServer)
 #ifdef MAC_OSX_BUILD_MODE
-		client->NoServerCall(size, crazies, "/Users/dave/Code/LevelCode/level1.txt");
+		client->NoServerCall(size, crazies, absoluteBundleResourcePath("level1.txt"));
 #else
 		client->NoServerCall(size, crazies, "level1.txt");
 #endif
@@ -140,7 +141,11 @@ void GameLoop::handleKeyInput()
 					printf("Pressed space.\n");
 					if(!paused){
 						player1->shoot(realtick);
+#ifdef MAC_OSX_BUILD_MODE
 					soundManager->PlaySound(soundFile);
+#else	
+					soundManager->PlaySound(absoluteBundleResourcePath(soundFile));						
+#endif
 					break;
 				case SDLK_p:
 					paused = !paused;

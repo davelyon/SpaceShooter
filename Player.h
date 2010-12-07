@@ -45,6 +45,7 @@ private:
 	float location_x;
 	float location_y;
 	GLuint texture;
+	GLuint texture2;
 	GLuint shotTexture;
 
 	int numLasers;
