@@ -29,9 +29,9 @@ SoundManager::SoundManager(){
 	SDL_AudioSpec fmt;
 	
   /* Set 16-bit stereo audio at 22Khz */
-  fmt.freq = 44100;
+  fmt.freq = 22050;
   fmt.format = AUDIO_S16;
-  fmt.channels = 1;
+  fmt.channels = 2;
   fmt.samples = 4096; /* A good value for games */
   fmt.callback = &mixaudio2;
   fmt.userdata = NULL;

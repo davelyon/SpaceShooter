@@ -1,5 +1,10 @@
 #include "GameLoop.h"
 #include <iostream>
+#ifdef MAC_OSX_BUILD_MODE
+#define soundFile  "DAVE FIX ME"
+#else
+#define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser2.wav"
+#endif
 
 GameLoop::GameLoop(){
 	realtick = 0;
@@ -104,7 +109,7 @@ void GameLoop::handleKeyInput()
 				case SDLK_SPACE:
 					if(!paused)
 						player1->shoot(realtick);
-					//soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
+					soundManager->PlaySound(soundFile);
 					break;
 				case SDLK_p:
 					paused = !paused;
