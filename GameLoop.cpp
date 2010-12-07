@@ -96,7 +96,10 @@ void GameLoop::start() {
 	strcpy(pauseText, "Game Paused");
 	while(running) {
 		int copy = SDL_GetTicks();
-		tick =  copy - realtick;
+		if(realtick)
+			tick =  copy - realtick;
+		else
+			tick = 30;
 		realtick = copy;
 		paused ? displayTextScreen(pauseText) : run();
 	}
