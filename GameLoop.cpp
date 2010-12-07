@@ -16,7 +16,7 @@ GameLoop::GameLoop(){
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	secondEmitter = new ParticleEmitter();
-	monster1 = new Enemy(0,-1,-1,0,100);
+//	monster1 = new Enemy(0,-1,-1,0,100);
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
@@ -121,7 +121,7 @@ void GameLoop::handleKeyInput()
 					printf("Pressed space.\n");
 					if(!paused){
 						player1->shoot(realtick);
-					soundManager->PlaySound(soundFile);
+//					soundManager->PlaySound(soundFile);
 					break;
 				case SDLK_p:
 					paused = !paused;
@@ -204,8 +204,8 @@ void GameLoop::drawScene() {
 	location.y = 766;
 	char text[100];
 	int fps = SDL_GetTicks() - realtick;
-//	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
-//	SDL_GL_RenderText(text, font, color, &location);
+	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
+	SDL_GL_RenderText(text, font, color, &location);
 	
 	
 	SDL_GL_SwapBuffers();
