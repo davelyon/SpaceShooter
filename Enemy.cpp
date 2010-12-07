@@ -18,7 +18,7 @@ Enemy::Enemy(){
 #endif	
 	uniqueID = 0;
 	myHealth = 1;
-	movementPattern = (rand()%5)+1;
+	movementPattern = (rand()%4)+1;
 	spot = false;
 }
 
@@ -42,7 +42,7 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 #endif
 	uniqueID = uID;
 	myHealth = 1;
-	movementPattern = (rand()%5)+1;
+	movementPattern = (rand()%4)+1;
 	
 	spot = false;
 }
@@ -73,16 +73,16 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 }
 void Enemy::update(int ticks){
-float movement = ((float)ticks/1000.0f)*2.00f;
-float screenMove = ((float)ticks/1000.0f) * -1.10f;
+float movement = ((float)ticks/1000.0f);
+float screenMove = ((float)ticks/1000.0f) * -1.0f;
 	location_y += screenMove;
 	start_y_loc += screenMove;
-/*	switch(movementPattern){
+	switch(movementPattern){
 		case 1:
 			square(movement);
 			break;
 		case 2:
-			vertical(movement);
+			diagonal(movement);
 			break;
 		case 3:
 			sideways(movement);
@@ -90,15 +90,11 @@ float screenMove = ((float)ticks/1000.0f) * -1.10f;
 		case 4:
 			diamond(movement);
 			break;
-		case 5:
-			diagonal(movement);
-			break;
 		default:
 			sideways(movement);
 			break;
 
-	}*/
-	sideways(movement);
+	}
 }
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
@@ -111,7 +107,7 @@ void 	Enemy::draw() 	{
 	glLoadIdentity();
 	
 	glLoadIdentity();
-	glTranslatef(location_x,location_y+screenMove, -8.0f);
+	glTranslatef(location_x,location_y, -8.0f);
 	glScalef(0.2f, 0.2f, 1.0f);
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
@@ -168,18 +164,18 @@ void Enemy::diamond(float movement){
 	float y = location_y;
 	float sY = start_y_loc;
 	if(!spot){
-		if(x-sX < 1 && y-sY < 1){
+		if(x-sX < .5 && y-sY < .5){
 			location_x+= movement;
 			location_y+= movement;
 		}
-		else if(x-sX < 2 && y-sY > 0){
+		else if(x-sX < 1 && y-sY > 0){
 			location_x+= movement;
 			location_y-= movement;
 		}else
 			spot = true;
 	}
 	if(spot){
-		if(x-sX > 2 && y-sY > -2){
+		if(x-sX > .5 && y-sY > -.5){
 			location_x -= movement;
 			location_y -= movement;
 		}
@@ -214,7 +210,7 @@ void Enemy::sideways(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	if(!spot){
-		if(x-sX < 2){
+		if(x-sX < 1){
 			location_x+= movement;
 		}
 		else
@@ -231,7 +227,7 @@ void Enemy::diagonal(float movement){
 	float x = location_x;
 	float sX = start_x_loc;
 	if(!spot){
-		if(x-sX < 2){
+		if(x-sX < 1){
 			location_x+=movement;
 			location_y+=movement;
 		}
