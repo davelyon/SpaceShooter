@@ -16,6 +16,7 @@
 #endif	
 
 
+
 #include "Parser/Parser.h"
 class Client{
 	private:
@@ -25,6 +26,7 @@ class Client{
 		Parser *myParser;
 		int packetSize;
 		
+	
 	public:
 		Client();
 		~Client();

@@ -1,5 +1,7 @@
 #include "Client.h"
 
+float bad[2] = {-9.0f, -9.0f};
+
 Client::Client(){
 	/* Check for parameters */
 	/* Initialize SDL_net */
@@ -51,30 +53,32 @@ float* Client::Position(float x, float y){
 	p->len = strlen((char *)p->data);
 	SDLNet_UDP_Send(sd, -1, p);
 	SDLNet_ResizePacket(p, packetSize);
-	bool noRec;
-	while(true){
-		noRec = true;
-		if(gameStarted)
-			SDL_Delay(20);
+
+	while(!gameStarted){
 		if(SDLNet_UDP_Recv(sd, p)){
-			if(strcmp((char*) p->data, "Not Ready") != 0){
-				noRec = false;
-				gameStarted = true;
-				float * a;
-				a = myParser->OtherPlayer((char *) p->data);
-				return a;
-			}else if(!gameStarted){
-				//cout << "Server said waiting for 2nd player" << endl;
+			if(strcmp((char*) p->data, "Not Ready") == 0){
 				SDL_Delay(200);
 				sprintf((char *)p->data, "position %f %f", x, y);
 				p->len = strlen((char *)p->data);
 				SDLNet_UDP_Send(sd, -1, p);
-				SDLNet_ResizePacket(p, packetSize);
+				SDLNet_ResizePacket(p, packetSize);		
+				continue;
 			}
 		}
-		if(gameStarted && noRec)
-			break;
+		gameStarted = true;
 	}
+
+	if(SDLNet_UDP_Recv(sd, p)){
+		if(strcmp((char*) p->data, "Not Ready") != 0){
+			gameStarted = true;
+			float * a;
+			a = myParser->OtherPlayer((char *) p->data);
+			return a;
+		}
+	}
+	
+	return bad;
+	
 }
 int Client::GetArraySize(){
 	int quit = 0;
