@@ -55,12 +55,13 @@ string Enemy::toString(){
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	if(xI < -2.0f)
 		xI = -2.0f;
-	if(xI > 2.0f)
+	else if(xI > 2.0f)
 		xI = 2.0f;
-//	this->location_x = xI;
-//	this->start_x_loc = this->location_x;
-//	this->location_y = yI;
-//	this->start_y_loc = this->location_y;
+	else
+		this->location_x = xI;
+	this->start_x_loc = this->location_x;
+	this->location_y = yI;
+	this->start_y_loc = this->location_y;
 	uniqueID = uID;
 	//myHealth = health +1;
 	this->pointValue = pointValue;
