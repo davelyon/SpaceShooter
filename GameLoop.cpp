@@ -1,5 +1,10 @@
 #include "GameLoop.h"
 #include <iostream>
+#ifdef MAC_OSX_BUILD_MODE
+#define soundFile  "/Users/dave/Code/LevelCode/laser_stereo.wav"
+#else
+#define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser2.wav"
+#endif
 
 GameLoop::GameLoop(){
 	realtick = 0;
@@ -105,8 +110,7 @@ void GameLoop::handleKeyInput()
 					printf("Pressed space.\n");
 					if(!paused){
 						player1->shoot(realtick);
-						soundManager->PlaySound("/Users/dave/Code/LevelCode/laser_stereo.wav");
-					}
+					soundManager->PlaySound(soundFile);
 					break;
 				case SDLK_p:
 					paused = !paused;
@@ -139,8 +143,8 @@ void GameLoop::handleKeyInput()
 
 				}
 			}
+			}
 	}
-	
 }
 
 void GameLoop::tickLevel() 
