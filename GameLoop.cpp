@@ -142,9 +142,9 @@ void GameLoop::handleKeyInput()
 					if(!paused){
 						player1->shoot(realtick);
 #ifdef MAC_OSX_BUILD_MODE
-					soundManager->PlaySound(soundFile);
-#else	
 					soundManager->PlaySound(absoluteBundleResourcePath(soundFile));						
+#else	
+					soundManager->PlaySound(soundFile);
 #endif
 					break;
 				case SDLK_p:

@@ -1,5 +1,7 @@
 #include "Textures.h"
+#ifdef MAC_OSX_BUILD_MODE
 #include "MacBundle.h"
+#endif
 
 int nextpoweroftwo(int x)
 {
