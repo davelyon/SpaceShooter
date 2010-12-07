@@ -1,173 +1,485 @@
-==23338== Memcheck, a memory error detector
-==23338== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
-==23338== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
-==23338== Command: ./run
-==23338== Parent PID: 19809
-==23338== 
-==23338== Invalid write of size 4
-==23338==    at 0x804975C: Enemy::Enemy() (Enemy.cpp:16)
-==23338==    by 0x804A600: main (Server.cpp:51)
-==23338==  Address 0x47c0838 is 0 bytes after a block of size 48 alloc'd
-==23338==    at 0x40271C3: operator new(unsigned int) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x804A5F4: main (Server.cpp:51)
-==23338== 
-==23338== Invalid write of size 1
-==23338==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
-==23338==    by 0x435DFE1: vfprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x80498FC: Enemy::toString(char*) (Enemy.cpp:44)
-==23338==    by 0x804AED9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc8 is 0 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid write of size 1
-==23338==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
-==23338==    by 0x435D715: vfprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x80498FC: Enemy::toString(char*) (Enemy.cpp:44)
-==23338==    by 0x804AED9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc9 is 1 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid write of size 1
-==23338==    at 0x43641B7: __printf_fp (in /lib/libc-2.11.2.so)
-==23338==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x80498FC: Enemy::toString(char*) (Enemy.cpp:44)
-==23338==    by 0x804AED9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cca is 2 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid write of size 1
-==23338==    at 0x4363D83: __printf_fp (in /lib/libc-2.11.2.so)
-==23338==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x80498FC: Enemy::toString(char*) (Enemy.cpp:44)
-==23338==    by 0x804AED9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3ccb is 3 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid write of size 1
-==23338==    at 0x437F970: vsprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
-==23338==    by 0x80498FC: Enemy::toString(char*) (Enemy.cpp:44)
-==23338==    by 0x804AED9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3ce0 is 24 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid read of size 1
-==23338==    at 0x4027C68: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x804AEED: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:168)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc8 is 0 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid read of size 1
-==23338==    at 0x4027C73: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x804AEED: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:168)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc9 is 1 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Syscall param socketcall.sendto(msg) points to unaddressable byte(s)
-==23338==    at 0x43F3B71: sendto (in /lib/libc-2.11.2.so)
-==23338==    by 0x4043D13: SDLNet_UDP_SendV (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x4043D94: SDLNet_UDP_Send (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF12: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:169)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc8 is 0 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid free() / delete / delete[]
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc8 is 0 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== Invalid free() / delete / delete[]
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x804AF52: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:173)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338==  Address 0x47c3cc8 is 0 bytes inside a block of size 50 free'd
-==23338==    at 0x4026996: free (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438CE: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== 
-==23338== HEAP SUMMARY:
-==23338==     in use at exit: 1,921 bytes in 19 blocks
-==23338==   total heap usage: 88 allocs, 74 frees, 20,390 bytes allocated
-==23338== 
-==23338== 1 bytes in 1 blocks are definitely lost in loss record 1 of 8
-==23338==    at 0x40271C3: operator new(unsigned int) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x804ACA3: createMonsterArray(int, Enemy**, std::string) (Server.cpp:142)
-==23338==    by 0x804A65E: main (Server.cpp:52)
-==23338== 
-==23338== 64 bytes in 1 blocks are definitely lost in loss record 4 of 8
-==23338==    at 0x402760A: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438BD: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AEB9: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:164)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== 100 bytes in 5 blocks are definitely lost in loss record 5 of 8
-==23338==    at 0x402760A: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x8049F69: Parser::CreateMonsterObject(std::string) (Parser.cpp:10)
-==23338==    by 0x804AD35: createMonsterArray(int, Enemy**, std::string) (Server.cpp:153)
-==23338==    by 0x804A65E: main (Server.cpp:52)
-==23338== 
-==23338== 256 bytes in 4 blocks are definitely lost in loss record 7 of 8
-==23338==    at 0x402760A: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
-==23338==    by 0x40438BD: SDLNet_ResizePacket (in /usr/lib/libSDL_net-1.2.so.0.0.7)
-==23338==    by 0x804AF26: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:170)
-==23338==    by 0x804A86C: main (Server.cpp:88)
-==23338== 
-==23338== LEAK SUMMARY:
-==23338==    definitely lost: 421 bytes in 11 blocks
-==23338==    indirectly lost: 0 bytes in 0 blocks
-==23338==      possibly lost: 0 bytes in 0 blocks
-==23338==    still reachable: 1,500 bytes in 8 blocks
-==23338==         suppressed: 0 bytes in 0 blocks
-==23338== Reachable blocks (those to which a pointer was found) are not shown.
-==23338== To see them, rerun with: --leak-check=full --show-reachable=yes
-==23338== 
-==23338== For counts of detected and suppressed errors, rerun with: -v
-==23338== ERROR SUMMARY: 218 errors from 15 contexts (suppressed: 3 from 3)
+==23892== Memcheck, a memory error detector
+==23892== Copyright (C) 2002-2009, and GNU GPL'd, by Julian Seward et al.
+==23892== Using Valgrind-3.5.0 and LibVEX; rerun with -h for copyright info
+==23892== Command: ./run
+==23892== Parent PID: 19809
+==23892== 
+==23892== Invalid write of size 4
+==23892==    at 0x8049834: Enemy::Enemy() (Enemy.cpp:16)
+==23892==    by 0x804A768: main (Server.cpp:51)
+==23892==  Address 0x47c0838 is 0 bytes after a block of size 48 alloc'd
+==23892==    at 0x40271C3: operator new(unsigned int) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x804A75C: main (Server.cpp:51)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x438C30D: _IO_str_init_static_internal (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F945: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x438ADC8: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435DFE1: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x438ADD0: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435DFE1: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435DFE1: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x438ADC8: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435D715: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x438ADD0: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435D715: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435D715: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x4363D7D: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x4363D83: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x437F96E: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x4027C68: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x4279611: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x4027C73: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x4279611: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x42793DE: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x427941D: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x40280C7: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x4028266: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x402811D: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x4028148: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x40281A8: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x40281BA: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x8049A1E: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x40262EF: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Mismatched free() / delete / delete []
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 alloc'd
+==23892==    at 0x40271C3: operator new(unsigned int) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x804A75C: main (Server.cpp:51)
+==23892== 
+==23892== Invalid write of size 1
+==23892==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435DFE1: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid write of size 1
+==23892==    at 0x438ADEC: _IO_default_xsputn (in /lib/libc-2.11.2.so)
+==23892==    by 0x435D715: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0989 is 1 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Conditional jump or move depends on uninitialised value(s)
+==23892==    at 0x43641B1: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Use of uninitialised value of size 4
+==23892==    at 0x43641B7: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid write of size 1
+==23892==    at 0x43641B7: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c098a is 2 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid write of size 1
+==23892==    at 0x4363D83: __printf_fp (in /lib/libc-2.11.2.so)
+==23892==    by 0x435E761: vfprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x437F963: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c098b is 3 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid write of size 1
+==23892==    at 0x437F970: vsprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x4367C6A: sprintf (in /lib/libc-2.11.2.so)
+==23892==    by 0x8049A08: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c09a0 is 24 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x4027C68: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x4279611: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x4027C73: strlen (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x4279611: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0989 is 1 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x4028148: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c099f is 23 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x4028152: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c099e is 22 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x402815B: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c099d is 21 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x4028164: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c099c is 20 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid free() / delete / delete[]
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x40281A8: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 4
+==23892==    at 0x80499C5: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c098c is 4 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 4
+==23892==    at 0x80499CB: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c099c is 20 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 4
+==23892==    at 0x80499D1: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c09b0 is 40 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 4
+==23892==    at 0x80499D7: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c09ac is 36 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 4
+==23892==    at 0x80499DF: Enemy::toString() (Enemy.cpp:46)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0998 is 16 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== Invalid read of size 1
+==23892==    at 0x40281BA: memcpy (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x427938A: std::string::_M_replace_safe(unsigned int, unsigned int, char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x42793FF: std::string::assign(char const*, unsigned int) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x4279625: std::string::operator=(char const*) (in /usr/lib/libstdc++.so.6.0.14)
+==23892==    by 0x8049A19: Enemy::toString() (Enemy.cpp:47)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892==  Address 0x47c0988 is 0 bytes inside a block of size 48 free'd
+==23892==    at 0x402632F: operator delete[](void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x8049A2A: Enemy::toString() (Enemy.cpp:48)
+==23892==    by 0x804B041: sendLevel(UDPpacket*, _UDPsocket*, Enemy**, int) (Server.cpp:166)
+==23892==    by 0x804A9D4: main (Server.cpp:88)
+==23892== 
+==23892== 
+==23892== HEAP SUMMARY:
+==23892==     in use at exit: 1,553 bytes in 13 blocks
+==23892==   total heap usage: 92 allocs, 83 frees, 20,548 bytes allocated
+==23892== 
+==23892== 1 bytes in 1 blocks are definitely lost in loss record 1 of 6
+==23892==    at 0x40271C3: operator new(unsigned int) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x804AE0B: createMonsterArray(int, Enemy**, std::string) (Server.cpp:142)
+==23892==    by 0x804A7C6: main (Server.cpp:52)
+==23892== 
+==23892== 100 bytes in 5 blocks are definitely lost in loss record 4 of 6
+==23892==    at 0x402760A: malloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23892==    by 0x804A0D1: Parser::CreateMonsterObject(std::string) (Parser.cpp:10)
+==23892==    by 0x804AE9D: createMonsterArray(int, Enemy**, std::string) (Server.cpp:153)
+==23892==    by 0x804A7C6: main (Server.cpp:52)
+==23892== 
+==23892== LEAK SUMMARY:
+==23892==    definitely lost: 101 bytes in 6 blocks
+==23892==    indirectly lost: 0 bytes in 0 blocks
+==23892==      possibly lost: 0 bytes in 0 blocks
+==23892==    still reachable: 1,452 bytes in 7 blocks
+==23892==         suppressed: 0 bytes in 0 blocks
+==23892== Reachable blocks (those to which a pointer was found) are not shown.
+==23892== To see them, rerun with: --leak-check=full --show-reachable=yes
+==23892== 
+==23892== For counts of detected and suppressed errors, rerun with: -v
+==23892== Use --track-origins=yes to see where uninitialised values come from
+==23892== ERROR SUMMARY: 796 errors from 47 contexts (suppressed: 3 from 3)

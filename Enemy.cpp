@@ -2,7 +2,7 @@
 #include <iostream>
 #include <ctime>
 
-
+using namespace std;
 Enemy::Enemy(){
 
 	this->pointValue = pointValue;
@@ -44,9 +44,13 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 Enemy::~Enemy() {
 	
 }
-void Enemy::toString(char * output){
-	sprintf(output, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
-
+string Enemy::toString(){
+	string output = "";
+	char * a;
+	sprintf(a, "%d %f %f %d %d", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
+	output = a;
+	delete[] a;
+	return output;
 }
 void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	if(xI < -2.0f)
