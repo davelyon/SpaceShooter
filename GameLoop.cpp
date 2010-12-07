@@ -206,7 +206,8 @@ void GameLoop::tickActors()
 	if(b != NULL){
 		player1->otherPlayer.x = b[0];
 		player1->otherPlayer.y = b[1];
-	}
+		}
+		free(b);
 	}
 	//monster1->update(tick);
 	for(int i = 0; i < size; i++){
