@@ -7,15 +7,14 @@
 #include <string>
 #include "SoundManager.h"
 #endif
-#define NUM_SOUNDS 20
 using namespace std;
 SoundManager* SoundManager::singletonInstance = NULL;
 
 void mixaudio2(void *unused, Uint8 *stream, int len) {
   int i;
   Uint32 amount;
-  SoundManager::sample sounds[20];
-  for(int i = 0; i < 20; i++)
+  SoundManager::sample sounds[NUM_SOUNDS];
+  for(int i = 0; i < NUM_SOUNDS; i++)
   	sounds[i] = SoundManager::Instance()->sounds[i];
   for ( i=0; i<NUM_SOUNDS; ++i ) {
     amount = (sounds[i].dlen-sounds[i].dpos);
@@ -28,8 +27,9 @@ amount, SDL_MIX_MAXVOLUME);
 	SoundManager::Instance()->set(sounds);
 	}
 }
-void SoundManager::set(sample asdf[20]){
-	for (int i = 0; i < 20; i++)
+
+void SoundManager::set(sample asdf[NUM_SOUNDS]){
+	for (int i = 0; i < NUM_SOUNDS; i++)
 		sounds[i] = asdf[i];
 }
 
@@ -46,7 +46,7 @@ SoundManager::SoundManager(){
 	SDL_AudioSpec fmt;
 	
   /* Set 16-bit stereo audio at 22Khz */
-  fmt.freq = 22050;
+  fmt.freq = 44100;
   fmt.format = AUDIO_S16;
   fmt.channels = 2;
   fmt.samples = 4096; /* A good value for games */

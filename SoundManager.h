@@ -8,6 +8,9 @@
 #include <SDL/SDL_audio.h>
 #include <string>
 #endif
+
+#define NUM_SOUNDS 30
+
 using namespace std;
 
 class SoundManager{
@@ -19,10 +22,10 @@ public:
 		Uint8 *data;
 		Uint32 dpos;
 		Uint32 dlen;
-	}sounds[20];
+	}sounds[NUM_SOUNDS];
 
 	void PlaySound(const char *file);
-	void set(sample asdf[20]);
+	void set(sample asdf[NUM_SOUNDS]);
 	
 	SoundManager();
 
