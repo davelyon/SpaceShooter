@@ -29,7 +29,7 @@ Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->start_x_loc = this->location_x;
 	this->location_y = yI ;
 	this->start_y_loc = this->location_y;
-	this->texture = -1;
+	this->texture = 0;
 	uniqueID = uID;
 	myHealth = health;
 	movementPattern = (rand()%5)+1;
@@ -42,7 +42,7 @@ Enemy::~Enemy() {
 }
 string Enemy::toString(){
 	string output = "";
-	char * a;
+	char * a = new char[50];
 	sprintf(a, "%d %f %f %d %d\0", uniqueID, this->location_x, this->location_y, myHealth, this->pointValue);
 	output = a;
 	delete[] a;
