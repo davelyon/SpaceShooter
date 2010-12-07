@@ -69,17 +69,22 @@ GameLoop::~GameLoop(){
 
 void GameLoop::start() {
 
-	while(paused) 
-		displayTextScreen((char *)"Press Start");
-	
+	char * startText = (char *)malloc(sizeof(char)*12);
+	strcpy(startText, "Press Start");
+	while(paused){
+		displayTextScreen(startText);
+	}
 
+	char * pauseText = (char *)malloc(sizeof(char)*12);
+	strcpy(pauseText, "Game Paused");
 	while(running) {
 		
 		int copy = SDL_GetTicks();
 		tick =  copy - realtick;
 		realtick = copy;
-		paused ? displayTextScreen((char *)"Game Paused") : run();
+		paused ? displayTextScreen(pauseText) : run();
 	}
+	free(pauseText);
 }
 
 void GameLoop::run() {
