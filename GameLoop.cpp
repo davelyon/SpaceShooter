@@ -102,9 +102,11 @@ void GameLoop::handleKeyInput()
 						movePlayer = MOVE_RIGHT;
 					break;
 				case SDLK_SPACE:
-					if(!paused)
+					printf("Pressed space.\n");
+					if(!paused){
 						player1->shoot(realtick);
-					//soundManager->PlaySound("/Users/dave/Code/SpaceRedux/laser2.wav");
+						soundManager->PlaySound("/Users/dave/Code/LevelCode/laser_stereo.wav");
+					}
 					break;
 				case SDLK_p:
 					paused = !paused;

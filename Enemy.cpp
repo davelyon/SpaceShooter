@@ -25,7 +25,13 @@ Enemy::Enemy(){
 Enemy::Enemy(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 	this->owner = OWNER_GAME;
-		
+	
+	if(xI < -2.0f)
+		xI = -2.0f;
+	if(xI > 2.0f)
+		xI = 2.0f;
+	
+	
 	this->isLiving = true;
 	this->location_x = xI ;
 	this->start_x_loc = this->location_x;
@@ -62,34 +68,34 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 	this->pointValue = pointValue;
 }
 void Enemy::update(int ticks){
-//float movement = ((float)ticks/1000.0f)*2.00f;
-//	switch(movementPattern){
-//		case 1:
-//			square(movement);
-//			break;
-//		case 2:
-//			vertical(movement);
-//			break;
-//		case 3:
-//			sideways(movement);
-//			break;
-//		case 4:
-//			diamond(movement);
-//			break;
-//		case 5:
-//			diagonal(movement);
-//			break;
-//		default:
-//			sideways(movement);
-//			break;
-//
-//	}
-//	square(movement);
+float movement = ((float)ticks/1000.0f)*2.00f;
+	switch(movementPattern){
+		case 1:
+			square(movement);
+			break;
+		case 2:
+			vertical(movement);
+			break;
+		case 3:
+			sideways(movement);
+			break;
+		case 4:
+			diamond(movement);
+			break;
+		case 5:
+			diagonal(movement);
+			break;
+		default:
+			sideways(movement);
+			break;
+
+	}
+	square(movement);
 }
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	if (this->myHealth <= 0) {
-		//printf("I'm dead :(\n");
+		printf("I'm dead :(\n");
 		return;
 	}
 	glLoadIdentity();
@@ -100,7 +106,7 @@ void 	Enemy::draw() 	{
 	glMatrixMode(GL_MODELVIEW);
 	//glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glColor4f(1.0f, 1.0f, 0.2f, 1.0f);
 	
 	
 	glBegin(GL_QUADS);
@@ -109,6 +115,11 @@ void 	Enemy::draw() 	{
 		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  0.0f);	
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
+	glFinish();
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 #endif
 }
 bool Enemy::collideWith(Actor *anActor) {

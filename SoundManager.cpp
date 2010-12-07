@@ -31,7 +31,7 @@ SoundManager::SoundManager(){
   /* Set 16-bit stereo audio at 22Khz */
   fmt.freq = 44100;
   fmt.format = AUDIO_S16;
-  fmt.channels = 1;
+  fmt.channels = 2;
   fmt.samples = 4096; /* A good value for games */
   fmt.callback = &mixaudio2;
   fmt.userdata = NULL;
@@ -83,7 +83,7 @@ void SoundManager::PlaySound(const char *file){
 		fprintf(stderr, "couldn't load %s: %s \n", file, SDL_GetError());
 		exit(0);
 	}
-	SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, AUDIO_S16, 1, 44100);
+	SDL_BuildAudioCVT(&cvt, wave.format, wave.channels, wave.freq, AUDIO_S16, 2, 44100);
 	cvt.buf = (Uint8 *)malloc(dlen*cvt.len_mult);
 	memcpy(cvt.buf, data, dlen);
 	cvt.len == dlen;
