@@ -193,7 +193,9 @@ bool 	Player::collideWith(Actor *anActor) {
 		if( lasers[i].living ) {
 			if (	x > (lasers[i].x - 0.2f) && 
 						x < (lasers[i].x + 0.2f) && 
-						y <= (lasers[i].y + 0.2f)){
+						y <= (lasers[i].y + 0.2f)&&
+						y >= (lasers[i].y + 0.2f)
+					){
 				shouldReturn = true;
 				lasers[i].living = false;
 				pointValue += 75;

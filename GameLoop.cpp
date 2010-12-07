@@ -214,6 +214,9 @@ void GameLoop::drawScene() {
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	
 	glPushMatrix();
 	
 	if (player1->living()) 

@@ -21,6 +21,18 @@ GLuint ship_texture() {
 	return shipTexture;
 }
 
+static GLuint enemyTexture = -4;
+GLuint enem_texture() {
+	if(enemyTexture == -4) {
+#ifdef MAC_OSX_BUILD_MODE
+		enemyTexture = load_texture(absoluteBundleResourcePath(ENEMY));
+#else
+		enemyTexture = load_texture(ENEMY);
+#endif
+	}
+	return enemyTexture;
+}
+
 static GLuint shipTexture2 = -3;
 GLuint ship_texture2() {
 	if(shipTexture2 == -1) {
@@ -132,7 +144,7 @@ void SDL_GL_RenderText(char *text,
 	//glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	/* Draw a quad at location */
-	
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_QUADS);
 	/* Recall that the origin is in the lower-left corner
 	 That is why the TexCoords specify different corners
