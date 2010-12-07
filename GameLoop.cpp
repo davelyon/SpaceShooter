@@ -2,10 +2,8 @@
 #include <iostream>
 #ifdef MAC_OSX_BUILD_MODE
 #define soundFile  "/Users/dave/Code/LevelCode/laser_44100hz_16bit_stereo.wav"
-#define soundFile2  "/Users/dave/Code/LevelCode/bgmusic.wav"
 #else
 #define soundFile  "/home/msherman/videoGames/hold/SpaceShooter/laser_44100hz_16bit_stereo.wav"
-#define soundFile2  "/home/msherman/videoGames/hold/SpaceShooter/bgmusic.wav"
 #endif
 
 GameLoop::GameLoop(){
@@ -71,7 +69,6 @@ GameLoop::GameLoop(){
 	else
 		client->GetEnemyList(crazies);
 		cout << "ok" << endl;
-		soundManager->PlaySound(soundFile2);
 }
 
 GameLoop::~GameLoop(){
