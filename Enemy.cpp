@@ -74,7 +74,7 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f)*2.00f;
-	switch(movementPattern){
+/*	switch(movementPattern){
 		case 1:
 			square(movement);
 			break;
@@ -95,7 +95,7 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 			break;
 
 	}
-	square(movement);
+	square(movement);*/
 }
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
