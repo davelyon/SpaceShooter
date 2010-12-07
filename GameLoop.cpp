@@ -3,8 +3,10 @@
 #ifdef MAC_OSX_BUILD_MODE
 #include "MacBundle.h"
 #define soundFile  "laser_44100hz_16bit_stereo.wav"
+#define soundFile2  "bgmusic.wav"
 #else
 #define soundFile  "./laser_44100hz_16bit_stereo.wav"
+#define soundFile2  "./bgmusic.wav"
 #endif
 
 GameLoop::GameLoop(){
@@ -18,7 +20,7 @@ GameLoop::GameLoop(){
 	soundManager = SoundManager::Instance();
 	partEmitter = new ParticleEmitter();
 	secondEmitter = new ParticleEmitter();
-//	monster1 = new Enemy(0,-1,-1,0,100);
+
 	if(TTF_Init() == -1) {
 		printf("Failed to start SDL_TTF!\n");
 		exit(4);
@@ -79,6 +81,13 @@ GameLoop::GameLoop(){
 	else
 		client->GetEnemyList(crazies);
 		//cout << "ok" << endl;
+	
+#ifdef MAC_OSX_BUILD_MODE
+	soundManager->PlaySound(absoluteBundleResourcePath(soundFile2));						
+#else	
+	soundManager->PlaySound(soundFile2);
+#endif
+	
 }
 
 GameLoop::~GameLoop(){
