@@ -74,7 +74,7 @@ void 	Enemy::update(int uID, float xI, float yI, int health, int pointValue) {
 }
 void Enemy::update(int ticks){
 float movement = ((float)ticks/1000.0f);
-float screenMove = ((float)ticks/1000.0f) * -1.0f;
+float screenMove = ((float)ticks/1000.0f) * -.5f;
 	location_y += screenMove;
 	start_y_loc += screenMove;
 	switch(movementPattern){
