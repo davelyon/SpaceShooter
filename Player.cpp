@@ -11,7 +11,7 @@ Player::Player(int playerNumber) {
 	this->health = 1;
 	
 	this->location_x = 0.0f;
-	this->location_y = 0.0f;
+	this->location_y = -1.0f;
 	
 	this->texture = ship_texture();
 	this->shotTexture = part_texture();

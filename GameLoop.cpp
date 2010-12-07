@@ -7,6 +7,7 @@
 #endif
 
 GameLoop::GameLoop(){
+	levelSpeed = 0;
 	realtick = 0;
 	movePlayer = MOVE_DOWN;
 	ratelimiter = 0;
@@ -49,9 +50,9 @@ GameLoop::GameLoop(){
 	size = client->GetArraySize();
 	if(client->noServer){
 		char * noServText = (char *)malloc(sizeof(char)*16);
-		char * singlText = (char *)malloc(sizeof(char)*23);
+		char * singlText = (char *)malloc(sizeof(char)*19);
 		strcpy(noServText, "No Server Found");
-		strcpy(singlText, "Starting Single Player");
+		strcpy(singlText, "Loading Local File");
 		displayTextScreen(noServText, singlText);
 		SDL_Delay(1500);
 		free(noServText);
@@ -94,9 +95,11 @@ void GameLoop::start() {
 	char * pauseText = (char *)malloc(sizeof(char)*12);
 	strcpy(pauseText, "Game Paused");
 	while(running) {
-		
 		int copy = SDL_GetTicks();
-		tick =  copy - realtick;
+		if(realtick)
+			tick =  copy - realtick;
+		else
+			tick = 30;
 		realtick = copy;
 		paused ? displayTextScreen(pauseText) : run();
 	}
@@ -181,6 +184,7 @@ void GameLoop::tickLevel()
 void GameLoop::tickActors() 
 {
 	player1->update(tick, movePlayer);
+	levelSpeed +=1.0f;
 	if(playersInGame == 2 && ratelimiter + 50 <= realtick){
 	//	printf("Sending server data at %d -- last at %d\n", realtick, ratelimiter);
 		ratelimiter = realtick;
@@ -204,6 +208,13 @@ void GameLoop::drawScene() {
 
 	if (player1->living()) 
 		partEmitter->renderParticles(0, player1->getX(), player1->getY());
+	else{
+		char * gameOver = (char *)malloc(sizeof(char)*9);
+		strcpy(gameOver, "Game Over");
+		while(true)
+			displayTextScreen(gameOver);
+		free(gameOver);
+	}
 	if(playersInGame == 2){
 		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
 		player1->draw(true);
@@ -222,9 +233,9 @@ void GameLoop::drawScene() {
 	int fps = SDL_GetTicks() - realtick;
 	sprintf(text, "Player 1: %09d FPS: %.2f", player1->points(), (fps > 0) ? 1000.0f / (float)fps : 0.0f );
 	SDL_GL_RenderText(text, font, color, &location);
-	
-	
+
 	SDL_GL_SwapBuffers();
+
 
 }
 void GameLoop::displayTextScreen(char * displayTop, char * displayBot) {
@@ -232,7 +243,7 @@ void GameLoop::displayTextScreen(char * displayTop, char * displayBot) {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 	
-	SDL_Rect location ;
+	SDL_Rect location;
 	location.x = 250;
 	location.y = 360;
 	SDL_Color color = {255,255,255};

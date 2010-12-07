@@ -77,7 +77,7 @@ public:
 	SoundManager *soundManager;
 	ParticleEmitter *partEmitter;
 	ParticleEmitter *secondEmitter;
-	
+	float levelSpeed;	
 	int movePlayer;
 	int ratelimiter;
 };

@@ -94,8 +94,8 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 			sideways(movement);
 			break;
 
-	}
-	square(movement);*/
+	}*/
+	sideways(movement);
 }
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
