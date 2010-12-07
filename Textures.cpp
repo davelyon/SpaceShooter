@@ -83,10 +83,13 @@ void SDL_GL_RenderText(char *text,
 {
 	
 	int vPort[4];
-  
+	
+	glPushMatrix();
+	
 	glGetIntegerv(GL_VIEWPORT, vPort);
   
 	glMatrixMode(GL_PROJECTION);
+	
 	glPushMatrix();
 	glLoadIdentity();
   
@@ -130,10 +133,6 @@ void SDL_GL_RenderText(char *text,
 	glBindTexture(GL_TEXTURE_2D, texture);
 	/* Draw a quad at location */
 	
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-
 	glBegin(GL_QUADS);
 	/* Recall that the origin is in the lower-left corner
 	 That is why the TexCoords specify different corners
@@ -161,12 +160,9 @@ void SDL_GL_RenderText(char *text,
 	glDeleteTextures(1, &texture);
 	
 	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();   
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	glMatrixMode(GL_COLOR);
-	glLoadIdentity();
+	glPopMatrix();
+	
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glPopMatrix();
 	
 }

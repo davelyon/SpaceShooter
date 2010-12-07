@@ -45,12 +45,7 @@ void	ParticleEmitter::emitExploder(float xloc, float yloc) {
 }
 
 void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	glMatrixMode(GL_COLOR);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glPushMatrix();
 	glTranslatef(ship_x, ship_y-0.5f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glScalef(0.3f, 0.3f, 1.0f);
@@ -74,8 +69,6 @@ void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 								shipParticles[loop].b,
 								shipParticles[loop].life );
 			
-			
-			
 			/* Build Quad From A Triangle Strip */
 			glBegin( GL_TRIANGLE_STRIP );
 			/* Top Right */
@@ -91,7 +84,7 @@ void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 			glTexCoord2d( 0, 0 );
 			glVertex3f( x - 0.5f, y - 0.5f, z );
 			glEnd();
-			
+						
 			/* Move On The X Axis By X Speed */
 			shipParticles[loop].x += shipParticles[loop].xi /
 			( slowdown * 1000 );
@@ -125,6 +118,7 @@ void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 			}
 		}
 	}
+	glPopMatrix();
 }
 
 

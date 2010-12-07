@@ -110,17 +110,15 @@ void 	Player::draw(bool two) {
 	if(!isLiving) {
 		firstDraw = false;
 	}
+	glPushMatrix();
 	while(true){
-		glLoadIdentity();
+		glPushMatrix();
 		if(firstDraw)
 			glTranslatef(location_x,location_y,-8.0f);
 		else if(two)
 			glTranslatef(otherPlayer.x, otherPlayer.y, -8.0f);
 		glScalef(0.5f, 0.5f, 1.0f);
 		
-		glMatrixMode(GL_TEXTURE);
-		glLoadIdentity();
-		glMatrixMode(GL_MODELVIEW);
 		if (two && !firstDraw) {
 			glBindTexture(GL_TEXTURE_2D, this->texture2);
 		}else {
@@ -138,28 +136,25 @@ void 	Player::draw(bool two) {
 			firstDraw = false;
 		else
 			break;
+		glPopMatrix();
 	}
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	
 	glFinish();
+	glPopMatrix();
 	if(!isLiving) return;
-
+	glPushMatrix();
 	
 	glBindTexture(GL_TEXTURE_2D, this->shotTexture);
 	glColor4f(0.0f, 0.7f, 0.2f, 0.8f);
-	//
+
 	for (int i = 0; i < MAX_LASERS; i++) {
 		if ( !lasers[i].living) continue;
 		
 		float x = lasers[i].x;
 		float y = lasers[i].y;
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		glPushMatrix();
+
 		glTranslatef(x,y, -8.0f);	
-		//glRotatef(lasers[i].accum_rotation, 4.0f, 0.0f, 0.0f);
 		glRotatef(lasers[i].accum_rotation, 0.0f, 2.0f, 0.0f);
-		//glRotatef(lasers[i].accum_rotation, 0.0f, 0.0f, 1.0f);
 		glScalef(0.1f, 0.2f, 0.1f);
 		glBegin(GL_QUADS);
 		
@@ -172,17 +167,7 @@ void 	Player::draw(bool two) {
 			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
 			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
 			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Left Of The Texture and Quad
-			// Top Face
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			// Bottom Face
-//			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);	// Top Right Of The Texture and Quad
-//			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Top Left Of The Texture and Quad
-//			glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);	// Bottom Left Of The Texture and Quad
-//			glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);	// Bottom Right Of The Texture and Quad
-			// Right face
+		
 			glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);	// Bottom Right Of The Texture and Quad
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);	// Top Right Of The Texture and Quad
 			glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);	// Top Left Of The Texture and Quad
@@ -193,11 +178,11 @@ void 	Player::draw(bool two) {
 			glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);	// Top Right Of The Texture and Quad
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);	// Top Left Of The Texture and Quad
 		glEnd();
-		
+		glPopMatrix();
 		lasers[i].accum_rotation += (float)( rand() % 4);
 	}
 	glFinish();
-		
+	glPopMatrix();
 }
 bool 	Player::collideWith(Actor *anActor) {
 	

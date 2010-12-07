@@ -206,10 +206,16 @@ void GameLoop::tickActors()
 }
 
 void GameLoop::drawScene() {
-	float screenMove = 0.0f;
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glMatrixMode(GL_COLOR);
 	glLoadIdentity();
-
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+	
 	if (player1->living()) 
 		partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	else{
@@ -235,9 +241,14 @@ void GameLoop::drawScene() {
 	location.y = 766;
 	char text[100];
 	int fps = SDL_GetTicks() - realtick;
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
+	glPushMatrix();
 	sprintf(text, "Player 1: %09d FPS: %.2f", player1->points(), (fps > 0) ? 1000.0f / (float)fps : 0.0f );
+	glPopMatrix();
 	SDL_GL_RenderText(text, font, color, &location);
 
+	glPopMatrix();
 	SDL_GL_SwapBuffers();
 
 

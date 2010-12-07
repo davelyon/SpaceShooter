@@ -101,21 +101,19 @@ void 	Enemy::draw() 	{
 	if (this->myHealth <= 0) {
 		return;
 	}
-	glMatrixMode(GL_COLOR);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 	
-	glLoadIdentity();
+	if(location_y > 2.9f)
+		return;	
+	if(location_y < -2.9f)
+		return;
+	
+
+	glPushMatrix();
+
 	glTranslatef(location_x,location_y, -8.0f);
 	glScalef(0.2f, 0.2f, 1.0f);
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	//glRotatef(0.0f, 0.0f, 0.0f, 1.0f);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 	glColor4f(1.0f, 1.0f, 0.2f, 1.0f);
-	
 	
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  0.0f);	
@@ -124,6 +122,8 @@ void 	Enemy::draw() 	{
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
 	glFinish();
+	
+	glPopMatrix();
 
 #endif
 }
