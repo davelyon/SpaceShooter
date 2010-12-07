@@ -186,7 +186,8 @@ void GameLoop::drawScene() {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 
-	partEmitter->renderParticles(0, player1->getX(), player1->getY());
+	if (!player1->living()) 
+		partEmitter->renderParticles(0, player1->getX(), player1->getY());
 	if(playersInGame == 2){
 		secondEmitter->renderParticles(0, player1->otherPlayer.x, player1->otherPlayer.y);
 		player1->draw(true);
