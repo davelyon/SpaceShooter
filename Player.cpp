@@ -135,11 +135,13 @@ void 	Player::draw(bool two) {
 		else
 			break;
 	}
-	glFinish();
-	if(!isLiving) return;
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-		
+	
+	glFinish();
+	if(!isLiving) return;
+
+	
 	glBindTexture(GL_TEXTURE_2D, this->shotTexture);
 	glColor4f(0.0f, 0.7f, 0.2f, 0.8f);
 	//

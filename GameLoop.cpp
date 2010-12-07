@@ -50,14 +50,22 @@ GameLoop::GameLoop(){
 	if(client->noServer){
 		cout << "caught timeout" << endl;
 		playersInGame = 1;
+#ifdef MAC_OSX_BUILD_MODE
+		size = client->LineCount("/Users/dave/Code/LevelCode/level1.txt");
+#else
 		size = client->LineCount("level1.txt");
+#endif
 	}
 	displayTextScreen((char *)"loading..");
 	for(int i = 0; i < size; i++)
 		crazies[i] = new Enemy();
 	displayTextScreen((char *)"loading...");
 	if(client->noServer)
+#ifdef MAC_OSX_BUILD_MODE
+		client->NoServerCall(size, crazies, "/Users/dave/Code/LevelCode/level1.txt");
+#else
 		client->NoServerCall(size, crazies, "level1.txt");
+#endif
 	else
 		client->GetEnemyList(crazies);
 		cout << "ok" << endl;

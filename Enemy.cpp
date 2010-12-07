@@ -103,6 +103,11 @@ void 	Enemy::draw() 	{
 	if (this->myHealth <= 0) {
 		return;
 	}
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
 	glLoadIdentity();
 	glTranslatef(location_x,location_y, -8.0f);
 	glScalef(0.2f, 0.2f, 1.0f);
@@ -121,10 +126,7 @@ void 	Enemy::draw() 	{
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  0.0f);	
 	glEnd();
 	glFinish();
-	glMatrixMode(GL_COLOR);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+
 #endif
 }
 bool Enemy::collideWith(Actor *anActor) {

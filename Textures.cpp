@@ -66,10 +66,12 @@ void SDL_GL_RenderText(char *text,
 	glLoadIdentity();
   
 	glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
+	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();	
 	
 	SDL_Surface *initial;
 	SDL_Surface *intermediary;
@@ -135,7 +137,11 @@ void SDL_GL_RenderText(char *text,
 	
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();   
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
+	glMatrixMode(GL_COLOR);
+	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();	
+	glLoadIdentity();
 	
 }

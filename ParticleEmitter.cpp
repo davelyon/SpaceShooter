@@ -50,7 +50,7 @@ void	ParticleEmitter::renderParticles(int tick, float ship_x, float ship_y){
 	glMatrixMode(GL_COLOR);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity( );
+	glLoadIdentity();
 	glTranslatef(ship_x, ship_y-0.5f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glScalef(0.3f, 0.3f, 1.0f);
