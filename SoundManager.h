@@ -21,8 +21,8 @@ public:
 		Uint32 dlen;
 	}sounds[20];
 
-	void mixaudio(void *unused, Uint8 *stream, int len);
 	void PlaySound(const char *file);
+	void set(sample asdf[20]);
 	
 	SoundManager();
 
