@@ -8,7 +8,7 @@ Player::Player(int playerNumber) {
 	this->owner = playerNumber;
 	
 	this->isLiving = true;
-	this->health = 50;
+	this->health = 1;
 	
 	this->location_x = 0.0f;
 	this->location_y = 0.0f;
@@ -18,6 +18,7 @@ Player::Player(int playerNumber) {
 	this->numLasers = 0;
 	
 	this->isMoving = false;
+	this->isLiving = true;
 	otherPlayer.x = 0;
 	otherPlayer.y = 0;
 	otherPlayer.score = 0;
@@ -33,6 +34,13 @@ Player::Player(int playerNumber) {
 }
 
 Player::~Player() {}
+
+void Player::takeDamage() {
+	health -= 1;
+	if(health <= 0) {
+		isLiving = 0;
+	}
+}
 
 void 	Player::update(int ticks, int movedir) {
 		
@@ -60,7 +68,7 @@ void 	Player::update(int ticks, int movedir) {
 		location_y = -2.9f;
 	}
 	
-	if(isMoving) {
+	if(isMoving || !isLiving) {
 		return;
 	}
 	
@@ -97,6 +105,9 @@ void Player::holdPosition(bool should){
 
 void 	Player::draw(bool two) {
 	bool firstDraw = true;
+	if(!isLiving) {
+		firstDraw = false;
+	}
 	while(true){
 		glLoadIdentity();
 		if(firstDraw)
@@ -124,11 +135,10 @@ void 	Player::draw(bool two) {
 			break;
 	}
 	glFinish();
+	if(!isLiving) return;
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-	
-
-	
+		
 	glBindTexture(GL_TEXTURE_2D, this->shotTexture);
 	glColor4f(0.0f, 0.7f, 0.2f, 0.8f);
 	//
@@ -194,13 +204,14 @@ bool 	Player::collideWith(Actor *anActor) {
 						y <= (lasers[i].y + 0.2f)){
 				shouldReturn = true;
 				lasers[i].living = false;
+				pointValue += 75;
 			} 
 		}
 	}
 	
 	return shouldReturn;
 }
-int 	Player::points() 		{ return 0;}
+int 	Player::points() 		{ return pointValue;}
 
 void Player::shoot(int ticks) {
 	if (numLasers == MAX_LASERS) numLasers = 0;

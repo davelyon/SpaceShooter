@@ -131,7 +131,7 @@ void GameLoop::handleKeyInput()
 					break;
 				case SDLK_RSHIFT:
 				case SDLK_LSHIFT:
-					player1->holdPosition(TRUE);
+					player1->holdPosition(true);
 					break;
 				case SDLK_ESCAPE:
 					running = -1;
@@ -149,9 +149,8 @@ void GameLoop::handleKeyInput()
 				switch (event.key.keysym.sym) {
 					case SDLK_RSHIFT:
 					case SDLK_LSHIFT:
-						player1->holdPosition(FALSE);
+						player1->holdPosition(false);
 						break;
-
 				}
 			}
 			}
@@ -204,7 +203,7 @@ void GameLoop::drawScene() {
 	location.y = 766;
 	char text[100];
 	int fps = SDL_GetTicks() - realtick;
-	sprintf(text, "Player 1: %09d FPS: %.2f", tick, (fps > 0) ? 1000.0f / (float)fps : 0.0f );
+	sprintf(text, "Player 1: %09d FPS: %.2f", player1->points(), (fps > 0) ? 1000.0f / (float)fps : 0.0f );
 	SDL_GL_RenderText(text, font, color, &location);
 	
 	

@@ -100,7 +100,6 @@ float movement = ((float)ticks/1000.0f)*2.00f;
 void 	Enemy::draw() 	{
 #ifndef SERVER_COMPILE_FLAG
 	if (this->myHealth <= 0) {
-		printf("I'm dead :(\n");
 		return;
 	}
 	glLoadIdentity();
@@ -148,7 +147,10 @@ bool Enemy::collideWith(Actor *anActor) {
 		return false;
 	}else if ( y < (location_y - 0.7f) || y > (location_y + 0.7f)){
 		return false;
-	} 	
+	}
+	
+	anActor->takeDamage();
+	
 	this->myHealth = 0;
 	return true;
 

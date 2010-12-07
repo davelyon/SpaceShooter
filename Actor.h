@@ -42,7 +42,7 @@ public:
 	virtual void 	update();
 	virtual void 	draw();
 	virtual bool 	collideWith(Actor *anActor);
-	
+	virtual void takeDamage();
 	// Information
 	virtual int 	points();
 	virtual int 	belongsTo(); // Who owns this? 1,2 are players, 3 is 'game'

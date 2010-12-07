@@ -32,6 +32,7 @@ public:
 	int 	points();
 	float getX();
 	float getY();
+	void takeDamage();
 	void setX(float x);
 	void setY(float y);
 	
